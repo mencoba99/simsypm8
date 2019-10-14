@@ -1,0 +1,9 @@
+RewriteEngine on
+
+RewriteRule ^index\.ta$ index.php?view=home
+RewriteRule ^profile\.ta$ index.php?view=profile
+RewriteRule ^riwayat\.ta$ index.php?view=riwayat
+RewriteRule ^pengumuman\.ta$ index.php?view=pengumuman
+RewriteRule ^contact\.ta$ index.php?view=contact
+RewriteRule ^login\.ta$ index.php?view=login
+RewriteRule ^register\.ta$ index.php?view=register

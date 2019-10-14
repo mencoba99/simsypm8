@@ -1,0 +1,2 @@
+
+<strong>Copyright &copy; 2018 - <?php echo date('Y'); ?>. <a target='_BLANK' href="https://www.limakode.com"> SIMASTA - Sistem Informasi Manajemen dan Administrasi Sekolah</a>.</strong> All rights reserved. 

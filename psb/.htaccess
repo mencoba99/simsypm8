@@ -1,0 +1,12 @@
+RewriteEngine on
+
+RewriteRule ^index\.mu$ index.php?view=home
+RewriteRule ^halaman-(.*)\.mu$ index.php?view=halaman&seo=$1 [L]
+RewriteRule ^pendafataran-(.*)\.mu$ index.php?view=pendaftaran&kode=$1 [L]
+RewriteRule ^pendaftaran-sukses\.mu$ index.php?view=sukses
+RewriteRule ^jadwal-pelaksanaan\.mu$ index.php?view=jadwal
+RewriteRule ^login\.mu$ index.php?view=login
+RewriteRule ^register\.mu$ index.php?view=register
+RewriteRule ^uang-pangkal\.mu$ index.php?view=uangpangkal
+RewriteRule ^hasil-seleksi-(.*)\.mu$ index.php?view=hasilseleksi&sekolah=$1 [L]
+
