@@ -10,7 +10,7 @@
                 <div class="box-header">
                   <h3 class="box-title">Absensi Anda - <?php echo $nama_tahun; ?></h3>
                   <?php 
-                    echo "<form style='margin-right:5px; margin-top:0px' class='pull-right' action='".base_url()."".$this->uri->segment(1)."/absensi_siswa' method='GET' enctype='multipart/form-data'>
+                    echo "<form  style='margin-right:5px; margin-top:0px' class='pull-right' autocomplete='off' action='".base_url()."".$this->uri->segment(1)."/absensi_siswa' method='GET' enctype='multipart/form-data'>
                             <input type='text' name='tanggal' style='padding:4px; width:150px; display:inline-block; border:1px solid #ccc;' value='$tgl_filter' class='datepicker'>
                             <button type='submit' style='margin-top:-4px' class='btn btn-success btn-sm'><span class='glyphicon glyphicon-search'></span> Lihat Absensi</button>
                           </form>";

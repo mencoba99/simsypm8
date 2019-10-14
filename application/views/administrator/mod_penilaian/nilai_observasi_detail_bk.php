@@ -3,6 +3,8 @@
               <div class='box box-info'>
                 <div class='box-header with-border'>
                   <h3 class='box-title'>Observasi - Jurnal Sikap BK</h3>
+                  <a href='".base_url().$this->uri->segment(1).'/nilai_observasi_bk'."' style='margin-top:-4px' class='btn btn-default btn-sm pull-right'> Kembali</a>
+
                 </div>
               <div class='box-body'>
             <form action='".base_url().$this->uri->segment(1)."/detail_nilai_observasi_bk/".$this->uri->segment(3)."'' method='GET' class='form-horizontal' role='form'>
