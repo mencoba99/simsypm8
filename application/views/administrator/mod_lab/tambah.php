@@ -32,7 +32,10 @@
                           <input type='text' class='form-control' name='c'>
                         </td>
                       </tr>
-
+                    <tr>
+                      <th scope='row'>Foto Laboratorium</th>
+                        <td><input type='file' name='foto'>
+                    </tr>
                     </tbody>
                   </table>
                 </div>

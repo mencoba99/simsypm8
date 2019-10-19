@@ -116,12 +116,15 @@ if($this->input->get('tanggal')==''){ $tanggal = date('d-m-Y'); }else{ $tanggal 
                     <tbody>";
                   if ($this->input->get('tanggal')!=''){
                     $no = 1;
+                    $rataa = 0 ;
                     $siswa = $this->model_app->view_join_where('*','rb_siswa','rb_jenis_kelamin','id_jenis_kelamin',array('id_kelas'=>$s['id_kelas'],'id_identitas_sekolah'=>$this->session->sekolah,'status_siswa'=>'Aktif'),'nama','ASC');
                     $jumls = $this->model_app->view_where('rb_siswa',array('id_kelas'=>$s['id_kelas'],'id_identitas_sekolah'=>$this->session->sekolah,'status_siswa'=>'Aktif'));
                     foreach ($siswa as $r) {
                     $aa = $this->db->query("SELECT GROUP_CONCAT(a.nilai SEPARATOR ',') as nilai_uts, GROUP_CONCAT(DATE_FORMAT(a.tanggal_penilaian,'%d/%m/%Y') SEPARATOR ',') as tanggal_nilai_penugasan FROM `rb_nilai_pengetahuan` a JOIN rb_jadwal_pelajaran b ON a.kodejdwl=b.kodejdwl where a.kategori_nilai='11' AND a.id_siswa='$r[id_siswa]' AND b.id_mata_pelajaran='$s[id_mata_pelajaran]' AND b.id_tahun_akademik='$s[id_tahun_akademik]' AND a.id_kompetensi_dasar='".$this->input->get('kd')."'")->row_array();
                     $nilai_uts = explode(',',$aa['nilai_uts']);
-                    $rataa = array_sum($nilai_uts)/(count(array_filter($nilai_uts)));
+                    $rata = array_sum($nilai_uts)/(count(array_filter($nilai_uts)));
+                    $rataa = $rata;
+                    // print_r($rataa); exit();
                     echo "<tr><td>$no</td>
                               <td>$r[nipd]</td>
                               <td>$r[nisn]</td>

@@ -19,6 +19,21 @@
                     <tr><th scope='row'>Lebar</th>                <td><input type='text' class='form-control' name='f' value='$s[lebar]'></td></tr>
                     <tr><th scope='row'>Keterangan</th>           <td><input type='text' class='form-control' name='g' value='$s[keterangan]'></td></tr>
                     <tr><th scope='row'>Aktif </th>        <td>"; if ($s['aktif']=='Y'){ echo "<input type='radio' name='h' value='Y' checked> Ya &nbsp; <input type='radio' name='h' value='N'> Tidak"; }else{ echo "<input type='radio' name='h' value='Y'> Ya &nbsp; <input type='radio' name='h' value='N' checked> Tidak"; } echo "</td></tr>
+                    <tr><th scope='row'>Gambar Gedung</th> <td><input type='file' name='foto'>";
+                      if ($s['foto'] != ''){ echo "<i style='color:red'>Gambar gedung saat ini : </i><a target='_BLANK' href='".base_url()."asset/asset_sekolah/$s[foto]'>$s[foto]</a>"; } echo "</td></tr>
+                    <tr>
+                      <th>
+                        <td>";
+                                if (trim($s['foto'])=='' OR !file_exists("asset/asset_sekolah/".$s['foto'])){
+                                  echo "<img class='img-thumbnail' style='width:155px' src='".base_url()."asset/foto_user/blank.png'>";
+                                }else{
+                                  echo "<img class='img-thumbnail' style='width:155px' src='".base_url()."asset/asset_sekolah/$s[foto]'>";
+                                }
+                            echo "
+                        </td>
+                      </th>
+                    </tr>
+
                   </tbody>
                   </table>
                 </div>

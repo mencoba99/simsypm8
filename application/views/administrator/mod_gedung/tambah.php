@@ -21,6 +21,8 @@
                     <tr><th scope='row'>Aktif</th>                <td><input type='radio' name='h' value='Y'> Ya
                                                                              <input type='radio' name='h' value='N'> Tidak
                     </td></tr>
+                    <tr><th scope='row'>Foto Gedung</th>             <td><input type='file' name='foto'>
+                              </td></tr>
                   </tbody>
                   </table>
                 </div>

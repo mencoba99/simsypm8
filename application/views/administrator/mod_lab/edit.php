@@ -10,27 +10,24 @@
                 echo "<div class='col-md-12'>
                   <table class='table table-condensed table-bordered'>
                   <tbody>
-                    <input type='hidden' name='id' value='$edit[id_lab]'>
-                      <tr>
-                        <th width='30px' scope='row'>Kode Lab </th> 
-                        <td>
-                          <input type='text' class='form-control' name='a' value='$edit[kode_lab]' readonly>
+                    <input type='hidden' name='id' value='$s[id_lab]'>
+                    <tr><th width='120px' scope='row'>Kode Lab</th> <td><input type='text' class='form-control' name='a' value='$s[kode_lab]'> </td></tr>
+                    <tr><th scope='row'>Nama Laboratorium</th>          <td><input type='text' class='form-control' name='b' value='$s[nama_lab]'></td></tr>
+                    <tr><th scope='row'>Kapasitas</th>          <td><input type='text' class='form-control' name='c' value='$s[kapasitas]'></td></tr>
+                    <tr><th scope='row'>Gambar Lab</th> <td><input type='file' name='foto'>";
+                      if ($s['foto'] != ''){ echo "<i style='color:red'>Gambar Lab saat ini : </i><a target='_BLANK' href='".base_url()."asset/asset_sekolah/$s[foto]'>$s[foto]</a>"; } echo "</td></tr>
+                    <tr>
+                      <th>
+                        <td>";
+                                if (trim($s['foto'])=='' OR !file_exists("asset/asset_sekolah/".$s['foto'])){
+                                  echo "<img class='img-thumbnail' style='width:155px' src='".base_url()."asset/foto_user/blank.png'>";
+                                }else{
+                                  echo "<img class='img-thumbnail' style='width:155px' src='".base_url()."asset/asset_sekolah/$s[foto]'>";
+                                }
+                            echo "
                         </td>
-                      </tr>
-
-                      <tr>
-                        <th width='120px' scope='row'>Nama Laboratorium </th> 
-                        <td>
-                          <input type='text' class='form-control' name='b' value='$edit[nama_lab]'>
-                        </td>
-                      </tr>
-                      
-                      <tr>
-                        <th width='120px' scope='row'>Kapasitas Belajar</th>    
-                        <td>
-                          <input type='text' class='form-control' name='c' value='$edit[kapasitas]'>
-                        </td>
-                      </tr>
+                      </th>
+                    </tr>
 
                   </tbody>
                   </table>

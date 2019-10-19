@@ -12,6 +12,7 @@
                         <th>Kode Lab</th>
                         <th>Nama Laboratorium</th>
                         <th>Kapasitas Belajar</th>
+                        <th>Image</th>
                         <th style='width:70px'>Action</th>
                       </tr>
                     </thead>
@@ -24,6 +25,16 @@
                               <td>$r[kode_lab]</td>
                               <td>$r[nama_lab]</td>
                               <td>$r[kapasitas] Siswa</td>
+                               <td>
+                                <center>";
+                              if (trim($r['foto'])=='' OR !file_exists("asset/asset_sekolah/".$r['foto'])){
+                                  echo "<img class='img-thumbnail' style='width:100px ' src='".base_url()."asset/foto_user/blank.png'>";
+                                }else{
+                                  echo "<img class='img-thumbnail' style='width:100px ' src='".base_url()."asset/asset_sekolah/$r[foto]'>";
+                                }
+                              echo"
+                                </center>
+                              </td>
                               <td>
                                 <a class='btn btn-primary btn-xs' title='Data Asset' href='".base_url().$this->uri->segment(1)."/asset_lab?id=$r[id_lab]'><span class='glyphicon glyphicon-list'></span> Asset</a>
                                 <a class='btn btn-success btn-xs' title='Edit Data' href='".base_url().$this->uri->segment(1)."/edit_lab/$r[id_lab]'><span class='glyphicon glyphicon-edit'></span></a>

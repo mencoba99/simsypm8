@@ -5,7 +5,7 @@ class Lab extends CI_Controller {
         parent::__construct();
         $this->load->library("PHPExcel");
     }
-
+    
     function lab(){
         cek_session_akses('lab',$this->session->id_session);
         $data['record'] = $this->model_app->view_ordering('rb_lab','id_lab','ASC');
@@ -13,34 +13,68 @@ class Lab extends CI_Controller {
     }
 
     function tambah_lab(){
-        cek_session_akses('lab',$this->session->id_session);
+        cek_session_akses('lab',$this->session->id_session);        
         if (isset($_POST['submit'])){
+            $config['upload_path'] = 'asset/asset_sekolah/';
+            $config['allowed_types'] = 'gif|jpg|png|JPG|JPEG';
+            $config['max_size'] = '3000'; // kb
+            $config['file_name'] = $this->uri->segment(1).'_'.$_FILES["foto"]['name'];
+            $this->load->library('upload', $config);
+            $this->upload->do_upload('foto');
+            $hasil=$this->upload->data();         
+            if ($_FILES["foto"]['name']==''){
             $data = array(
                             'kode_lab'=>$this->input->post('a'),
                             'nama_lab'=>$this->input->post('b'),
-                            'kapasitas'=>$this->input->post('c'));
+                            'kapasitas'=>$this->input->post('c')
+                        );
+            }else{
+            $data = array(
+                            'kode_lab'=>$this->input->post('a'),
+                            'nama_lab'=>$this->input->post('b'),
+                            'kapasitas'=>$this->input->post('c'),
+                            'foto'=>$hasil['file_name'],
+                        );
+            }
             $this->model_app->insert('rb_lab',$data);
             redirect($this->uri->segment(1).'/lab');
-        }else{            
+        }else{
             $this->template->load('administrator/template','administrator/mod_lab/tambah');
         }
     }
 
-
-    function edit_lab(){
+    function edit_lab(){        
         cek_session_akses('lab',$this->session->id_session);
         $id = $this->uri->segment(3);
         if (isset($_POST['submit'])){
-            $data = array(
-                                'kode_lab'=>$this->input->post('a'),
-                                'nama_lab'=>$this->input->post('b'),
-                                'kapasitas'=>$this->input->post('c'),
-                            );         
-            $where = array('id_lab' => $this->input->post('id'),'id_identitas_sekolah'=>$this->session->sekolah);
+            $config['upload_path'] = 'asset/asset_sekolah/';
+            $config['allowed_types'] = 'gif|jpg|png|JPG|JPEG';
+            $config['max_size'] = '3000'; // kb
+            $config['file_name'] = $this->uri->segment(1).'_'.$_FILES["foto"]['name'];
+            $this->load->library('upload', $config);
+            $this->upload->do_upload('foto');
+            $hasil=$this->upload->data();       
+            if ($_FILES["foto"]['name']==''){
+            $data = array(  'id_lab' => $this->input->post('id'),
+                            'id_identitas_sekolah'=>$this->session->sekolah,
+                            'kode_lab'=>$this->input->post('a'),
+                            'nama_lab'=>$this->input->post('b'),
+                            'kapasitas'=>$this->input->post('c'),
+                        ); 
+            }else{
+            $data = array(  'id_lab'=>$this->input->post('id'),
+                            'id_identitas_sekolah'=>$this->session->sekolah,
+                            'kode_lab'=>$this->input->post('a'),
+                            'nama_lab'=>$this->input->post('b'),
+                            'kapasitas'=>$this->input->post('c'),
+                            'foto'=>$hasil['file_name']
+                        );
+            }
+            $where = array('id_lab' => $this->input->post('id'),'id_identitas_sekolah'=>$this->session->sekolah);            
             $this->model_app->update('rb_lab', $data, $where);
             redirect($this->uri->segment(1).'/lab');
         }else{
-            $data['edit'] = $this->model_app->view_where('rb_lab', array('id_lab'=>$id))->row_array();
+            $data['s'] = $this->model_app->view_where('rb_lab', array('id_lab'=>$id,'id_identitas_sekolah'=>$this->session->sekolah))->row_array();
             $this->template->load('administrator/template','administrator/mod_lab/edit',$data);
         }
     }

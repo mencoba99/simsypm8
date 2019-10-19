@@ -35,17 +35,10 @@
                                                 }
                                                 echo "</select>
                     </td></tr>
-                    <tr><th scope='row'>Ruangan</th>   <td><select class='form-control' name='d'> 
-                                                <option value='0' selected>- Pilih Ruangan -</option>"; 
-                                                foreach ($ruangan as $a){
-                                                  echo "<option value='$a[id_ruangan]'>$a[nama_ruangan]</option>";
-                                                }
-                                                echo "</select>
-                    </td></tr>
                     <tr><th scope='row'>Guru</th>   <td><select class='form-control' name='e'> 
                                                 <option value='0' selected>- Pilih Guru -</option>"; 
-                                                foreach ($guru as $a){
-                                                  echo "<option value='$a[id_guru]'>$a[nama_guru]</option>";
+                                                foreach ($ruangan as $a){
+                                                  echo "<option value='$a[id_ruangan]'>$a[nama_ruangan]</option>";
                                                 }
                                                 echo "</select>
                     </td></tr>

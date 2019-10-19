@@ -123,16 +123,18 @@
                   <tbody>
                     <tr><th width='150px' scope='row'>NIK</th>      <td><input type='text' class='form-control' name='nik' value='$s[nik]'></td></tr>
                     <tr><th scope='row'>SK CPNS</th>                <td><input type='text' class='form-control' name='sk_cpns' value='$s[sk_cpns]'></td></tr>
-                    <tr><th scope='row'>Tanggal CPNS</th>           <td><input type='text' class='form-control' name='tanggal_cpns' value='$s[tanggal_cpns]'></td></tr>
+
+                    <tr><th scope='row'>Tanggal CPNS</th>           <td><input type='text' class='form-control datepicker' autocomplete='off' name='tanggal_cpns' value='".tgl_view($s[tanggal_cpns])."'></td></tr>                    
+
                     <tr><th scope='row'>SK Pengangkat</th>          <td><input type='text' class='form-control' name='sk_pengangkatan' value='$s[sk_pengangkatan]'></td></tr>
-                    <tr><th scope='row'>TMT Pengangkat</th>         <td><input type='text' class='form-control' name='tmt_pengangkatan' value='$s[tmt_pengangkatan]'></td></tr>
+                    <tr><th scope='row'>TMT Pengangkat</th>         <td><input type='text' class='form-control datepicker' autocomplete='off' name='tmt_pengangkatan' value='$s[tmt_pengangkatan]'></td></tr>
                     <tr><th scope='row'>Lemb. Pengangkat</th>       <td><input type='text' class='form-control' name='lembaga_pengangkatan' value='$s[lembaga_pengangkatan]'></td></tr>
                     <tr><th scope='row'>Ahli Laboratorium</th>      <td><input type='text' class='form-control' name='keahlian_laboratorium' value='$s[keahlian_laboratorium]'></td></tr>
                     <tr><th scope='row'>Nama Ibu Kandung</th>       <td><input type='text' class='form-control' name='nama_ibu_kandung' value='$s[nama_ibu_kandung]'></td></tr>
                     <tr><th scope='row'>Nama Suami/Istri</th>       <td><input type='text' class='form-control' name='nama_suami_istri' value='$s[nama_suami_istri]'></td></tr>
                     <tr><th scope='row'>Nip Suami/Istri</th>        <td><input type='text' class='form-control' name='nip_suami_istri' value='$s[nip_suami_istri]'></td></tr>
                     <tr><th scope='row'>Pekerjaan Suami/Istri</th>  <td><input type='text' class='form-control' name='pekerjaan_suami_istri' value='$s[pekerjaan_suami_istri]'></td></tr>
-                    <tr><th scope='row'>TMT PNS</th>                <td><input type='text' class='form-control' name='tmt_pns' value='$s[tmt_pns]'></td></tr>
+                    <tr><th scope='row'>TMT PNS</th>                <td><input type='text' class='form-control datepicker' autocomplete='off' name='tmt_pns' value='$s[tmt_pns]'></td></tr>
                     <tr><th scope='row'>Lisensi Kepsek</th>         <td><input type='text' class='form-control' name='lisensi_kepsek' value='$s[lisensi_kepsek]'></td></tr>
                     <tr><th scope='row'>Jml Sekolah Binaan</th>     <td><input type='text' class='form-control' name='jumlah_sekolah_binaan' value='$s[jumlah_sekolah_binaan]'></td></tr>
                     <tr><th scope='row'>Diklat Kepengawasan</th>    <td><input type='text' class='form-control' name='diklat_kepengawasan' value='$s[diklat_kepengawasan]'></td></tr>

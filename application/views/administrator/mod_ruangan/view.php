@@ -14,6 +14,7 @@
                         <th>Nama Ruangan</th>
                         <th>Kapasitas Belajar</th>
                         <th>Kapasitas Ujian</th>
+                        <th>Image</th>
                         <th>Aktif</th>
                         <th style='width:70px'>Action</th>
                       </tr>
@@ -28,6 +29,16 @@
                               <td>$r[nama_ruangan]</td>
                               <td>$r[kapasitas_belajar] Orang</td>
                               <td>$r[kapasitas_ujian] Orang</td>
+                              <td>
+                                <center>";
+                              if (trim($r['foto'])=='' OR !file_exists("asset/asset_sekolah/".$r['foto'])){
+                                  echo "<img class='img-thumbnail' style='width:100px ' src='".base_url()."asset/foto_user/blank.png'>";
+                                }else{
+                                  echo "<img class='img-thumbnail' style='width:100px ' src='".base_url()."asset/asset_sekolah/$r[foto]'>";
+                                }
+                              echo"
+                                </center>
+                              </td>
                               <td>$r[aktif]</td>
                               <td><center>
                                 <a class='btn btn-success btn-xs' title='Edit Data' href='".base_url().$this->uri->segment(1)."/edit_ruangan/$r[id_ruangan]'><span class='glyphicon glyphicon-edit'></span></a>

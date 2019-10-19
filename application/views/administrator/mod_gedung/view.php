@@ -12,9 +12,7 @@
                         <th>Kode Gedung</th>
                         <th>Nama Gedung</th>
                         <th>Jumlah Lantai</th>
-                        <th>Panjang</th>
-                        <th>Tinggi</th>
-                        <th>Lebar</th>
+                        <th>Image</th>
                         <th>Aktif</th>
                         <th style='width:70px'>Action</th>
                       </tr>
@@ -27,9 +25,16 @@
                               <td class='info'>$r[kode_gedung]</td>
                               <td>$r[nama_gedung]</td>
                               <td>$r[jumlah_lantai] Lantai</td>
-                              <td>$r[panjang] Meter</td>
-                              <td>$r[tinggi] Meter</td>
-                              <td>$r[lebar] Meter</td>
+                              <td>
+                                <center>";
+                              if (trim($r['foto'])=='' OR !file_exists("asset/asset_sekolah/".$r['foto'])){
+                                  echo "<img class='img-thumbnail' style='width:100px ' src='".base_url()."asset/foto_user/blank.png'>";
+                                }else{
+                                  echo "<img class='img-thumbnail' style='width:100px ' src='".base_url()."asset/asset_sekolah/$r[foto]'>";
+                                }
+                              echo"
+                                </center>
+                              </td>
                               <td>$r[aktif]</td>
                               <td><center>
                                 <a class='btn btn-success btn-xs' title='Edit Data' href='".base_url().$this->uri->segment(1)."/edit_gedung/$r[id_gedung]'><span class='glyphicon glyphicon-edit'></span></a>

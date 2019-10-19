@@ -23,6 +23,8 @@
                     <tr><th scope='row'>Keterangan</th>           <td><input type='text' class='form-control' name='f'></td></tr>
                     <tr><th scope='row'>Aktif</th>                <td><input type='radio' name='g' value='Ya'> Ya
                                                                              <input type='radio' name='g' value='Tidak'> Tidak</td></tr>
+                    <tr><th scope='row'>Foto Ruangan</th>             <td><input type='file' name='foto'>
+
                   </tbody>
                   </table>
                 </div>
