@@ -81,6 +81,12 @@
                     <tr><th width='150px' scope='row'>NIK</th>      <td><input type='text' class='form-control' name='nik'></td></tr>
                     <tr><th scope='row'>SK CPNS</th>                <td><input type='text' class='form-control' name='sk_cpns'></td></tr>
                     <tr><th scope='row'>Tanggal CPNS</th>           <td><input type='text' class='form-control' name='tanggal_cpns'></td></tr>
+                    
+                    <tr><th scope='row'>No SK GTT</th>                <td><input type='text' class='form-control' name='sk_gtt'></td></tr>
+                    <tr><th scope='row'>Tanggal GTT</th>           <td><input type='text' class='form-control' name='tanggal_gtt'></td></tr>
+                    <tr><th scope='row'>No SK GTY</th>                <td><input type='text' class='form-control' name='sk_gty'></td></tr>
+                    <tr><th scope='row'>Tanggal GTY</th>           <td><input type='text' class='form-control' name='tanggal_gty'></td></tr>
+
                     <tr><th scope='row'>SK Pengangkat</th>          <td><input type='text' class='form-control' name='sk_pengangkatan'></td></tr>
                     <tr><th scope='row'>TMT Pengangkat</th>         <td><input type='text' class='form-control' name='tmt_pengangkatan'></td></tr>
                     <tr><th scope='row'>Lemb. Pengangkat</th>       <td><input type='text' class='form-control' name='lembaga_pengangkatan'></td></tr>

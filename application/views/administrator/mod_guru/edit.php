@@ -122,9 +122,13 @@
                   <table class='table table-condensed table-bordered'>
                   <tbody>
                     <tr><th width='150px' scope='row'>NIK</th>      <td><input type='text' class='form-control' name='nik' value='$s[nik]'></td></tr>
-                    <tr><th scope='row'>SK CPNS</th>                <td><input type='text' class='form-control' name='sk_cpns' value='$s[sk_cpns]'></td></tr>
-
-                    <tr><th scope='row'>Tanggal CPNS</th>           <td><input type='text' class='form-control datepicker' autocomplete='off' name='tanggal_cpns' value='".tgl_view($s[tanggal_cpns])."'></td></tr>                    
+                    <tr><th scope='row'>NO SK CPNS</th>                <td><input type='text' class='form-control' name='sk_cpns' value='$s[sk_cpns]'></td></tr>
+                    <tr><th scope='row'>Tanggal CPNS</th>           <td><input type='text' class='form-control' autocomplete='off' name='tanggal_cpns' value='".tgl_view($s[tanggal_cpns])."'></td></tr>                    
+                   
+                    <tr><th scope='row'>NO SK GTT</th>                <td><input type='text' class='form-control' name='sk_gtt' value='$s[sk_gtt]'></td></tr>
+                    <tr><th scope='row'>Tanggal GTT</th>           <td><input type='text' class='form-control' name='tgl_gtt' value='$s[tgl_gtt]'></td></tr>
+                    <tr><th scope='row'>NO SK GTY</th>                <td><input type='text' class='form-control' name='sk_gty' value='$s[sk_gty]'></td></tr>
+                    <tr><th scope='row'>Tanggal GTY</th>           <td><input type='text' class='form-control' name='tgl_gty' value='$s[tgl_gty]'></td></tr>                    
 
                     <tr><th scope='row'>SK Pengangkat</th>          <td><input type='text' class='form-control' name='sk_pengangkatan' value='$s[sk_pengangkatan]'></td></tr>
                     <tr><th scope='row'>TMT Pengangkat</th>         <td><input type='text' class='form-control datepicker' autocomplete='off' name='tmt_pengangkatan' value='$s[tmt_pengangkatan]'></td></tr>

@@ -1907,6 +1907,10 @@ class Smk extends CI_Controller {
                                 'keahlian_breile'=>$this->input->post('keahlian_breile'),
                                 'keahlian_bahasa_isyarat'=>$this->input->post('keahlian_bahasa_isyarat'),
                                 'npwp'=>$this->input->post('npwp'),
+                                'sk_gtt'=>$this->input->post('sk_gtt'),
+                                'tgl_gtt'=>$this->input->post('tgl_gtt'),
+                                'sk_gty'=>$this->input->post('sk_gty'),
+                                'tgl_gty'=>$this->input->post('tgl_gty'),
                                 'kewarganegaraan'=>$this->input->post('kewarganegaraan'));
             }else{
                 $rt_rw = explode('/',$this->input->post('rt_rw'));
@@ -1957,6 +1961,10 @@ class Smk extends CI_Controller {
                                 'keahlian_breile'=>$this->input->post('keahlian_breile'),
                                 'keahlian_bahasa_isyarat'=>$this->input->post('keahlian_bahasa_isyarat'),
                                 'npwp'=>$this->input->post('npwp'),
+                                'sk_gtt'=>$this->input->post('sk_gtt'),
+                                'tgl_gtt'=>$this->input->post('tgl_gtt'),
+                                'sk_gty'=>$this->input->post('sk_gty'),
+                                'tgl_gty'=>$this->input->post('tgl_gty'),
                                 'kewarganegaraan'=>$this->input->post('kewarganegaraan'),
                                 'foto'=>$hasil['file_name']);
             }
@@ -2049,7 +2057,12 @@ class Smk extends CI_Controller {
                                 'pustaka'=>$this->input->post('pustaka'),
                                 'koperasi'=>$this->input->post('koperasi'),
                                 'asset'=>$this->input->post('asset'),
-                                'finance'=>$this->input->post('finance'));
+                                'finance'=>$this->input->post('finance'),
+                                'sk_gtt'=>$this->input->post('sk_gtt'),
+                                'tgl_gtt'=>$this->input->post('tgl_gtt'),
+                                'sk_gty'=>$this->input->post('sk_gty'),
+                                'tgl_gty'=>$this->input->post('tgl_gty')
+                            );
                 }else{
                     $rt_rw = explode('/',$this->input->post('rt_rw'));
                     $data = array('id_identitas_sekolah'=>$this->session->sekolah,
@@ -2109,7 +2122,12 @@ class Smk extends CI_Controller {
                                 'pustaka'=>$this->input->post('pustaka'),
                                 'koperasi'=>$this->input->post('koperasi'),
                                 'asset'=>$this->input->post('asset'),
-                                'finance'=>$this->input->post('finance'));
+                                'finance'=>$this->input->post('finance'),
+                                'sk_gtt'=>$this->input->post('sk_gtt'),
+                                'tgl_gtt'=>$this->input->post('tgl_gtt'),
+                                'sk_gty'=>$this->input->post('sk_gty'),
+                                'tgl_gty'=>$this->input->post('tgl_gty')
+                            );
                 }
             }else{
                 if (trim($this->input->post('password'))!=''){
@@ -2173,7 +2191,12 @@ class Smk extends CI_Controller {
                                 'pustaka'=>$this->input->post('pustaka'),
                                 'koperasi'=>$this->input->post('koperasi'),
                                 'asset'=>$this->input->post('asset'),
-                                'finance'=>$this->input->post('finance'));
+                                'finance'=>$this->input->post('finance'),
+                                'sk_gtt'=>$this->input->post('sk_gtt'),
+                                'tgl_gtt'=>$this->input->post('tgl_gtt'),
+                                'sk_gty'=>$this->input->post('sk_gty'),
+                                'tgl_gty'=>$this->input->post('tgl_gty')
+                            );
                 }else{
                     $rt_rw = explode('/',$this->input->post('rt_rw'));
                     $data = array('id_identitas_sekolah'=>$this->session->sekolah,
@@ -2234,7 +2257,12 @@ class Smk extends CI_Controller {
                                 'pustaka'=>$this->input->post('pustaka'),
                                 'koperasi'=>$this->input->post('koperasi'),
                                 'asset'=>$this->input->post('asset'),
-                                'finance'=>$this->input->post('finance')); 
+                                'finance'=>$this->input->post('finance'),
+                                'sk_gtt'=>$this->input->post('sk_gtt'),
+                                'tgl_gtt'=>$this->input->post('tgl_gtt'),
+                                'sk_gty'=>$this->input->post('sk_gty'),
+                                'tgl_gty'=>$this->input->post('tgl_gty')
+                            ); 
                 }
             }
             if ($this->session->level=='guru'){
