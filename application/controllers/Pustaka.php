@@ -42,6 +42,48 @@ class Pustaka extends CI_Controller {
         redirect($this->uri->segment(1).'/buku_tamu');
     }
 
+    function rak_buku(){
+        cek_session_akses('buku',$this->session->id_session);
+        if (isset($_POST['tambahkan'])){
+            $cek = $this->db->query("SELECT * FROM rb_rak_buku where kode_rak='".$this->input->post('kode_rak')."' ")->num_rows();
+            if ($cek >=1 ) {
+                echo "<script>window.alert('Gagal!!!, Maaf Data Sudah ada Di Database!');
+                                          window.location=('".base_url().$this->uri->segment(1)."/rak_buku')</script>";
+            }else{
+            $data = array('kode_rak'=>$this->input->post('kode_rak'));
+            $this->model_app->insert('rb_rak_buku',$data);
+            redirect($this->uri->segment(1).'/rak_buku');
+            }
+
+        }else{
+        $data['record'] = $this->model_app->view_ordering('rb_rak_buku','id_rak_buku','DESC');
+        $this->template->load('administrator/template','administrator/mod_pustaka/mod_rak/view',$data);
+        }
+    }
+
+    function edit_rak(){
+        cek_session_akses('buku',$this->session->id_session);
+        $id = $this->uri->segment(3);
+        if (isset($_POST['submit'])){
+            $data = array('kode_rak'=>$this->input->post('kode_rak'));
+
+            $where = array('id_rak_buku' => $this->input->post('id'));
+            $this->model_app->update('rb_rak_buku', $data, $where);
+            redirect($this->uri->segment(1).'/rak_buku');
+        }else{
+            $edit = $this->model_app->view_where('rb_rak_buku', array('id_rak_buku'=>$id))->row_array();
+            $data = array('s' => $edit);
+            $this->template->load('administrator/template','administrator/mod_pustaka/mod_rak/edit',$data);
+        }
+    }
+
+    function delete_rak(){
+        cek_session_akses('buku',$this->session->id_session);
+        $id = array('id_rak_buku' => $this->uri->segment(3));
+        $this->model_app->delete('rb_rak_buku',$id);
+        $this->model_app->delete('rb_pustaka_buku',$id);
+        redirect($this->uri->segment(1).'/rak_buku');
+    }
 
     function kategori(){
         cek_session_akses('kategori',$this->session->id_session);
@@ -89,7 +131,7 @@ class Pustaka extends CI_Controller {
 
     function buku(){
         cek_session_akses('buku',$this->session->id_session);
-        $data['record'] = $this->db->query("SELECT a.*, b.nama_kategori FROM rb_pustaka_buku a JOIN rb_pustaka_kategori b ON a.id_kategori=b.id_kategori ORDER BY id_buku DESC");
+        $data['record'] = $this->db->query("SELECT a.*, b.nama_kategori FROM rb_pustaka_buku a JOIN rb_pustaka_kategori b ON a.id_kategori=b.id_kategori where id_rak_buku='".$_GET['id']."' ORDER BY id_buku DESC");
         $this->template->load('administrator/template','administrator/mod_pustaka/mod_buku/view',$data);
     }
 
@@ -105,6 +147,7 @@ class Pustaka extends CI_Controller {
             $hasil=$this->upload->data();
             if ($_FILES["foto"]['name']==''){
                 $data = array('id_identitas_sekolah'=>$this->session->sekolah,
+                                'id_rak_buku'=>$this->input->post('id_rak_buku'),
                                 'id_kategori'=>$this->input->post('a'),
                                 'kode_buku'=>$this->input->post('b'),
                                 'judul'=>$this->input->post('c'),
@@ -119,6 +162,7 @@ class Pustaka extends CI_Controller {
                                 'id_guru'=>$this->session->id_session);
             }else{
                 $data = array('id_identitas_sekolah'=>$this->session->sekolah,
+                                'id_rak_buku'=>$this->input->post('id_rak_buku'),
                                 'id_kategori'=>$this->input->post('a'),
                                 'kode_buku'=>$this->input->post('b'),
                                 'judul'=>$this->input->post('c'),
@@ -190,6 +234,132 @@ class Pustaka extends CI_Controller {
             $this->template->load('administrator/template','administrator/mod_pustaka/mod_buku/edit',$data);
         }
     }
+    function ebook(){
+        cek_session_akses('buku',$this->session->id_session);
+        $data['record'] = $this->db->query("SELECT a.*, b.nama_kategori FROM rb_pustaka_buku a JOIN rb_pustaka_kategori b ON a.id_kategori=b.id_kategori where id_rak_buku=0 ORDER BY id_buku ASC");
+        $this->template->load('administrator/template','administrator/mod_pustaka/mod_buku/view_ebook',$data);
+    }
+    function unduh_ebook(){
+      $this->load->helper('download');
+      $data = $this->db->query("SELECT * FROM rb_pustaka_buku WHERE id_buku=".$this->uri->segment(3)." ")->result_array()[0];
+   
+      force_download("asset/dokumen_ebook/".$data['file']."",NULL);
+      redirect($this->uri->segment(1).'/ebook');
+    }
+
+    function tambah_ebook(){
+        cek_session_akses('buku',$this->session->id_session);
+        if (isset($_POST['submit'])){           
+            if (isset($_FILES['foto'])!='') {
+                $config['upload_path'] = realpath('asset/foto_buku/');
+            }if(isset($_FILES['dokumen'])!=''){
+                $config['upload_path'] = realpath('asset/dokumen_ebook/');    
+            }
+            $config['allowed_types'] = 'pdf|doc|docx|gif|jpg|png|JPG|JPEG|jpeg';
+            $config['max_size'] = '100000';
+            $this->load->library('upload', $config);
+            // $this->upload->initialize($config);
+            $this->upload->do_upload('dokumen');
+            $hasil_1 = $this->upload->data();
+            
+            $this->upload->do_upload('foto');
+            $hasil_2 = $this->upload->data();
+            if(isset($hasil_1) =='' && isset($hasil_2) ==''){
+                $data = array('id_identitas_sekolah'=>$this->session->sekolah,
+                                'id_kategori'=>$this->input->post('a'),
+                                'kode_buku'=>$this->input->post('b'),
+                                'judul'=>$this->input->post('c'),
+                                'pengarang'=>$this->input->post('d'),
+                                'penerbit'=>$this->input->post('e'),
+                                'deskripsi'=>$this->input->post('g'),
+                                'jumlah'=>0,
+                                'tahun_terbit'=>$this->input->post('tahun_terbit'),
+                                'tahun_pengadaan'=>$this->input->post('tahun_pengadaan'),
+                                'harga_buku'=>$this->input->post('harga_buku'),
+                                'sumber_dana'=>'-',
+                                'id_guru'=>$this->session->id_session);
+            }else{
+                $data = array('id_identitas_sekolah'=>$this->session->sekolah,
+                                'id_kategori'=>$this->input->post('a'),
+                                'kode_buku'=>$this->input->post('b'),
+                                'judul'=>$this->input->post('c'),
+                                'pengarang'=>$this->input->post('d'),
+                                'penerbit'=>$this->input->post('e'),
+                                'file'=>$hasil_1['file_name'],
+                                'foto'=>$hasil_2['file_name'],
+                                'deskripsi'=>$this->input->post('g'),
+                                'jumlah'=>0,
+                                'tahun_terbit'=>$this->input->post('tahun_terbit'),
+                                'tahun_pengadaan'=>$this->input->post('tahun_pengadaan'),
+                                'harga_buku'=>$this->input->post('harga_buku'),
+                                'sumber_dana'=>'-',
+                                'id_guru'=>$this->session->id_session);
+            }            
+            $this->model_app->insert('rb_pustaka_buku',$data);
+            redirect($this->uri->segment(1).'/ebook');
+        }else{
+            $this->template->load('administrator/template','administrator/mod_pustaka/mod_buku/tambah_ebook',$data);
+        }
+    }
+
+    function edit_ebook(){
+        cek_session_akses('buku',$this->session->id_session);
+        $id = $this->uri->segment(3);
+        if (isset($_POST['submit'])){
+            if (isset($_FILES['foto'])!='') {
+                $config['upload_path'] = realpath('asset/foto_buku/');
+            }if(isset($_FILES['dokumen'])!=''){
+                $config['upload_path'] = realpath('asset/dokumen_ebook/');    
+            }
+            $config['allowed_types'] = 'pdf|doc|docx|gif|jpg|png|JPG|JPEG|jpeg';
+            $config['max_size'] = '100000';
+            $this->load->library('upload', $config);
+            // $this->upload->initialize($config);
+            $this->upload->do_upload('dokumen');
+            $hasil_1 = $this->upload->data();
+            
+            $this->upload->do_upload('foto');
+            $hasil_2 = $this->upload->data();
+            if(isset($hasil_1) =='' && isset($hasil_2) ==''){
+                $data = array('id_identitas_sekolah'=>$this->session->sekolah,
+                                'id_kategori'=>$this->input->post('a'),
+                                'kode_buku'=>$this->input->post('b'),
+                                'judul'=>$this->input->post('c'),
+                                'pengarang'=>$this->input->post('d'),
+                                'penerbit'=>$this->input->post('e'),
+                                'deskripsi'=>$this->input->post('g'),
+                                'jumlah'=>0,
+                                'tahun_terbit'=>$this->input->post('tahun_terbit'),
+                                'tahun_pengadaan'=>$this->input->post('tahun_pengadaan'),
+                                'harga_buku'=>$this->input->post('harga_buku'),
+                                'sumber_dana'=>'-',
+                                'id_guru'=>$this->session->id_session);
+            }else{
+                $data = array('id_identitas_sekolah'=>$this->session->sekolah,
+                                'id_kategori'=>$this->input->post('a'),
+                                'kode_buku'=>$this->input->post('b'),
+                                'judul'=>$this->input->post('c'),
+                                'pengarang'=>$this->input->post('d'),
+                                'penerbit'=>$this->input->post('e'),
+                                'file'=>$hasil_1['file_name'],
+                                'foto'=>$hasil_2['file_name'],
+                                'deskripsi'=>$this->input->post('g'),
+                                'jumlah'=>0,
+                                'tahun_terbit'=>$this->input->post('tahun_terbit'),
+                                'tahun_pengadaan'=>$this->input->post('tahun_pengadaan'),
+                                'harga_buku'=>$this->input->post('harga_buku'),
+                                'sumber_dana'=>'-',
+                                'id_guru'=>$this->session->id_session);
+            }            
+            $where = array('id_buku' => $this->input->post('id'));
+            $this->model_app->update('rb_pustaka_buku', $data, $where);
+            redirect($this->uri->segment(1).'/ebook');
+        }else{
+            $edit = $this->model_app->view_where('rb_pustaka_buku', array('id_buku'=>$id))->row_array();
+            $data = array('s' => $edit);
+            $this->template->load('administrator/template','administrator/mod_pustaka/mod_buku/edit_ebook',$data);
+        }
+    }
 
     function kondisi_buku(){
         cek_session_akses('buku',$this->session->id_session);
@@ -217,6 +387,12 @@ class Pustaka extends CI_Controller {
     }
 
     function delete_buku(){
+        cek_session_akses('buku',$this->session->id_session);
+        $id = array('id_buku' => $this->uri->segment(3));
+        $this->model_app->delete('rb_pustaka_buku',$id);
+        redirect($this->uri->segment(1).'/buku');
+    }
+    function delete_ebook(){
         cek_session_akses('buku',$this->session->id_session);
         $id = array('id_buku' => $this->uri->segment(3));
         $this->model_app->delete('rb_pustaka_buku',$id);

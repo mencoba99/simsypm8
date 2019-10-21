@@ -409,9 +409,15 @@
                             echo "<li><a href='".base_url()."pustaka/kategori'><i class='fa fa-circle-o'></i> Kategori</a></li>";
                           }
 
+                      
                           $cek=$this->model_app->umenu_akses("buku",$this->session->id_session);
                           if($cek==1 OR $this->session->level=='admin'){
-                            echo "<li><a href='".base_url()."pustaka/buku'><i class='fa fa-circle-o'></i> Buku</a></li>";
+                            echo "<li><a href='".base_url()."pustaka/rak_buku'><i class='fa fa-circle-o'></i> Rak Buku</a></li>";
+                          }
+
+                          $cek=$this->model_app->umenu_akses("buku",$this->session->id_session);
+                          if($cek==1 OR $this->session->level=='admin'){
+                            echo "<li><a href='".base_url()."pustaka/ebook'><i class='fa fa-circle-o'></i> E-Book</a></li>";
                           }
 
                           $cek=$this->model_app->umenu_akses("kartu_pustaka",$this->session->id_session);
