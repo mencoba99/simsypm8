@@ -1,7 +1,7 @@
             <div class="col-xs-12">  
               <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">Data Buku </h3>
+                  <h3 class="box-title">Data E-book </h3>
                   <a class='pull-right btn btn-primary btn-sm' href='<?php echo base_url().$this->uri->segment(1); ?>/tambah_ebook'>Tambahkan Data</a>
 
                 </div><!-- /.box-header -->
