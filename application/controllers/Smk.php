@@ -53,7 +53,8 @@ class Smk extends CI_Controller {
                 $usr = $this->model_app->edit('rb_users', array('email' => $email))->row_array();
                 $this->load->library('email');
 
-                $tgl = date("d-m-Y H:i:s");
+                $tgl = date("d-m-Y H:i:s");            
+
                 $subject      = 'Lupa Password ...';
                 $message      = "<html><body>
                                     <table style='margin-left:25px'>

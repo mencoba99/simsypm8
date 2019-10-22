@@ -59,7 +59,7 @@
             <th><select class='form-control combobox' name='aa'>
                     <option value='' selected>Cari Buku</option>
                     <?php 
-                      $buku = $this->db->query("SELECT * FROM rb_pustaka_buku");
+                      $buku = $this->db->query("SELECT * FROM rb_pustaka_buku where id_rak_buku >0");
                       foreach ($buku->result_array() as $row){
                           echo "<option value='$row[id_buku]'>$row[kode_buku] - $row[judul]</option>";
                       }
