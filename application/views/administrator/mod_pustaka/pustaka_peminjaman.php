@@ -16,17 +16,19 @@
       <h3 class="box-title">Data Transaksi Peminjaman </h3>
     </div><!-- /.box-header -->
     <div class="box-body">
+
       <form action='<?php echo base_url().$this->uri->segment(1)."/transaksi_peminjaman"; ?>' method='POST'>
         <table class="table table-bordered table-striped table-condensed">
             <tr><td width='120px'>Nama Siswa</td> <td><select class='form-control combobox' name='a' required>
                                           <option value='' selected>Cari Siswa</option>
                                           <?php 
-                                            $siswa = $this->db->query("SELECT * FROM rb_siswa");
-                                            foreach ($siswa->result_array() as $row){
+                                          $siswa = $this->model_app->view_join_one('rb_siswa', 'rb_kelas', 'id_kelas', 'id_siswa', 'ASC');
+
+                                            foreach ($siswa as $row){
                                               if ($e['id_siswa']==$row['id_siswa']){
-                                                echo "<option value='$row[id_siswa]' selected>$row[nama]</option>";
+                                                echo "<option value='$row[id_siswa]' selected>$row[nama] - $row[nama_kelas]</option>";
                                               }else{
-                                                echo "<option value='$row[id_siswa]'>$row[nama]</option>";
+                                                echo "<option value='$row[id_siswa]'>$row[nama] - $row[nama_kelas]</option>";
                                               }
                                             }
                                           ?>

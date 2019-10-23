@@ -308,7 +308,7 @@ class Model_app extends CI_model{
         $this->db->where('a.id_kelas',$this->session->id_kelas);
         $this->db->where('e.id_identitas_sekolah',$this->session->sekolah);
         $this->db->order_by('e.urutan','ASC');
-        $this->db->group_by('a.kodejdwl');
+        $this->db->group_by('a.id_mata_pelajaran');
         return $this->db->get();
     }
 
@@ -531,7 +531,7 @@ class Model_app extends CI_model{
     }
 
     public function cek_login_guru($username,$password,$table){
-        return $this->db->query("SELECT * FROM $table where email='".$this->db->escape_str($username)."' AND password='".$this->db->escape_str($password)."'");
+        return $this->db->query("SELECT * FROM $table where nip='".$this->db->escape_str($username)."' AND password='".$this->db->escape_str($password)."'");
     }
 
     public function cek_login_siswa($username,$password,$table){
@@ -612,10 +612,8 @@ class Model_app extends CI_model{
           $data50 = str_replace(" "," ",$worksheet[$i]['AX']);
           $data51 = $worksheet[$i]['AY'];
           $data52 = $worksheet[$i]['AZ'];
-          $data53 = $worksheet[$i]['BA'];
-          $data54 = md5(trim($worksheet[$i]['BB']));
           if (trim($data5)==''){ $data5x = rand(10000,99999999); }else{ $data5x = $data5; }
-          if (trim($data53)==''){ $data53x = rand(10000,99999999); }else{ $data53x = $data53; }
+          if (trim($data5)==''){ $data5x = rand(10000,99999999); }else{ $data5x = $data5; }
           if (trim($data22)==''){ $data22x = 'siswa@schoolmedia.id'; }else{ $data22x = $data22; }
           $cek = $this->db->query("SELECT * FROM rb_siswa where (nipd='$data1' OR nisn='$data5x') AND id_identitas_sekolah='".$this->session->sekolah."'");
           $kelas = $this->db->query("SELECT id_kelas FROM rb_kelas where kode_kelas='$data50' AND id_identitas_sekolah='".$this->session->sekolah."'")->row_array();
@@ -679,12 +677,6 @@ class Model_app extends CI_model{
                     "email_sekolah"         => '',
                     "no_rek"                => '');
             $this->db->insert('rb_siswa', $ins);
-            $ortu = $this->db->query("SELECT * FROM rb_siswa where nipd='$data1' AND id_identitas_sekolah='".$this->session->sekolah."'")->row_array();
-            $ortue = array(
-                    "id_siswa"              => $ortu['id_siswa'],
-                    "email"                 => $data53x,
-                    "password"              => $data54);
-            $this->db->insert('rb_siswa_ortu', $ortue);
             echo "Sukses - <b><span style='color:green'>$data1 / $data5x</span></b>, a/n <b> $data3</b> Sukses di import,.. <br>";
           }else{
             $ins_update = array("angkatan" => $data46,
@@ -949,9 +941,9 @@ class Model_app extends CI_model{
           $data8 = $worksheet[$i]['H'];
           $data9 = $worksheet[$i]['I'];
             if (trim($data1)!=''){
-                $kel = $this->model_app->view_where('rb_kelompok_mata_pelajaran',array('id_kelompok_mata_pelajaran'=>$data2,'id_identitas_sekolah'=>$this->session->sekolah))->row_array();
-                $jur = $this->model_app->view_where('rb_jurusan',array('id_jurusan'=>$data3,'id_identitas_sekolah'=>$this->session->sekolah))->row_array();
-                $guru = $this->model_app->view_where('rb_guru',array('id_guru'=>$data4,'id_identitas_sekolah'=>$this->session->sekolah))->row_array();
+                $kel = $this->model_app->view_where('rb_kelompok_mata_pelajaran',array('jenis_kelompok_mata_pelajaran'=>$data2,'id_identitas_sekolah'=>$this->session->sekolah))->row_array();
+                $jur = $this->model_app->view_where('rb_jurusan',array('kode_jurusan'=>$data3,'id_identitas_sekolah'=>$this->session->sekolah))->row_array();
+                $guru = $this->model_app->view_where('rb_guru',array('nip'=>$data4,'id_identitas_sekolah'=>$this->session->sekolah))->row_array();
                 if ($guru['id_guru']==''){ $id = 1; }else{ $id = $guru['id_guru']; }
                 $mapel = array("id_identitas_sekolah"           =>$this->session->sekolah,
                              "kode_pelajaran"                   =>$data1,

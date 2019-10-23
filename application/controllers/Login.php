@@ -4,8 +4,8 @@ class Login extends CI_Controller {
 	function index(){
     		if (isset($_POST['submit'])){
           $angka=cetak($this->input->post('angka1'))+cetak($this->input->post('angka2'));
-          $hasil=cetak($this->input->post('c'));
           if ($angka==$hasil){
+          $hasil=cetak($this->input->post('c'));
       			$username = $this->input->post('a');
       			$password = hash("sha512", md5($this->input->post('b')));
             $passwords = md5($this->input->post('b'));
@@ -24,7 +24,7 @@ class Login extends CI_Controller {
             $total3 = $siswa->num_rows();
 
             $row4 = $ortu->row_array();
-            $total4 = $ortu->num_rows();
+            $total4 = $ortu->num_rows();            
 
       			      if ($total1 == 1){
               				$this->session->set_userdata('upload_image_file_manager',true);
@@ -110,10 +110,12 @@ class Login extends CI_Controller {
                         redirect('login/jenjang');
                       }
                   }else{
+
               echo $this->session->set_flashdata('message', '<div class="alert alert-danger"><center>Username atau Password salah!</center></div>');
               redirect('login');
       			}
           }else{
+
             echo $this->session->set_flashdata('message', '<div class="alert alert-danger"><center>Security Code yang anda masukkan salah!</center></div>');
             redirect('login');
           }

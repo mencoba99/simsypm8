@@ -44,11 +44,16 @@
                                 <center>
                                   <div class='btn-group'> 
                                     <button type='button' class='btn btn-$color btn-xs'>$status</button> 
-                                    <button type='button' class='btn btn-$color btn-xs dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'> <span class='caret'></span> <span class='sr-only'>Toggle Dropdown</span> </button> 
+                                    <button type='button' class='btn btn-$color btn-xs dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'> <span class='caret'></span>";
+                                    if ($this->session->level=='kepsek' & $this->session->level=='admin') {
+                                      # code...
+                                    echo" <span class='sr-only'>Toggle Dropdown</span> </button> 
                                       <ul class='dropdown-menu'> 
                                         <li><a href='".base_url().$this->uri->segment(1)."/agendaStatus?id=$r[id_agenda]&status=Pending' onclick=\"return confirm('Apa anda yakin ubah status jadi Belum Valid?')\"><span class='glyphicon glyphicon-remove'></span> Belum Valid</a></li>
                                         <li><a href='".base_url().$this->uri->segment(1)."/agendaStatus?id=$r[id_agenda]&status=Terima' onclick=\"return confirm('Apa anda yakin dokumen Sudah Valid?')\" value='btn'><span class='glyphicon glyphicon-ok'></span> Sudah Valid</a></li> 
-                                      </ul>
+                                      </ul>";
+                                    }
+                                  echo"                                    
                                   </div>
                                 <a class='btn btn-success btn-xs' title='Edit Data' href='".base_url().$this->uri->segment(1)."/edit_agenda/$r[id_agenda]'><span class='glyphicon glyphicon-edit'></span></a>
                                 <a class='btn btn-danger btn-xs' title='Delete Data' href='".base_url().$this->uri->segment(1)."/delete_agenda/$r[id_agenda]' onclick=\"return confirm('Apa anda yakin untuk hapus Data ini?')\"><span class='glyphicon glyphicon-remove'></span></a>

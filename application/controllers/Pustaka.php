@@ -523,7 +523,7 @@ class Pustaka extends CI_Controller {
 
     function transaksi_pengembalian(){
         cek_session_akses('transaksi_pengembalian',$this->session->id_session);
-        $data['tampil'] = $this->db->query("SELECT a.*, b.nama FROM `rb_pustaka_pinjam` a LEFT JOIN rb_siswa b On a.id_siswa=b.id_siswa LEFT JOIN rb_pustaka_pinjam_detail d ON a.id_pinjam=d.id_pinjam GROUP BY a.id_pinjam ORDER BY a.id_pinjam DESC");
+        $data['tampil'] = $this->db->query("SELECT a.*, b.nama, b.id_kelas FROM `rb_pustaka_pinjam` a LEFT JOIN rb_siswa b On a.id_siswa=b.id_siswa LEFT JOIN rb_pustaka_pinjam_detail d ON a.id_pinjam=d.id_pinjam GROUP BY a.id_pinjam ORDER BY a.id_pinjam DESC");        
         $this->template->load('administrator/template','administrator/mod_pustaka/pustaka_pengembalian',$data);
     }
 

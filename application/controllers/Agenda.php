@@ -9,6 +9,8 @@ class Agenda extends CI_Controller {
     function agenda(){
         cek_session_akses('agenda',$this->session->id_session);
         $data['record'] = $this->model_app->view_where_ordering('rb_lk_agenda',array('id_identitas_sekolah'=>$this->session->sekolah),'id_agenda','ASC');  
+        $record = $this->model_app->jadwal_pelajaran_guru_kurikulum($thn['id_tahun_akademik'],1);
+
         $this->template->load('administrator/template','administrator/mod_lk_agenda/view',$data);
     }
 

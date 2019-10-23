@@ -4,11 +4,12 @@ class Smk extends CI_Controller {
     public function __construct(){
         parent::__construct();
         $this->load->library("PHPExcel");
-    }
+        
+}
 
-  	function index(){
-      	redirect($this->uri->segment(1).'/home');
-  	}
+    function index(){
+        redirect($this->uri->segment(1).'/home');
+    }
 
     function reset_password(){
         if (isset($_POST['submit'])){
@@ -53,8 +54,7 @@ class Smk extends CI_Controller {
                 $usr = $this->model_app->edit('rb_users', array('email' => $email))->row_array();
                 $this->load->library('email');
 
-                $tgl = date("d-m-Y H:i:s");            
-
+                $tgl = date("d-m-Y H:i:s");
                 $subject      = 'Lupa Password ...';
                 $message      = "<html><body>
                                     <table style='margin-left:25px'>
@@ -95,9 +95,9 @@ class Smk extends CI_Controller {
         }
     }
 
-	function home(){
+    function home(){
         if ($this->session->level=='admin'){
-		      $this->template->load('administrator/template','administrator/home/view_home_admin');
+              $this->template->load('administrator/template','administrator/home/view_home_admin');
         }elseif($this->session->level=='guru'){
           $data['users'] = $this->model_app->view_where('rb_guru',array('id_guru'=>$this->session->id_session))->row_array();
           $this->template->load('administrator/template','administrator/home/view_home_guru',$data);
@@ -110,11 +110,11 @@ class Smk extends CI_Controller {
           $data['modul'] = $this->db->query("SELECT * FROM rb_users a JOIN users_modul b ON a.id_user=b.id_user where b.level='user' ORDER BY id_umod DESC");
           $this->template->load('administrator/template','administrator/home/view_home_users',$data);
         }
-	}
+    }
 
-	function sekolah(){
-		cek_session_akses('sekolah',$this->session->id_session);
-		if (isset($_POST['submit'])){
+    function sekolah(){
+        cek_session_akses('sekolah',$this->session->id_session);
+        if (isset($_POST['submit'])){
             $config['upload_path'] = 'asset/logo/';
             $config['allowed_types'] = 'gif|jpg|png|JPG|JPEG';
             $config['max_size'] = '2000'; // kb
@@ -146,15 +146,15 @@ class Smk extends CI_Controller {
                             'tanggal_rapor1'=>$this->db->escape_str($this->input->post('tanggal_rapor1')),
                             'tanggal_rapor2'=>$this->db->escape_str($this->input->post('tanggal_rapor2')));
 
-	    	$where = array('id_identitas_sekolah' => $this->session->sekolah);
-			$this->model_app->update('rb_identitas_sekolah', $data, $where);
-			redirect($this->uri->segment(1).'/sekolah');
-		}else{
-			$proses = $this->model_app->edit('rb_identitas_sekolah', array('id_identitas_sekolah' => $this->session->sekolah))->row_array();
-			$data = array('s' => $proses);
-			$this->template->load('administrator/template','administrator/mod_identitas/view',$data);
-		}
-	}
+            $where = array('id_identitas_sekolah' => $this->session->sekolah);
+            $this->model_app->update('rb_identitas_sekolah', $data, $where);
+            redirect($this->uri->segment(1).'/sekolah');
+        }else{
+            $proses = $this->model_app->edit('rb_identitas_sekolah', array('id_identitas_sekolah' => $this->session->sekolah))->row_array();
+            $data = array('s' => $proses);
+            $this->template->load('administrator/template','administrator/mod_identitas/view',$data);
+        }
+    }
 
   function hitung_kkm(){
     cek_session_akses('hitung_kkm',$this->session->id_session);
@@ -484,35 +484,35 @@ class Smk extends CI_Controller {
     }
 
 
-	// Controller Modul Kurikulum
+    // Controller Modul Kurikulum
 
-	function kurikulum(){
-		cek_session_akses('kurikulum',$this->session->id_session);
-		$data['record'] = $this->model_app->view_ordering('rb_kurikulum','id_identitas_sekolah','ASC');
-		$this->template->load('administrator/template','administrator/mod_kurikulum/view',$data);
-	}
-
-	function edit_kurikulum(){
-		cek_session_akses('kurikulum',$this->session->id_session);
-		$id = $this->uri->segment(3);
-		if (isset($_POST['submit'])){
-			$data = array('nama_kurikulum'=>$this->db->escape_str($this->input->post('a')));
-			$where = array('kode_kurikulum' => $this->input->post('id'),'id_identitas_sekolah'=>$this->session->sekolah);
-			$this->model_app->update('rb_kurikulum', $data, $where);
-			redirect($this->uri->segment(1).'/kurikulum');
-		}else{
-			$edit = $this->model_app->view_where('rb_kurikulum', array('kode_kurikulum'=>$id,'id_identitas_sekolah'=>$this->session->sekolah))->row_array();
-			$data = array('s' => $edit);
-			$this->template->load('administrator/template','administrator/mod_kurikulum/edit',$data);
-		}
-	}
-
-	function delete_kurikulum(){
+    function kurikulum(){
         cek_session_akses('kurikulum',$this->session->id_session);
-		$id = array('kode_kurikulum' => $this->uri->segment(3),'id_identitas_sekolah'=>$this->session->sekolah);
-		$this->model_app->delete('rb_kurikulum',$id);
-		redirect($this->uri->segment(1).'/kurikulum');
-	}
+        $data['record'] = $this->model_app->view_ordering('rb_kurikulum','id_identitas_sekolah','ASC');
+        $this->template->load('administrator/template','administrator/mod_kurikulum/view',$data);
+    }
+
+    function edit_kurikulum(){
+        cek_session_akses('kurikulum',$this->session->id_session);
+        $id = $this->uri->segment(3);
+        if (isset($_POST['submit'])){
+            $data = array('nama_kurikulum'=>$this->db->escape_str($this->input->post('a')));
+            $where = array('kode_kurikulum' => $this->input->post('id'),'id_identitas_sekolah'=>$this->session->sekolah);
+            $this->model_app->update('rb_kurikulum', $data, $where);
+            redirect($this->uri->segment(1).'/kurikulum');
+        }else{
+            $edit = $this->model_app->view_where('rb_kurikulum', array('kode_kurikulum'=>$id,'id_identitas_sekolah'=>$this->session->sekolah))->row_array();
+            $data = array('s' => $edit);
+            $this->template->load('administrator/template','administrator/mod_kurikulum/edit',$data);
+        }
+    }
+
+    function delete_kurikulum(){
+        cek_session_akses('kurikulum',$this->session->id_session);
+        $id = array('kode_kurikulum' => $this->uri->segment(3),'id_identitas_sekolah'=>$this->session->sekolah);
+        $this->model_app->delete('rb_kurikulum',$id);
+        redirect($this->uri->segment(1).'/kurikulum');
+    }
 
 
     // Controller Modul Tingkat
@@ -644,14 +644,6 @@ class Smk extends CI_Controller {
     function tambah_gedung(){
         cek_session_akses('gedung',$this->session->id_session);
         if (isset($_POST['submit'])){
-            $config['upload_path'] = 'asset/asset_sekolah/';
-            $config['allowed_types'] = 'gif|jpg|png|JPG|JPEG';
-            $config['max_size'] = '3000'; // kb
-            $config['file_name'] = $this->uri->segment(1).'_'.$_FILES["foto"]['name'];
-            $this->load->library('upload', $config);
-            $this->upload->do_upload('foto');
-            $hasil=$this->upload->data();         
-            if ($_FILES["foto"]['name']==''){
             $data = array('id_identitas_sekolah'=>$this->session->sekolah,
                             'kode_gedung'=>$this->input->post('a'),
                             'nama_gedung'=>$this->input->post('b'),
@@ -660,21 +652,7 @@ class Smk extends CI_Controller {
                             'tinggi'=>$this->input->post('e'),
                             'lebar'=>$this->input->post('f'),
                             'keterangan'=>$this->input->post('g'),
-                            'aktif'=>$this->input->post('h'),
-                        );
-            }else{
-            $data = array('id_identitas_sekolah'=>$this->session->sekolah,
-                            'kode_gedung'=>$this->input->post('a'),
-                            'nama_gedung'=>$this->input->post('b'),
-                            'jumlah_lantai'=>$this->input->post('c'),
-                            'panjang'=>$this->input->post('d'),
-                            'tinggi'=>$this->input->post('e'),
-                            'lebar'=>$this->input->post('f'),
-                            'keterangan'=>$this->input->post('g'),
-                            'aktif'=>$this->input->post('h'),
-                            'foto'=>$hasil['file_name'],
-                        );
-            }
+                            'aktif'=>$this->input->post('h'));
             $this->model_app->insert('rb_gedung',$data);
             redirect($this->uri->segment(1).'/gedung');
         }else{
@@ -686,14 +664,6 @@ class Smk extends CI_Controller {
         cek_session_akses('gedung',$this->session->id_session);
         $id = $this->uri->segment(3);
         if (isset($_POST['submit'])){
-            $config['upload_path'] = 'asset/asset_sekolah/';
-            $config['allowed_types'] = 'gif|jpg|png|JPG|JPEG';
-            $config['max_size'] = '3000'; // kb
-            $config['file_name'] = $this->uri->segment(1).'_'.$_FILES["foto"]['name'];
-            $this->load->library('upload', $config);
-            $this->upload->do_upload('foto');
-            $hasil=$this->upload->data(); 
-            if ($_FILES["foto"]['name']==''){            
             $data = array('id_identitas_sekolah'=>$this->session->sekolah,
                             'kode_gedung'=>$this->input->post('a'),
                             'nama_gedung'=>$this->input->post('b'),
@@ -702,21 +672,7 @@ class Smk extends CI_Controller {
                             'tinggi'=>$this->input->post('e'),
                             'lebar'=>$this->input->post('f'),
                             'keterangan'=>$this->input->post('g'),
-                            'aktif'=>$this->input->post('h'),
-                        );
-            }else{
-            $data = array('id_identitas_sekolah'=>$this->session->sekolah,
-                            'kode_gedung'=>$this->input->post('a'),
-                            'nama_gedung'=>$this->input->post('b'),
-                            'jumlah_lantai'=>$this->input->post('c'),
-                            'panjang'=>$this->input->post('d'),
-                            'tinggi'=>$this->input->post('e'),
-                            'lebar'=>$this->input->post('f'),
-                            'keterangan'=>$this->input->post('g'),
-                            'aktif'=>$this->input->post('h'),
-                            'foto'=>$hasil['file_name'],
-                        );
-            }
+                            'aktif'=>$this->input->post('h'));
             $where = array('id_gedung' => $this->input->post('id'),'id_identitas_sekolah'=>$this->session->sekolah);
             $this->model_app->update('rb_gedung', $data, $where);
             redirect($this->uri->segment(1).'/gedung');
@@ -750,33 +706,13 @@ class Smk extends CI_Controller {
     function tambah_ruangan(){
         cek_session_akses('ruangan',$this->session->id_session);
         if (isset($_POST['submit'])){
-            $config['upload_path'] = 'asset/asset_sekolah/';
-            $config['allowed_types'] = 'gif|jpg|png|JPG|JPEG';
-            $config['max_size'] = '3000'; // kb
-            $config['file_name'] = $this->uri->segment(1).'_'.$_FILES["foto"]['name'];
-            $this->load->library('upload', $config);
-            $this->upload->do_upload('foto');
-            $hasil=$this->upload->data();         
-            if ($_FILES["foto"]['name']==''){
             $data = array('id_gedung'=>$this->input->post('a'),
                             'kode_ruangan'=>$this->input->post('b'),
                             'nama_ruangan'=>$this->input->post('c'),
                             'kapasitas_belajar'=>$this->input->post('d'),
                             'kapasitas_ujian'=>$this->input->post('e'),
                             'keterangan'=>$this->input->post('f'),
-                            'aktif'=>$this->input->post('g'),
-                        );
-            }else{
-            $data = array('id_gedung'=>$this->input->post('a'),
-                            'kode_ruangan'=>$this->input->post('b'),
-                            'nama_ruangan'=>$this->input->post('c'),
-                            'kapasitas_belajar'=>$this->input->post('d'),
-                            'kapasitas_ujian'=>$this->input->post('e'),
-                            'keterangan'=>$this->input->post('f'),
-                            'aktif'=>$this->input->post('g'),
-                            'foto'=>$hasil['file_name'],
-                        );
-            }
+                            'aktif'=>$this->input->post('g'));
             $this->model_app->insert('rb_ruangan',$data);
             redirect($this->uri->segment(1).'/ruangan');
         }else{
@@ -790,33 +726,13 @@ class Smk extends CI_Controller {
         cek_session_akses('ruangan',$this->session->id_session);
         $id = $this->uri->segment(3);
         if (isset($_POST['submit'])){
-            $config['upload_path'] = 'asset/asset_sekolah/';
-            $config['allowed_types'] = 'gif|jpg|png|JPG|JPEG';
-            $config['max_size'] = '3000'; // kb
-            $config['file_name'] = $this->uri->segment(1).'_'.$_FILES["foto"]['name'];
-            $this->load->library('upload', $config);
-            $this->upload->do_upload('foto');
-            $hasil=$this->upload->data();         
-            if ($_FILES["foto"]['name']==''){
             $data = array('id_gedung'=>$this->input->post('a'),
                             'kode_ruangan'=>$this->input->post('b'),
                             'nama_ruangan'=>$this->input->post('c'),
                             'kapasitas_belajar'=>$this->input->post('d'),
                             'kapasitas_ujian'=>$this->input->post('e'),
                             'keterangan'=>$this->input->post('f'),
-                            'aktif'=>$this->input->post('g'),
-                        );
-            }else{
-            $data = array('id_gedung'=>$this->input->post('a'),
-                            'kode_ruangan'=>$this->input->post('b'),
-                            'nama_ruangan'=>$this->input->post('c'),
-                            'kapasitas_belajar'=>$this->input->post('d'),
-                            'kapasitas_ujian'=>$this->input->post('e'),
-                            'keterangan'=>$this->input->post('f'),
-                            'aktif'=>$this->input->post('g'),
-                            'foto'=>$hasil['file_name'],
-                        );
-            }
+                            'aktif'=>$this->input->post('g'));
             $where = array('id_ruangan' => $this->input->post('id'));
             $this->model_app->update('rb_ruangan', $data, $where);
             redirect($this->uri->segment(1).'/ruangan');
@@ -1152,7 +1068,6 @@ class Smk extends CI_Controller {
            }
            redirect($this->uri->segment(1).'/siswa?angkatan='.$this->input->post('angkatanpindah').'&kelas='.$this->input->post('kelaspindah'));
         }else{
-            
             $siswa = $this->model_app->siswa($this->input->get('angkatan'),$this->input->get('kelas'));
             $angkatan = $this->db->query("SELECT angkatan FROM rb_siswa where id_identitas_sekolah='".$this->session->sekolah."' GROUP BY angkatan ORDER BY angkatan ASC");
             $kelas = $this->model_app->view_where_ordering('rb_kelas',array('id_identitas_sekolah'=>$this->session->sekolah),'id_kelas','ASC');
@@ -1890,7 +1805,7 @@ class Smk extends CI_Controller {
                                 'sk_cpns'=>$this->input->post('sk_cpns'),
                                 'tanggal_cpns'=>$this->input->post('tanggal_cpns'),
                                 'sk_pengangkatan'=>$this->input->post('sk_pengangkatan'),
-                                'tmt_pengangkatan'=>$this->input->post('tmt_pengangkatan'),
+                                'tmt_pengangkatan'=>tgl_simpan($this->input->post('tmt_pengangkatan')),
                                 'lembaga_pengangkatan'=>$this->input->post('lembaga_pengangkatan'),
                                 'id_golongan'=>$this->input->post('id_golongan'),
                                 'keahlian_laboratorium'=>$this->input->post('keahlian_laboratorium'),
@@ -1908,10 +1823,6 @@ class Smk extends CI_Controller {
                                 'keahlian_breile'=>$this->input->post('keahlian_breile'),
                                 'keahlian_bahasa_isyarat'=>$this->input->post('keahlian_bahasa_isyarat'),
                                 'npwp'=>$this->input->post('npwp'),
-                                'sk_gtt'=>$this->input->post('sk_gtt'),
-                                'tgl_gtt'=>$this->input->post('tgl_gtt'),
-                                'sk_gty'=>$this->input->post('sk_gty'),
-                                'tgl_gty'=>$this->input->post('tgl_gty'),
                                 'kewarganegaraan'=>$this->input->post('kewarganegaraan'));
             }else{
                 $rt_rw = explode('/',$this->input->post('rt_rw'));
@@ -1944,7 +1855,7 @@ class Smk extends CI_Controller {
                                 'sk_cpns'=>$this->input->post('sk_cpns'),
                                 'tanggal_cpns'=>$this->input->post('tanggal_cpns'),
                                 'sk_pengangkatan'=>$this->input->post('sk_pengangkatan'),
-                                'tmt_pengangkatan'=>$this->input->post('tmt_pengangkatan'),
+                                'tmt_pengangkatan'=>tgl_simpan($this->input->post('tmt_pengangkatan')),
                                 'lembaga_pengangkatan'=>$this->input->post('lembaga_pengangkatan'),
                                 'id_golongan'=>$this->input->post('id_golongan'),
                                 'keahlian_laboratorium'=>$this->input->post('keahlian_laboratorium'),
@@ -1962,10 +1873,6 @@ class Smk extends CI_Controller {
                                 'keahlian_breile'=>$this->input->post('keahlian_breile'),
                                 'keahlian_bahasa_isyarat'=>$this->input->post('keahlian_bahasa_isyarat'),
                                 'npwp'=>$this->input->post('npwp'),
-                                'sk_gtt'=>$this->input->post('sk_gtt'),
-                                'tgl_gtt'=>$this->input->post('tgl_gtt'),
-                                'sk_gty'=>$this->input->post('sk_gty'),
-                                'tgl_gty'=>$this->input->post('tgl_gty'),
                                 'kewarganegaraan'=>$this->input->post('kewarganegaraan'),
                                 'foto'=>$hasil['file_name']);
             }
@@ -2029,7 +1936,7 @@ class Smk extends CI_Controller {
                                 'sk_cpns'=>$this->input->post('sk_cpns'),
                                 'tanggal_cpns'=>$this->input->post('tanggal_cpns'),
                                 'sk_pengangkatan'=>$this->input->post('sk_pengangkatan'),
-                                'tmt_pengangkatan'=>$this->input->post('tmt_pengangkatan'),
+                                'tmt_pengangkatan'=>tgl_simpan($this->input->post('tmt_pengangkatan')),
                                 'lembaga_pengangkatan'=>$this->input->post('lembaga_pengangkatan'),
                                 'id_golongan'=>$this->input->post('id_golongan'),
                                 'keahlian_laboratorium'=>$this->input->post('keahlian_laboratorium'),
@@ -2060,9 +1967,9 @@ class Smk extends CI_Controller {
                                 'asset'=>$this->input->post('asset'),
                                 'finance'=>$this->input->post('finance'),
                                 'sk_gtt'=>$this->input->post('sk_gtt'),
-                                'tgl_gtt'=>$this->input->post('tgl_gtt'),
+                                'tgl_gtt'=>tgl_simpan($this->input->post('tgl_gtt')),
                                 'sk_gty'=>$this->input->post('sk_gty'),
-                                'tgl_gty'=>$this->input->post('tgl_gty')
+                                'tgl_gty'=>tgl_simpan($this->input->post('tgl_gty'))
                             );
                 }else{
                     $rt_rw = explode('/',$this->input->post('rt_rw'));
@@ -2094,7 +2001,7 @@ class Smk extends CI_Controller {
                                 'sk_cpns'=>$this->input->post('sk_cpns'),
                                 'tanggal_cpns'=>$this->input->post('tanggal_cpns'),
                                 'sk_pengangkatan'=>$this->input->post('sk_pengangkatan'),
-                                'tmt_pengangkatan'=>$this->input->post('tmt_pengangkatan'),
+                                'tmt_pengangkatan'=>tgl_simpan($this->input->post('tmt_pengangkatan')),
                                 'lembaga_pengangkatan'=>$this->input->post('lembaga_pengangkatan'),
                                 'id_golongan'=>$this->input->post('id_golongan'),
                                 'keahlian_laboratorium'=>$this->input->post('keahlian_laboratorium'),
@@ -2125,9 +2032,9 @@ class Smk extends CI_Controller {
                                 'asset'=>$this->input->post('asset'),
                                 'finance'=>$this->input->post('finance'),
                                 'sk_gtt'=>$this->input->post('sk_gtt'),
-                                'tgl_gtt'=>$this->input->post('tgl_gtt'),
+                                'tgl_gtt'=>tgl_simpan($this->input->post('tgl_gtt')),
                                 'sk_gty'=>$this->input->post('sk_gty'),
-                                'tgl_gty'=>$this->input->post('tgl_gty')
+                                'tgl_gty'=>tgl_simpan($this->input->post('tgl_gty'))
                             );
                 }
             }else{
@@ -2160,9 +2067,9 @@ class Smk extends CI_Controller {
                                 'tugas_tambahan'=>$this->input->post('tugas_tambahan'),
                                 'id_status_keaktifan'=>$this->input->post('id_status_keaktifan'),
                                 'sk_cpns'=>$this->input->post('sk_cpns'),
-                                'tanggal_cpns'=>$this->input->post('tanggal_cpns'),
+                                'tanggal_cpns'=>tgl_simpan($this->input->post('tanggal_cpns')),
                                 'sk_pengangkatan'=>$this->input->post('sk_pengangkatan'),
-                                'tmt_pengangkatan'=>$this->input->post('tmt_pengangkatan'),
+                                'tmt_pengangkatan'=>tgl_simpan($this->input->post('tmt_pengangkatan')),
                                 'lembaga_pengangkatan'=>$this->input->post('lembaga_pengangkatan'),
                                 'id_golongan'=>$this->input->post('id_golongan'),
                                 'keahlian_laboratorium'=>$this->input->post('keahlian_laboratorium'),
@@ -2194,9 +2101,9 @@ class Smk extends CI_Controller {
                                 'asset'=>$this->input->post('asset'),
                                 'finance'=>$this->input->post('finance'),
                                 'sk_gtt'=>$this->input->post('sk_gtt'),
-                                'tgl_gtt'=>$this->input->post('tgl_gtt'),
+                                'tgl_gtt'=>tgl_simpan($this->input->post('tgl_gtt')),
                                 'sk_gty'=>$this->input->post('sk_gty'),
-                                'tgl_gty'=>$this->input->post('tgl_gty')
+                                'tgl_gty'=>tgl_simpan($this->input->post('tgl_gty'))
                             );
                 }else{
                     $rt_rw = explode('/',$this->input->post('rt_rw'));
@@ -2228,7 +2135,7 @@ class Smk extends CI_Controller {
                                 'sk_cpns'=>$this->input->post('sk_cpns'),
                                 'tanggal_cpns'=>$this->input->post('tanggal_cpns'),
                                 'sk_pengangkatan'=>$this->input->post('sk_pengangkatan'),
-                                'tmt_pengangkatan'=>$this->input->post('tmt_pengangkatan'),
+                                'tmt_pengangkatan'=>tgl_simpan($this->input->post('tmt_pengangkatan')),
                                 'lembaga_pengangkatan'=>$this->input->post('lembaga_pengangkatan'),
                                 'id_golongan'=>$this->input->post('id_golongan'),
                                 'keahlian_laboratorium'=>$this->input->post('keahlian_laboratorium'),
@@ -2260,9 +2167,9 @@ class Smk extends CI_Controller {
                                 'asset'=>$this->input->post('asset'),
                                 'finance'=>$this->input->post('finance'),
                                 'sk_gtt'=>$this->input->post('sk_gtt'),
-                                'tgl_gtt'=>$this->input->post('tgl_gtt'),
+                                'tgl_gtt'=>tgl_simpan($this->input->post('tgl_gtt')),
                                 'sk_gty'=>$this->input->post('sk_gty'),
-                                'tgl_gty'=>$this->input->post('tgl_gty')
+                                'tgl_gty'=>tgl_simpan($this->input->post('tgl_gty'))
                             ); 
                 }
             }
@@ -2370,20 +2277,20 @@ class Smk extends CI_Controller {
     }
 
 
-	// Controller Modul User
+    // Controller Modul User
 
-	function manajemenuser(){
+    function manajemenuser(){
         cek_session_akses('administrator',$this->session->id_session);
         $data['record'] = $this->model_app->users();
         $this->template->load('administrator/template','administrator/mod_users/view',$data);
     }
 
 
-	function tambah_manajemenuser(){
-		cek_session_akses('administrator',$this->session->id_session);
-		$id = $this->session->username;
-		if (isset($_POST['submit'])){
-			$config['upload_path'] = 'asset/foto_user/';
+    function tambah_manajemenuser(){
+        cek_session_akses('administrator',$this->session->id_session);
+        $id = $this->session->username;
+        if (isset($_POST['submit'])){
+            $config['upload_path'] = 'asset/foto_user/';
             $config['allowed_types'] = 'gif|jpg|png|JPG|JPEG';
             $config['max_size'] = '1000'; // kb
 
@@ -2422,18 +2329,18 @@ class Smk extends CI_Controller {
                 $this->model_app->insert('users_modul',$datam);
               }
 
-			redirect($this->uri->segment(1).'/edit_manajemenuser/'.$sess);
-		}else{
+            redirect($this->uri->segment(1).'/edit_manajemenuser/'.$sess);
+        }else{
             $proses = $this->model_app->view_where_ordering('modul', array('publish' => 'Y','status' => 'user'), 'id_modul','DESC');
             $data = array('record' => $proses);
-			$this->template->load('administrator/template','administrator/mod_users/tambah',$data);
-		}
-	}
+            $this->template->load('administrator/template','administrator/mod_users/tambah',$data);
+        }
+    }
 
-	function edit_manajemenuser(){
-		$id = $this->uri->segment(3);
-		if (isset($_POST['submit'])){
-			$config['upload_path'] = 'asset/foto_user/';
+    function edit_manajemenuser(){
+        $id = $this->uri->segment(3);
+        if (isset($_POST['submit'])){
+            $config['upload_path'] = 'asset/foto_user/';
             $config['allowed_types'] = 'gif|jpg|png|JPG|JPEG';
             $config['max_size'] = '1000'; // kb
             $config['file_name'] = $this->uri->segment(1).'_'.$_FILES["f"]['name'];
@@ -2480,26 +2387,26 @@ class Smk extends CI_Controller {
                 $this->model_app->insert('users_modul',$datam);
               }
 
-			redirect($this->uri->segment(1).'/edit_manajemenuser/'.$this->input->post('id'));
-		}else{
+            redirect($this->uri->segment(1).'/edit_manajemenuser/'.$this->input->post('id'));
+        }else{
             if ($this->session->id_session==$this->uri->segment(3) OR $this->session->level=='admin'){
                 $proses = $this->model_app->edit('rb_users', array('id_user' => $id,'id_identitas_sekolah'=>$this->session->sekolah))->row_array();
                 $akses = $this->model_app->view_join_where('*','users_modul','modul','id_modul', array('id_user' => $id),'id_umod','DESC');
                 $modul = $this->model_app->view_where_ordering('modul', array('publish' => 'Y','status' => 'user'), 'id_modul','DESC');
                 $data = array('rows' => $proses, 'record' => $modul, 'akses' => $akses);
-    			$this->template->load('administrator/template','administrator/mod_users/edit',$data);
+                $this->template->load('administrator/template','administrator/mod_users/edit',$data);
             }else{
                 redirect($this->uri->segment(1).'/edit_manajemenuser/'.$this->session->username);
             }
-		}
-	}
+        }
+    }
 
-	function delete_manajemenuser(){
+    function delete_manajemenuser(){
         cek_session_akses('manajemenuser',$this->session->id_session);
-		$id = array('id_user' => $this->uri->segment(3),'id_identitas_sekolah'=>$this->session->sekolah);
+        $id = array('id_user' => $this->uri->segment(3),'id_identitas_sekolah'=>$this->session->sekolah);
         $this->model_app->delete('rb_users',$id);
-		redirect($this->uri->segment(1).'/manajemenuser');
-	}
+        redirect($this->uri->segment(1).'/manajemenuser');
+    }
 
     function delete_akses(){
         cek_session_admin();
@@ -2556,24 +2463,24 @@ class Smk extends CI_Controller {
         redirect($this->uri->segment(1).'/akses_khusus');
     }
 
-	
+    
 
-	// Controller Modul Modul
+    // Controller Modul Modul
 
-	function manajemenmodul(){
-		cek_session_akses('manajemenmodul',$this->session->id_session);
+    function manajemenmodul(){
+        cek_session_akses('manajemenmodul',$this->session->id_session);
         if ($this->session->level=='admin'){
             $data['record'] = $this->model_app->view_ordering('modul','id_modul','DESC');
         }else{
             $data['record'] = $this->model_app->view_where_ordering('modul',array('username'=>$this->session->username),'id_modul','DESC');
         }
-		$this->template->load('administrator/template','administrator/mod_modul/view',$data);
-	}
+        $this->template->load('administrator/template','administrator/mod_modul/view',$data);
+    }
 
-	function tambah_manajemenmodul(){
-		cek_session_akses('manajemenmodul',$this->session->id_session);
-		if (isset($_POST['submit'])){
-			$data = array('nama_modul'=>$this->db->escape_str($this->input->post('a')),
+    function tambah_manajemenmodul(){
+        cek_session_akses('manajemenmodul',$this->session->id_session);
+        if (isset($_POST['submit'])){
+            $data = array('nama_modul'=>$this->db->escape_str($this->input->post('a')),
                         'username'=>$this->session->username,
                         'link'=>$this->db->escape_str($this->input->post('b')),
                         'static_content'=>'',
@@ -2584,16 +2491,16 @@ class Smk extends CI_Controller {
                         'urutan'=>'0',
                         'link_seo'=>'');
             $this->model_app->insert('modul',$data);
-			redirect($this->uri->segment(1).'/manajemenmodul');
-		}else{
-			$this->template->load('administrator/template','administrator/mod_modul/tambah');
-		}
-	}
+            redirect($this->uri->segment(1).'/manajemenmodul');
+        }else{
+            $this->template->load('administrator/template','administrator/mod_modul/tambah');
+        }
+    }
 
-	function edit_manajemenmodul(){
-		cek_session_akses('manajemenmodul',$this->session->id_session);
-		$id = $this->uri->segment(3);
-		if (isset($_POST['submit'])){
+    function edit_manajemenmodul(){
+        cek_session_akses('manajemenmodul',$this->session->id_session);
+        $id = $this->uri->segment(3);
+        if (isset($_POST['submit'])){
             $data = array('nama_modul'=>$this->db->escape_str($this->input->post('a')),
                         'username'=>$this->session->username,
                         'link'=>$this->db->escape_str($this->input->post('b')),
@@ -2606,28 +2513,28 @@ class Smk extends CI_Controller {
                         'link_seo'=>'');
             $where = array('id_modul' => $this->input->post('id'));
             $this->model_app->update('modul', $data, $where);
-			redirect($this->uri->segment(1).'/manajemenmodul');
-		}else{
+            redirect($this->uri->segment(1).'/manajemenmodul');
+        }else{
             if ($this->session->level=='admin'){
                  $proses = $this->model_app->edit('modul', array('id_modul' => $id))->row_array();
             }else{
                 $proses = $this->model_app->edit('modul', array('id_modul' => $id, 'username' => $this->session->username))->row_array();
             }
             $data = array('rows' => $proses);
-			$this->template->load('administrator/template','administrator/mod_modul/edit',$data);
-		}
-	}
+            $this->template->load('administrator/template','administrator/mod_modul/edit',$data);
+        }
+    }
 
-	function delete_manajemenmodul(){
+    function delete_manajemenmodul(){
         cek_session_akses('manajemenmodul',$this->session->id_session);
-		if ($this->session->level=='admin'){
+        if ($this->session->level=='admin'){
             $id = array('id_modul' => $this->uri->segment(3));
         }else{
             $id = array('id_modul' => $this->uri->segment(3), 'username'=>$this->session->username);
         }
         $this->model_app->delete('modul',$id);
-		redirect($this->uri->segment(1).'/manajemenmodul');
-	}
+        redirect($this->uri->segment(1).'/manajemenmodul');
+    }
 
 
     // Controller Modul Kelompok Mapel
@@ -2882,8 +2789,7 @@ class Smk extends CI_Controller {
         }else{
             $row = $this->db->query("SELECT id_tingkat, id_jurusan FROM rb_kelas where id_kelas='$_GET[kelas]'")->row_array();
             $tahun = $this->model_app->view_where_ordering('rb_tahun_akademik',array('id_identitas_sekolah'=>$this->session->sekolah),'id_tahun_akademik','ASC');
-            $kelas = $this->model_app->view_where_ordering('rb_kelas',array('id_identitas_sekolah'=>$this->session->sekolah,'id_tingkat'=>$row['id_tingkat']),'id_kelas','ASC');
-            
+            $kelas = $this->model_app->view_where_ordering('rb_kelas',array('id_identitas_sekolah'=>$this->session->sekolah,'id_tingkat'=>$row['id_tingkat']),'id_kelas','ASC');        
             $mapel = $this->model_app->view_where_ordering('rb_mata_pelajaran',array('id_identitas_sekolah'=>$this->session->sekolah,'id_tingkat'=>$row['id_tingkat'],'id_jurusan'=>$row['id_jurusan']),'id_mata_pelajaran','ASC');
             $ruangan = $this->model_app->view_join_where('*','rb_ruangan','rb_gedung','id_gedung',array('rb_gedung.id_identitas_sekolah'=>$this->session->sekolah),'id_ruangan','ASC');
             $guru = $this->model_app->view_where_ordering('rb_guru',array('id_identitas_sekolah'=>$this->session->sekolah),'id_guru','ASC');
@@ -5660,6 +5566,7 @@ class Smk extends CI_Controller {
                                                         JOIN rb_bk_jenis d ON c.id_jenis=d.id_jenis
                                                             JOIN rb_guru e ON a.id_guru=e.id_guru");
         }
+        // return print_r($data['record']->result_array());
         $this->template->load('administrator/template','administrator/mod_bk/view_rekam',$data);
     }
 
@@ -6026,10 +5933,10 @@ class Smk extends CI_Controller {
         redirect($this->uri->segment(1).'/backup_restore');
     }
 
-	function logout(){
-		$this->session->sess_destroy();
-		redirect('login');
-	}
+    function logout(){
+        $this->session->sess_destroy();
+        redirect('login');
+    }
     
     // Controller Notulensi
 

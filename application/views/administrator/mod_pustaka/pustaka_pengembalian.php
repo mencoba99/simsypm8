@@ -9,6 +9,7 @@
           <tr>
             <th style='width:40px'>No</th>
             <th>Nama Siswa</th>
+            <th>Kelas</th>
             <th>Tanggal Pinjam</th>
             <th>Jumlah</th>
             <th>Kembali</th>
@@ -23,8 +24,11 @@
         $j = $this->db->query("SELECT sum(jumlah) as jumlah FROM rb_pustaka_pinjam_detail where id_pinjam='$r[id_pinjam]'")->row_array();
         $k = $this->db->query("SELECT sum(jumlah) as jumlah FROM rb_pustaka_kembali where id_pinjam='$r[id_pinjam]'")->row_array();
         if ($j['jumlah']==$k['jumlah']){ $status = '<i style="color:green">Sudah Dikembalikan</i>'; }else{ $status = '<i style="color:red">Belum Dikembalikan</i>'; }
+
+        $kelas = $this->db->query("SELECT nama_kelas FROM rb_kelas where id_kelas = ".$r['id_kelas']." ")->result_array()[0];
         echo "<tr><td>$no</td>
                   <td>$r[nama]</td>
+                  <td>$kelas[nama_kelas]</td>
                   <td>".tgl_view($r['tanggal_pinjam'])."</td>
                   <td>$j[jumlah] Buku</td>
                   <td>".rupiah($k['jumlah'])." Buku</td>
