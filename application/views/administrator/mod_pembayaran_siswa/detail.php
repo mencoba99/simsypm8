@@ -57,7 +57,7 @@ if ($j['total_beban'] <= $t['total']) { $status = 'Lunas'; $class = 'success'; }
                                                                                                     <option value='EDC'>EDC</option>
                                                                                                     <option value='Transfer'>Transfer</option>
                                                                                                   </select></td></tr>
-                                <tr><th scope='row' width='120px'>Bayar Sisa</th>           <td><input type='text' class='form-control' name='bayar' value=''></td></tr>
+                                <tr><th scope='row' width='120px'>Nominal Bayar</th>           <td><input type='text' class='form-control' name='bayar' value=''></td></tr>
                                 <tr><td><input class='btn btn-primary btn-sm' type='submit' name='proses' value='Proses'></td></tr>
                             </table>
                         </form>
