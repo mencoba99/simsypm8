@@ -402,7 +402,7 @@
               </ul>
             </li>
 
-            <li class="treeview">
+            <!-- <li class="treeview">
               <a href="#"><i class="fa fa-bank"></i> <span>Bank Mini</span><i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
               <?php 
@@ -422,7 +422,7 @@
                 }
               ?>
               </ul>
-            </li>
+            </li> -->
 
              <!--  <?php 
                 /*$cek=$this->model_app->umenu_akses("#",$this->session->id_session);

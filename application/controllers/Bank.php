@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Bank extends CI_Controller {
     public function __construct(){
@@ -299,3 +299,4 @@ class Bank extends CI_Controller {
         redirect($this->uri->segment(1).'/detail_daftar_bkk/'.$this->uri->segment(3));
     }
 }
+ -->
