@@ -97,7 +97,8 @@ class Keuangan extends CI_Controller {
 
     function jenis_biaya(){
         cek_session_akses('jenis_biaya',$this->session->id_session);
-        $record = $this->model_app->jenis_biaya();        
+        $record = $this->model_app->jenis_biaya()->result_array();  
+        // return var_dump($record);      
         $data = array('record' => $record);
         $this->template->load('administrator/template','administrator/mod_jenis_biaya/view',$data);
     }
@@ -110,6 +111,7 @@ class Keuangan extends CI_Controller {
                 $id_kelas = $k['id_kelas'];
                 // print_r($id_kelas); exit();
             $data = array(  'id_kelas'   => $id_kelas,
+                            // 'id_tahun_akademik'=>$this->input->post('c'),
                             'id_coa'=>$this->input->post('c'),
                             'id_sub_coa'=>$this->input->post('d'),
                             'nama_jenis'=>$this->input->post('a'),

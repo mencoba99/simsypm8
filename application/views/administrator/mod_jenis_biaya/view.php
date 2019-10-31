@@ -24,7 +24,7 @@
                     <tbody>
                   <?php 
                     $no = 1;
-                    foreach ($record->result_array() as $r){
+                    foreach ($record as $r){
                     if ($r['id_sub_coa']=='0'){ $sub_coa = '-'; }else{ $sub_coa = $r['nama_sub_coa']; }
                     echo "<tr><td>$no</td>
                               <td>$r[nama_jenis]</td>

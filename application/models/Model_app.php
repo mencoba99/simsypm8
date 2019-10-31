@@ -461,13 +461,15 @@ class Model_app extends CI_model{
     }
 
     function jenis_biaya(){
-        // $this->db->distinct('a.nama_jenis');
-        $this->db->distinct()->select('a.nama_jenis, a.total_beban, b.nama_coa, c.nama_sub_coa');
-        $this->db->from('rb_keuangan_jenis a');
-        $this->db->join('rb_keuangan_coa b','a.id_coa=b.id_coa', 'left');
-        $this->db->join('rb_keuangan_sub_coa c','a.id_sub_coa=c.id_sub_coa', 'left');
-        $this->db->order_by('a.id_keuangan_jenis','ASC');
-        return $this->db->get();
+        // $this->db->select('*');
+        // $this->db->distinct();
+        // $this->db->select('a.nama_jenis, a.total_beban, b.nama_coa, c.nama_sub_coa');
+        // $this->db->from('rb_keuangan_jenis a');
+        // $this->db->join('rb_keuangan_coa b','a.id_coa=b.id_coa', 'left');
+        // $this->db->join('rb_keuangan_sub_coa c','a.id_sub_coa=c.id_sub_coa', 'left');
+        // $this->db->group_by('a.nama_jenis');
+        // $this->db->order_by('a.nama_jenis','ASC');
+        return $this->db->query("SELECT DISTINCT a.nama_jenis, a.nama_jenis, a.total_beban, b.nama_coa, c.nama_sub_coa FROM rb_keuangan_jenis a LEFT JOIN rb_keuangan_coa b ON a.id_coa = b.id_coa LEFT JOIN rb_keuangan_sub_coa c ON a.id_sub_coa = c.id_sub_coa ORDER BY a.nama_jenis DESC");
     }
 
     function pembayaran_siswa(){
