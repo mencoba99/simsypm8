@@ -461,13 +461,11 @@ class Model_app extends CI_model{
     }
 
     function jenis_biaya(){
-        $this->db->select('a.*, b.nama_coa, c.nama_sub_coa');
+        // $this->db->distinct('a.nama_jenis');
+        $this->db->distinct()->select('a.nama_jenis, a.total_beban, b.nama_coa, c.nama_sub_coa');
         $this->db->from('rb_keuangan_jenis a');
         $this->db->join('rb_keuangan_coa b','a.id_coa=b.id_coa', 'left');
         $this->db->join('rb_keuangan_sub_coa c','a.id_sub_coa=c.id_sub_coa', 'left');
-        $this->db->where('a.id_tahun_akademik',$this->input->get('tahun'));
-        $this->db->where('a.id_kelas',$this->input->get('kelas'));
-        $this->db->where('b.id_identitas_sekolah',$this->session->sekolah);
         $this->db->order_by('a.id_keuangan_jenis','ASC');
         return $this->db->get();
     }
@@ -479,7 +477,7 @@ class Model_app extends CI_model{
         $this->db->join('rb_jurusan c','a.id_jurusan=c.id_jurusan', 'left');
         $this->db->join('rb_jenis_kelamin d','a.id_jenis_kelamin=d.id_jenis_kelamin', 'left');
         $this->db->where('a.id_identitas_sekolah',$this->session->sekolah);
-        $this->db->where('a.id_kelas',$this->input->get('kelas'));
+        // $this->db->where('a.id_kelas',$this->input->get('kelas'));
         $this->db->order_by('a.nama','ASC');
         return $this->db->get();
     }

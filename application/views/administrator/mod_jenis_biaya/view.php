@@ -3,45 +3,14 @@
                 <div class="box-header">
                   <h3 class="box-title">Data Jenis Biaya</h3>
                   <?php 
-                    if (isset($_GET['tahun']) AND isset($_GET['kelas'])){
-                      echo "<a class='pull-right btn btn-primary btn-sm' href='".base_url().$this->uri->segment(1)."/tambah_jenis_biaya?tahun=$_GET[tahun]&kelas=$_GET[kelas]'>Tambahkan Data</a>";
-                    }
+                    
+                      echo "<a class='pull-right btn btn-primary btn-sm' href='".base_url().$this->uri->segment(1)."/tambah_jenis_biaya'>Tambahkan Data</a>";
+                    
                   ?>
                   
                 </div><!-- /.box-header -->
-                <div class="box-body">
-                <?php 
-                  echo "<form style='margin-right:5px; margin-top:0px' action='".base_url().$this->uri->segment(1)."/jenis_biaya' method='GET'>
-                    <table class='table table-condensed table-hover'>
-                        <tbody>
-                          <tr><th width='120px' scope='row'>Tahun Akademik</th> <td><select name='tahun' style='padding:4px; width:300px'>
-                          <option value=''>- Pilih -</option>";
-                            foreach ($tahun as $k) {
-                              if ($_GET['tahun']==$k['id_tahun_akademik']){
-                                echo "<option value='$k[id_tahun_akademik]' selected>$k[nama_tahun]</option>";
-                              }else{
-                                echo "<option value='$k[id_tahun_akademik]'>$k[nama_tahun]</option>";
-                              }
-                            }
-
-                    echo "</select></td></tr>
-                          <tr><th scope='row'>Kelas</th> <td><select name='kelas' style='padding:4px; width:300px'>
-                               <option value=''>- Pilih -</option>";
-                                  foreach ($kelas as $k) {
-                                    if ($this->input->get('kelas')==$k['id_kelas']){
-                                      echo "<option value='$k[id_kelas]' selected>$k[kode_kelas] - $k[nama_kelas]</option>";
-                                    }else{
-                                      echo "<option value='$k[id_kelas]'>$k[kode_kelas] - $k[nama_kelas]</option>";
-                                    }
-                                  }
-
-                          echo "</select>
-                                <input type='submit' style='margin-top:-4px' class='btn btn-info btn-sm' value='Tampilkan'></td></tr>
-                        </tbody>
-                    </table>
-                    </form>";
-                ?>
-                  <table id="example2" class="table table-bordered table-striped">
+                <div class="box-body">               
+                  <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                         <th style='width:40px'>No</th>
