@@ -4,8 +4,6 @@
                   <h3 class="box-title">Data Keuangan Siswa</h3>
                   <form style='margin-right:5px; margin-top:0px' class='pull-right' action='<?php echo base_url().$this->uri->segment(1); ?>/pembayaran_siswa' method='GET'>
 
-
-                    
                   </form>
                 </div><!-- /.box-header -->
                 <div class="box-body">

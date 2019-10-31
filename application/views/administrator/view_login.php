@@ -21,13 +21,13 @@
   <body class="hold-transition login-page">
     <div class="login-box">
       <div class="login-logo">
-        <a style='display:block' href="#">SMKN <b>1 KASREMAN</b></a>
+        <a style='display:block' href="#">SMK YPM 8<b>  SIDOARJO</b></a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
         <?php 
-          echo "<center><img style='width:200px' 
+          echo "<center><img style='width:150px' 
 
-          src='".base_url()."asset/admin/dist/img/kasreman.jpg'></center><br/>";
+          src='".base_url()."asset/admin/dist/img/sekolah_ypm.png'></center><br/>";
           echo "<center>".$this->session->flashdata('message')."</center>";
           echo form_open('login/index');
         ?>

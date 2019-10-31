@@ -155,6 +155,7 @@ class Keuangan extends CI_Controller {
     function pembayaran_siswa(){
         cek_session_akses('pembayaran_siswa',$this->session->id_session);
         $record = $this->model_app->pembayaran_siswa();
+        // print_r($record);
         $tahun = $this->model_app->view_where_ordering('rb_tahun_akademik',array('id_identitas_sekolah'=>$this->session->sekolah),'id_tahun_akademik','ASC');
         $kelas = $this->model_app->view_where_ordering('rb_kelas',array('id_identitas_sekolah'=>$this->session->sekolah),'id_kelas','ASC');
         $jenis_biaya = $this->model_app->view_where_ordering('rb_keuangan_jenis',array('id_tahun_akademik'=>$this->input->get('tahun'),'id_kelas'=>$this->input->get('kelas')),'id_keuangan_jenis','ASC');
