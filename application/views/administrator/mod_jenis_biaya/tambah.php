@@ -20,7 +20,6 @@
 
 <?php
 $mapel = $this->db->query("SELECT * FROM rb_mata_pelajaran")->result_array();
-        // return print_r($mapel);
     echo "<div class='col-md-12'>
               <div class='box box-info'>
                 <div class='box-header with-border'>
@@ -34,6 +33,7 @@ $mapel = $this->db->query("SELECT * FROM rb_mata_pelajaran")->result_array();
                   <tbody>                    
                     <tr><th width='120px' scope='row'>Nama Jenis</th> <td><input type='text' class='form-control' name='a' required> </td></tr>
                     <tr><th scope='row'>Total Beban</th> <td><input type='number' class='form-control' name='b'> </td></tr>
+                    
                     <tr><th width='120px' scope='row'>COA</th> <td><select class='form-control' name='c' style='padding:4px' onchange=\"showCoa()\" required>
                           <option value=''>- Pilih -</option>";
                               foreach ($coa as $k) {
@@ -45,6 +45,7 @@ $mapel = $this->db->query("SELECT * FROM rb_mata_pelajaran")->result_array();
                         <select class='form-control' id='sub_coa' name='d' style='padding:4px'>
                         </select>
                     </td></tr>
+                    
                   </tbody>
                   </table>
                 </div>

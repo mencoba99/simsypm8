@@ -461,7 +461,6 @@ class Model_app extends CI_model{
     }
 
     function jenis_biaya(){
-        // $this->db->distinct('a.nama_jenis');
         $this->db->distinct()->select('a.nama_jenis, a.total_beban, b.nama_coa, c.nama_sub_coa');
         $this->db->from('rb_keuangan_jenis a');
         $this->db->join('rb_keuangan_coa b','a.id_coa=b.id_coa', 'left');
