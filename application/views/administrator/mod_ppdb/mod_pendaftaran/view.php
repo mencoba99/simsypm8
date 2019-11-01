@@ -23,7 +23,11 @@
           
           <select style='padding:4px; width:180px;'  name='jurusan'>
             <option value='00'>- Semua Jurusan -</option>";
-            $data = array('Kimia Industri','Teknik Otomasi Industri');
+            $data = array('Teknik Pemesinan',
+                  'Multimedia',
+                  'Teknik Elektronika Industri',
+                  'Teknik Kendaraan Ringan Otomotif',
+                );
             for ($i=0; $i < count($data) ; $i++) { 
               echo "<option value='$i'>".$data[$i]."</option>";
             }

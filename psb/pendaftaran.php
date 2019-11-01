@@ -223,7 +223,11 @@ if (mysqli_num_rows($cek_pendaftaran)>=1){
 					<select class="required form-control" name="bbj">
 						<option value=''>- Pilih -</option>
 						<?php 
-						$data = array('Kimia Industri','Teknik Otomasi Industri');
+						$data = array('Teknik Pemesinan',
+									'Multimedia',
+									'Teknik Elektronika Industri',
+									'Teknik Kendaraan Ringan Otomotif',
+								);
 						for ($i=0; $i < count($data) ; $i++) { 
 							echo "<option value='$i'>".$data[$i]."</option>";
 						}
@@ -238,7 +242,11 @@ if (mysqli_num_rows($cek_pendaftaran)>=1){
 					<select class="form-control" name="ccj">
 						<option value=''>- Pilih -</option>
 						<?php 
-						$data = array('Kimia Industri','Teknik Otomasi Industri');
+						$data = array('Teknik Pemesinan',
+									'Multimedia',
+									'Teknik Elektronika Industri',
+									'Teknik Kendaraan Ringan Otomotif',
+								);
 						for ($i=0; $i < count($data) ; $i++) { 
 							echo "<option value='$i'>".$data[$i]."</option>";
 						}

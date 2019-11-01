@@ -579,7 +579,6 @@ class Ppdb extends CI_Controller {
                                 JOIN rb_agama d ON a.agama_ayah=d.id_agama 
                                 JOIN rb_agama e ON a.agama_ibu=e.id_agama
                                 where a.id_pendaftaran='$_GET[id]'")->row_array();
-            print_r($data['s']); exit();
             $data['cl'] = $this->db->query("SELECT * FROM rb_psb_akun where id_psb_akun='$_GET[psb]'")->row_array();
             $this->template->load('administrator/template','administrator/mod_ppdb/mod_pendaftaran/edit_siswa',$data);
         }

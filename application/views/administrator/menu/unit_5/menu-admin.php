@@ -628,6 +628,11 @@
               <?php
                 $cek=$this->model_app->umenu_akses("menuwebsite",$this->session->id_session);
                 if($cek==1 OR $this->session->level=='admin'){
+                  echo "<li><a href='../psb' target='_BLANK'><i class='fa fa-circle-o'></i>Menuju ke Halaman Pendaftaran</a></li>";
+                }
+
+                $cek=$this->model_app->umenu_akses("menuwebsite",$this->session->id_session);
+                if($cek==1 OR $this->session->level=='admin'){
                   echo "<li><a href='".base_url()."ppdb/menuwebsite'><i class='fa fa-circle-o'></i> Data Menu</a></li>";
                 }
 

@@ -59,7 +59,7 @@ include "config/class_paging.php";
 
     // echo "<img style='width:100%;' src='asset/logo/$s[gambar]' />";
     ?>
-    <a href="https://www.smkiqon.sch.id/" class="custom-logo-link" rel="home"><img width="" height="152" src="asset/images/sekolah_ypm.png" sizes="(max-width: 394px) 100vw, 394px"></a>
+    <a href="https://www.smkypm8.sch.id/" target="_BLANK" class="custom-logo-link" rel="home"><img width="" height="152" src="asset/images/sekolah_ypm.png" sizes="(max-width: 394px) 100vw, 394px"></a>
 
     <nav class="navbar navbar-default" style='margin-bottom: 0px; border-bottom:3px solid #cecece'>
       <div class="container-fluid">
