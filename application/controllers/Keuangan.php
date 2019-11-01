@@ -97,7 +97,8 @@ class Keuangan extends CI_Controller {
 
     function jenis_biaya(){
         cek_session_akses('jenis_biaya',$this->session->id_session);
-        $record = $this->model_app->jenis_biaya();        
+        $record = $this->model_app->jenis_biaya()->result_array();  
+        // return var_dump($record);      
         $data = array('record' => $record);
         $this->template->load('administrator/template','administrator/mod_jenis_biaya/view',$data);
     }
@@ -108,8 +109,10 @@ class Keuangan extends CI_Controller {
             $kelas = $this->model_app->view_ordering('rb_kelas','id_kelas','ASC');
             foreach ($kelas as $k) {
                 $id_kelas = $k['id_kelas'];
-                // print_r($id_kelas); exit();
+            $thn = $this->model_app->view_where('rb_tahun_akademik',array('aktif'=>'Ya','id_identitas_sekolah'=>$this->session->sekolah))->row_array();
+                
             $data = array(  'id_kelas'   => $id_kelas,
+                            'id_tahun_akademik'=>$thn['id_tahun_akademik'],
                             'id_coa'=>$this->input->post('c'),
                             'id_sub_coa'=>$this->input->post('d'),
                             'nama_jenis'=>$this->input->post('a'),
@@ -156,10 +159,11 @@ class Keuangan extends CI_Controller {
     function pembayaran_siswa(){
         cek_session_akses('pembayaran_siswa',$this->session->id_session);
         $record = $this->model_app->pembayaran_siswa();
-        // $tahun = $this->model_app->view_where_ordering('rb_tahun_akademik',array('id_identitas_sekolah'=>$this->session->sekolah),'id_tahun_akademik','ASC');
-        // $kelas = $this->model_app->view_where_ordering('rb_kelas',array('id_identitas_sekolah'=>$this->session->sekolah),'id_kelas','ASC');
-        $jenis_biaya = $this->model_app->view_ordering('rb_keuangan_jenis','id_keuangan_jenis','ASC');
-        $data = array('record' => $record,'jenis_biaya'=>$jenis_biaya);
+        $tahun = $this->model_app->view_where_ordering('rb_tahun_akademik',array('id_identitas_sekolah'=>$this->session->sekolah),'id_tahun_akademik','ASC');
+        $kelas = $this->model_app->view_where_ordering('rb_kelas',array('id_identitas_sekolah'=>$this->session->sekolah),'id_kelas','ASC');
+        $jenis_biaya = $this->model_app->view_where_ordering('rb_keuangan_jenis',array('id_tahun_akademik'=>$this->input->get('tahun'),'id_kelas'=>$this->input->get('kelas')),'id_keuangan_jenis','ASC');
+        
+        $data = array('record' => $record,'jenis_biaya'=>$jenis_biaya, 'tahun'=>$tahun, 'kelas'=>$kelas);
         $this->template->load('administrator/template','administrator/mod_pembayaran_siswa/view',$data);
     }
 
@@ -178,14 +182,11 @@ class Keuangan extends CI_Controller {
             $this->model_app->insert('rb_keuangan_bayar',$data);
             redirect($this->uri->segment(1).'/detail_pembayaran_siswa?tahun='.$_GET["tahun"].'&kelas='.$_GET["kelas"].'&biaya='.$_GET["biaya"].'&id_siswa='.$_GET["id_siswa"]);
         }else{
-            $jenis_keuangan = $this->model_app->view_ordering('rb_keuangan_jenis','id_keuangan_jenis','DESC');
-            // print_r($jenis_keuangan); exit();
+            $jenis_keuangan = $this->model_app->view_where('rb_keuangan_jenis',array('id_keuangan_jenis'=>$this->input->get('biaya')))->row_array();
             $total_bayar = $this->model_app->total_bayar()->row_array();
             $siswa = $this->model_app->view_join_where_single('*','rb_siswa','rb_kelas','id_kelas',array('id_siswa'=>$this->input->get('id_siswa')),'id_siswa','ASC')->row_array();
             
-            $pembayaran = $this->model_app->view_where('rb_keuangan_bayar',array('id_siswa'=>$this->input->get('id_siswa')))->row_array();
-
-            // print_r($pembayaran); exit();
+            $pembayaran = $this->model_app->view_where_ordering('rb_keuangan_bayar',array('id_keuangan_jenis'=>$this->input->get('biaya'),'id_kelas'=>$this->input->get('kelas'),'id_siswa'=>$this->input->get('id_siswa'),'id_tahun_akademik'=>$this->input->get('tahun')),'id_keuangan_bayar','DESC');
             $data = array('j' => $jenis_keuangan,'t' => $total_bayar,'d' => $siswa,'pembayaran' => $pembayaran);
             $this->template->load('administrator/template','administrator/mod_pembayaran_siswa/detail',$data);
         }

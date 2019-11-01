@@ -5,8 +5,8 @@ if ($j['total_beban'] <= $t['total']) { $status = 'Lunas'; $class = 'success'; }
               <div class='box'>
                 <div class='box-header'>
                   <h3 class='box-title'>Data Keuangan Siswa</h3>
-                  <a class='pull-right btn btn-success btn-sm' style='margin-left:3px' target='_BLANK' href='".base_url().$this->uri->segment(1)."/print_pembayaran_siswa?id_siswa=$_GET[id_siswa]'><span class='glyphicon glyphicon-print'></span></a>
-                  <a class='pull-right btn btn-sm btn-warning' href='".base_url().$this->uri->segment(1)."/pembayaran_siswa'>Kembali</a>
+                  <a class='pull-right btn btn-success btn-sm' style='margin-left:3px' target='_BLANK' href='".base_url().$this->uri->segment(1)."/print_pembayaran_siswa?tahun=$_GET[tahun]&kelas=$_GET[kelas]&biaya=$_GET[biaya]&id_siswa=$_GET[id_siswa]'><span class='glyphicon glyphicon-print'></span></a>
+                  <a class='pull-right btn btn-sm btn-warning' href='".base_url().$this->uri->segment(1)."/pembayaran_siswa?tahun=$_GET[tahun]&kelas=$_GET[kelas]&biaya=$_GET[biaya]'>Kembali</a>
                 </div>
                 <div class='box-body'>
                   <div class='col-md-12'>
@@ -20,6 +20,7 @@ if ($j['total_beban'] <= $t['total']) { $status = 'Lunas'; $class = 'success'; }
                                 <option value='".base_url().$this->uri->segment(1)."/detail_pembayaran_siswa?tahun=".$this->input->get('tahun')."&kelas=".$this->input->get('kelas')."&biaya=".$this->input->get('biaya')."&id_siswa=".$this->input->get('id_siswa')."'>- Pilih Jenis Biaya -</option>";
                                 $biaya = $this->db->query("SELECT * FROM rb_keuangan_jenis a JOIN rb_kelas b ON a.id_kelas=b.id_kelas where a.id_kelas='".$this->input->get('kelas')."' AND b.id_identitas_sekolah='".$this->session->sekolah."'");
                                 foreach ($biaya->result_array() as $k) {
+                              print_r($k);
                                   if ($this->input->get('biaya')==$k['id_keuangan_jenis']){
                                     echo "<option value='".base_url().$this->uri->segment(1)."/detail_pembayaran_siswa?tahun=".$this->input->get('tahun')."&kelas=".$this->input->get('kelas')."&biaya=".$k['id_keuangan_jenis']."&id_siswa=".$this->input->get('id_siswa')."' selected>$k[nama_jenis]</option>";
                                   }else{
@@ -45,24 +46,24 @@ if ($j['total_beban'] <= $t['total']) { $status = 'Lunas'; $class = 'success'; }
                     </div>
                   </div><hr><br>";
 
-                  // if ($sisa < 0 OR $j['total_beban']=='0'){
+                  if ($sisa < 0 OR $j['total_beban']=='0'){
                         echo "<div style='clear:both'></div><div class='box-header'><h3 class='box-title'>Transaksi Pembayaran</h3></div>
                         <div class='col-xs-12'>  
                         <form action='".base_url().$this->uri->segment(1)."/detail_pembayaran_siswa?tahun=$_GET[tahun]&kelas=$_GET[kelas]&biaya=$_GET[biaya]&id_siswa=$_GET[id_siswa]' method='POST'>
                             <table class='table table-condensed table-hover'>
-                                <tr><th scope='row' width='120px'>No Transaksi</th>           <td><input type='text' class='form-control' name='kode' value='TRX-".date('YmdHis')."'></td></tr>
+                                <tr><th scope='row' width='120px'>No Transaksi</th>           <td><input type='text' class='form-control' name='kode' value='TRX-".date('YmdHis')."' readonly></td></tr>
                                 <tr><th scope='row' width='120px'>Metode Bayar</th>           <td><select class='form-control' name='metode'>
                                                                                                     <option value='' selected>- Pilih -</option>
                                                                                                     <option value='Cash'>Cash</option>
                                                                                                     <option value='EDC'>EDC</option>
                                                                                                     <option value='Transfer'>Transfer</option>
                                                                                                   </select></td></tr>
-                                <tr><th scope='row' width='120px'>Nominal Bayar</th>           <td><input type='text'  class='form-control' name='bayar' value=''></td></tr>
+                                <tr><th scope='row' width='120px'>Nominal Bayar</th>           <td><input type='text' style='font-size:20px' class='form-control' name='bayar' value=''></td></tr>
                                 <tr><td><input class='btn btn-primary btn-sm' type='submit' name='proses' value='Proses'></td></tr>
                             </table>
                         </form>
                         </div>";
-                  // }
+                  }
 
                   echo "<table id='example' class='table table-bordered table-striped'>
                     <thead>

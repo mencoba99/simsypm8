@@ -476,7 +476,7 @@ class Model_app extends CI_model{
         $this->db->join('rb_jurusan c','a.id_jurusan=c.id_jurusan', 'left');
         $this->db->join('rb_jenis_kelamin d','a.id_jenis_kelamin=d.id_jenis_kelamin', 'left');
         $this->db->where('a.id_identitas_sekolah',$this->session->sekolah);
-        // $this->db->where('a.id_kelas',$this->input->get('kelas'));
+        $this->db->where('a.id_kelas',$this->input->get('kelas'));
         $this->db->order_by('a.nama','ASC');
         return $this->db->get();
     }
