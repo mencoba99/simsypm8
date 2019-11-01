@@ -59,7 +59,7 @@ if ($j['total_beban'] <= $t['total']) { $status = 'Lunas'; $class = 'success'; }
                                                                                                     <option value='Transfer'>Transfer</option>
                                                                                                   </select></td></tr>
                                 <tr><th scope='row' width='120px'>Nominal Bayar</th>           <td><input type='text' style='font-size:20px' class='form-control' name='bayar' value=''></td></tr>
-                                <tr><td><input class='btn btn-primary btn-sm' type='submit' name='proses' value='Proses'></td></tr>
+                                <tr><td><input class='btn btn-primary btn-sm' type='submit' name='proses' value='Proses' onclick=\"return confirm('Apakah nominal yang anda masukkan sudah sesuai !')\"></td></tr>
                             </table>
                         </form>
                         </div>";
@@ -87,7 +87,8 @@ if ($j['total_beban'] <= $t['total']) { $status = 'Lunas'; $class = 'success'; }
                               <td>Rp ".number_format($r['total_bayar'])."</td>
                               <td>".tgl_indo($ex[0])." ".$ex[1]." WIB</td>
                               <td style='width:80px !important'><center>
-                                  <a class='btn btn-danger btn-xs' title='Delete Data' href='index.php?view=pembayaransiswa&act=detail&sekolah=$_GET[sekolah]&tahun=$_GET[tahun]&kelas=$_GET[kelas]&biaya=$_GET[biaya]&id_siswa=$_GET[id_siswa]&hapus=$r[id_keuangan_bayar]' onclick=\"return confirm('Apa anda yakin untuk hapus Data ini?')\"><span class='glyphicon glyphicon-remove'></span></a>
+                                  <a class='btn btn-danger btn-xs' title='Delete Data' href='".base_url().$this->uri->segment(1)."/delete_transaksi_pembayaran/$r[id_keuangan_bayar]?sekolah=$_GET[sekolah]&tahun=$_GET[tahun]&kelas=$_GET[kelas]&biaya=$_GET[biaya]&id_siswa=$_GET[id_siswa]' onclick=\"return confirm('Apa anda yakin untuk hapus Data ini?')\"><span class='glyphicon glyphicon-remove'></span></a>
+
                               </center></td>
                           </tr>";
                       $no++;

@@ -206,6 +206,13 @@ class Keuangan extends CI_Controller {
         $this->load->view('administrator/mod_pembayaran_siswa/print',$data);
     }
 
+    function delete_transaksi_pembayaran(){
+        cek_session_akses('pembayaran_siswa',$this->session->id_session);
+        $id = array('id_keuangan_bayar' => $this->uri->segment(3));
+        $this->model_app->delete('rb_keuangan_bayar',$id);
+        redirect($this->uri->segment(1).'/detail_pembayaran_siswa?sekolah='.$_GET[sekolah].'&tahun='.$_GET[tahun].'&kelas='.$_GET[kelas].'&biaya='.$_GET[biaya].'&id_siswa='.$_GET[id_siswa].'');
+    }
+
     function data_keuangan_coa(){
         cek_session_akses('pembayaran_siswa',$this->session->id_session);
         $this->template->load('administrator/template','administrator/mod_pembayaran_siswa/jurnal_coa');
