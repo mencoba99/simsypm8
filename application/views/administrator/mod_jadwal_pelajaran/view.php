@@ -37,6 +37,13 @@
                             </form>";
                     }
                   ?>
+
+                   <form style='margin-right:5px; margin-top:0px' class='pull-right' action='<?php echo base_url().$this->uri->segment(1)."/import_excel_jadwal/import_jadwal/".$this->uri->segment(3); ?>' method='POST' enctype='multipart/form-data'>
+                    <?php echo"<a title='Lihat Format File' href='".base_url().$this->uri->segment(1)."/download/import/format_import_jadwal_pelajaran.xlsx'><span class='glyphicon glyphicon-file' aria-hidden='true'></span> Format</a>" ?>
+                    <input type="file" name='fileexcel' style='padding:3px; width:250px; display:inline-block; border:1px solid #ccc; padding:3px'>
+                    <input type="submit" name='tambahkan' style='margin-top:-4px' class='btn btn-info btn-sm' value='Import'>
+                  </form>
+
                 </div><!-- /.box-header -->
                 <div class="box-body">
 

@@ -3,7 +3,7 @@ date_default_timezone_set('Asia/Jakarta');
 $db['host'] = "localhost"; //host
 $db['user'] = "root"; //username database
 $db['pass'] = ""; //password database
-$db['name'] = "limakode_simasta"; //nama database
+$db['name'] = "limakode_simasta_ypm8"; //nama database
  
 $koneksi = mysqli_connect($db['host'], $db['user'], $db['pass'], $db['name']);
 

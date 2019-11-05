@@ -28,17 +28,24 @@
                                                 }
                                                 echo "</select>
                     </td></tr>
-                    <tr><th scope='row'>Mata Pelajaran</th>   <td><select class='form-control' name='c'> 
-                                                <option value='0' selected>- Pilih Mata Pelajaran -</option>"; 
+                    <tr><th scope='row'>Mata Pelajaran</th>   <td><select class='form-control combobox' name='c'> 
+                                                <option value='' selected>Pilih Mata Pelajaran ..</option>"; 
                                                 foreach ($mapel as $a){
                                                   echo "<option value='$a[id_mata_pelajaran]'>$a[kode_pelajaran] - $a[namamatapelajaran]</option>";
                                                 }
                                                 echo "</select>
                     </td></tr>
-                    <tr><th scope='row'>Guru</th>   <td><select class='form-control' name='e'> 
-                                                <option value='0' selected>- Pilih Guru -</option>"; 
+                    <tr><th scope='row'>Ruangan</th>   <td><select class='form-control' name='d'> 
+                                                <option value='' selected>- Pilih Ruangan -</option>"; 
                                                 foreach ($ruangan as $a){
                                                   echo "<option value='$a[id_ruangan]'>$a[nama_ruangan]</option>";
+                                                }
+                                                echo "</select>
+                    </td></tr>
+                     <tr><th scope='row'>Guru</th>   <td><select class='form-control combobox' name='e'> 
+                                                <option value='' selected>Cari Guru ..</option>"; 
+                                                foreach ($guru as $a){
+                                                  echo "<option value='$a[id_guru]'>$a[nama_guru]</option>";
                                                 }
                                                 echo "</select>
                     </td></tr>

@@ -929,8 +929,8 @@ class Model_app extends CI_model{
 
         for ($i=2; $i < ($numRows+1) ; $i++) { 
           $data1 = $worksheet[$i]['A'];
-          $data2 = $worksheet[$i]['B'];
-          $data3 = $worksheet[$i]['C'];
+          $data2 = $worksheet[$i]['B'];          
+          $data3 = $worksheet[$i]['C'];          
           $data4 = $worksheet[$i]['D'];
           $data5 = $worksheet[$i]['E'];
           $data6 = $worksheet[$i]['F'];
@@ -939,7 +939,7 @@ class Model_app extends CI_model{
           $data9 = $worksheet[$i]['I'];
             if (trim($data1)!=''){
                 $kel = $this->model_app->view_where('rb_kelompok_mata_pelajaran',array('jenis_kelompok_mata_pelajaran'=>$data2,'id_identitas_sekolah'=>$this->session->sekolah))->row_array();
-                $jur = $this->model_app->view_where('rb_jurusan',array('kode_jurusan'=>$data3,'id_identitas_sekolah'=>$this->session->sekolah))->row_array();
+                $jur = $this->model_app->view_where('rb_jurusan',array('kode_jurusan'=>$data3,'id_identitas_sekolah'=>$this->session->sekolah))->row_array();                
                 $guru = $this->model_app->view_where('rb_guru',array('nip'=>$data4,'id_identitas_sekolah'=>$this->session->sekolah))->row_array();
                 if ($guru['id_guru']==''){ $id = 1; }else{ $id = $guru['id_guru']; }
                 $mapel = array("id_identitas_sekolah"           =>$this->session->sekolah,
@@ -960,6 +960,57 @@ class Model_app extends CI_model{
                              "aktif"                            =>'Ya');
                 $this->db->insert('rb_mata_pelajaran', $mapel);
               }
+        }
+    }
+
+     public function import_excel_jadwal($directory,$filename,$tingkat){
+        ini_set('memory_limit', '-1');
+        $inputFileName = './asset/'.$directory.'/'.$filename;
+        try {
+        $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
+        } catch(Exception $e) {
+        die('Error loading file :' . $e->getMessage());
+        }
+
+        $worksheet = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
+        $numRows = count($worksheet);
+
+        for ($i=2; $i < ($numRows+1) ; $i++) { 
+            $data1 = $worksheet[$i]['A'];
+            $data2 = $worksheet[$i]['B'];
+            $data3 = $worksheet[$i]['C'];
+            $data4 = $worksheet[$i]['D'];
+            $data5 = $worksheet[$i]['E'];
+            $data6 = $worksheet[$i]['F'];
+            $data7 = $worksheet[$i]['G'];
+            $data8 = $worksheet[$i]['H'];
+            $data9 = $worksheet[$i]['I'];
+            $data10 = $worksheet[$i]['J'];
+            
+            if (trim($data2)!=''){
+                $tahun = $this->model_app->view_where('rb_tahun_akademik',array('nama_tahun'=>$data1,'id_identitas_sekolah'=>$this->session->sekolah))->row_array();
+                $kelas = $this->model_app->view_where('rb_kelas',array('kode_kelas'=>$data2,'id_identitas_sekolah'=>$this->session->sekolah))->row_array();
+                    $mapel = $this->model_app->view_where('rb_mata_pelajaran',array('kode_pelajaran'=>$data3,'id_identitas_sekolah'=>$this->session->sekolah))->row_array();
+                $ruang = $this->model_app->view_where('rb_ruangan',array('kode_ruangan'=>$data4))->row_array();
+                $guru = $this->model_app->view_where('rb_guru',array('nip'=>$data5,'id_identitas_sekolah'=>$this->session->sekolah))->row_array();
+                
+                if ($guru['id_guru']==''){ $id = 497; }else{ $id = $guru['id_guru']; }
+                
+                $jadwal = array("id_tahun_akademik"     => $tahun['id_tahun_akademik'],
+                             "id_kelas"                 => $kelas['id_kelas'],
+                             "id_mata_pelajaran"        => $mapel['id_mata_pelajaran'],
+                             "id_ruangan"               => $ruang['id_ruangan'],
+                             "id_guru"                  => $id,
+                             "jam_ke"                   => $data6,
+                             "jam_mulai"                => $data7,
+                             "jam_selesai"              => $data8,
+                             "hari"                     => $data9,
+                             "jurnal_sikap"             => 'Aktif',
+                             "remedial"                 => '1',
+                             "penilaian"                => 'umum',
+                             "aktif"                    => $data10);
+                $this->db->insert('rb_jadwal_pelajaran', $jadwal);
+            }
         }
     }
 

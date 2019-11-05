@@ -5,6 +5,7 @@ application/cache/*
 asset/banner/*
 asset/logo/*
 asset/import_siswa/*
+asset/import_mapel/*
 !application/cache/index.html
 !application/cache/.htaccess
 

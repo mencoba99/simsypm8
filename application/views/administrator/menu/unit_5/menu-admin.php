@@ -757,7 +757,7 @@
               ?>
               </ul>
             </li>
-            <li class="treeview">
+           <!--  <li class="treeview">
               <a href="#"><i class="fa fa-list-ul"></i> <span>Agenda</span><i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
                 <?php
@@ -767,8 +767,8 @@
                     }
                 ?>
               </ul>
-            </li>
-            <li class="treeview">
+            </li> -->
+            <!-- <li class="treeview">
               <a href="#"><i class="fa fa-file"></i> <span>Pojok</span><i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
                 <?php
@@ -778,6 +778,6 @@
                     }
                 ?>
               </ul>
-            </li>
+            </li> -->
           </ul>
         </section>

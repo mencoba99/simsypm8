@@ -5283,6 +5283,21 @@ class Smk extends CI_Controller {
         }
     }
 
+    public function import_excel_jadwal(){
+        $config['upload_path'] = 'asset/'.$this->uri->segment(3);
+        $config['allowed_types'] = 'xlsx|xls';
+        $this->load->library('upload', $config);
+        if ( ! $this->upload->do_upload('fileexcel')){
+            $error = array('error' => $this->upload->display_errors());
+        }else{
+            $data = array('upload_data' => $this->upload->data());
+            $upload_data = $this->upload->data(); //Mengambil detail data yang di upload
+            $filename = $upload_data['file_name'];//Nama File
+            $this->model_app->import_excel_jadwal($this->uri->segment(3),$filename,$this->uri->segment(4));
+            redirect($this->uri->segment(1).'/jadwal_pelajaran/'.$this->uri->segment(4).'?sukses');
+        }
+    }
+
     public function import_excel_kd(){
         $config['upload_path'] = 'asset/'.$this->uri->segment(3);
         $config['allowed_types'] = 'xlsx|xls';
