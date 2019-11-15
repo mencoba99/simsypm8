@@ -112,6 +112,14 @@ class Smk extends CI_Controller {
         }
     }
 
+    function bikang()
+    {
+        $otherdb = $this->load->database('sub', TRUE); // the TRUE paramater tells CI that you'd like to return the database object.
+
+        $query = $otherdb->select('*')->get('users');
+        return var_dump($query->result_array());
+    }
+
     function sekolah(){
         cek_session_akses('sekolah',$this->session->id_session);
         if (isset($_POST['submit'])){
