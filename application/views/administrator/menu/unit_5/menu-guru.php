@@ -380,7 +380,7 @@
                             echo "<li><a href='".base_url()."pustaka/buku_tamu'><i class='fa fa-circle-o'></i> Buku Tamu</a></li>";
                           }
 
-                          $cek=$this->model_app->umenu_akses("kategori",$this->session->id_session);
+                          $cek=$this->model_app->umenu_akses("buku_tamu",$this->session->id_session);
                           if($cek==1 OR $this->session->level=='admin'){
                             echo "<li><a href='".base_url()."pustaka/kategori'><i class='fa fa-circle-o'></i> Kategori</a></li>";
                           }

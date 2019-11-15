@@ -543,6 +543,55 @@ class Model_app extends CI_model{
         return $this->db->query("SELECT * FROM rb_users_aktivitas GROUP BY tanggal ORDER BY tanggal DESC LIMIT 7");
     }
 
+    public function import_excel_ruangan($directory,$filename)
+    {
+        ini_set('memory_limit', '-1');
+        $inputFileName = './asset/'.$directory.'/'.$filename;
+        try {
+        $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
+        } catch(Exception $e) {
+        die('Error loading file :' . $e->getMessage());
+        }
+
+        $worksheet = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
+        $numRows = count($worksheet);        
+        for ($i=2; $i < ($numRows+1) ; $i++) { 
+          $data1 = $worksheet[$i]['A'];
+          $data2 = $worksheet[$i]['B'];
+          $data3 = $worksheet[$i]['C'];
+          $data4 = $worksheet[$i]['D'];
+          $data5 = $worksheet[$i]['E'];
+          $data6 = $worksheet[$i]['F'];
+          $data7 = $worksheet[$i]['G'];
+         
+          $id_gedung = $this->model_app->view_where('rb_gedung',array('kode_gedung'=>$data1))->row_array();  
+          print_r($id_gedung); exit();
+
+          $cek_kode_ruangan = $this->model_app->view_where('rb_ruangan','kode_ruangan')->row_array();         
+          if ($cek->num_rows()<=0 AND trim($data3)!=''){
+            $ins = array(
+                    "id_gedung"         => $id_ruangan['id_gedung'],
+                    "kode_gedung"       => $data1,
+                    "kode_ruangan"      => $data2,
+                    "nama_ruangan"      => $data3,
+                    "kapasitas_belajar" => $data4,
+                    "kapasitas_ujian"   => $data5,
+                    "keterangan"        => $data6,
+                    "aktif"             => $data7                    
+                    );
+            $this->db->insert('rb_gedung', $ins);
+            echo "Sukses - <b><span style='color:green'>$data2 / $data3</span></b>, a/n <b> $data3</b> Sukses di import,.. <br>";
+          }else{
+            $ins_update = array("angkatan" => $data46,
+                                "id_kelas" => $kelas['id_kelas']);
+            $this->db->where('nipd',$data1);
+            $this->db->update('rb_siswa',$ins_update);
+            foreach ($cek->result_array() as $row) {
+                echo "<b>Gagal - <span style='color:red'>$row[nipd] / $row[nisn]</span></b>, a/n <b> $row[nama]</b> sudah ada di database,.. <br>";
+            }
+          }
+        }
+    }
     public function import_excel_siswa($directory,$filename){
         ini_set('memory_limit', '-1');
         $inputFileName = './asset/'.$directory.'/'.$filename;

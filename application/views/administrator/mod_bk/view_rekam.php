@@ -34,7 +34,7 @@
             <th>Nama Siswa</th>
             <th>Jenis Pelanggaran</th>
             <th>Bobot</th>
-            <th>Penemu Kasus</th>
+            <th>Saksi</th>
             <th style='width:80px'>Action</th>
           </tr>
         </thead>

@@ -742,6 +742,21 @@ class Smk extends CI_Controller {
         $data['record'] = $this->model_app->view_join_where('rb_ruangan.* ,nama_gedung','rb_ruangan','rb_gedung','id_gedung',array('rb_gedung.id_identitas_sekolah'=>$this->session->sekolah),'id_ruangan','ASC');
         $this->template->load('administrator/template','administrator/mod_ruangan/view',$data);
     }
+    
+    public function import_ruangan(){
+        $config['upload_path'] = 'asset/'.$this->uri->segment(3);
+        $config['allowed_types'] = 'xlsx|xls';
+        $this->load->library('upload', $config);
+        if ( ! $this->upload->do_upload('fileexcel')){
+            $error = array('error' => $this->upload->display_errors());
+        }else{
+            $data = array('upload_data' => $this->upload->data());
+            $upload_data = $this->upload->data(); //Mengambil detail data yang di upload
+            $filename = $upload_data['file_name'];//Nama File
+            $this->model_app->import_excel_ruangan($this->uri->segment(3),$filename);
+            redirect($this->uri->segment(1).'/ruangan?sukses');
+        }
+    }
 
     function tambah_ruangan(){
         cek_session_akses('ruangan',$this->session->id_session);

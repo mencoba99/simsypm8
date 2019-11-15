@@ -8,8 +8,8 @@
                           echo "<a class='pull-right btn btn-danger btn-sm' style='margin-left:5px' href='index.php?view=siswa&act=deletesiswa&kelas=$_GET[kelas]&angkatan=$_GET[angkatan]' onclick=\"return confirm('Apa anda yakin untuk hapus Semua data ini?')\">Delete All</a>";
                         }
                   echo "
-                  <form style='margin-left:0px; margin-top:0px' class='col-sm-6 pull-right' action='".base_url().$this->uri->segment(1)."/import_excel_siswa/import_siswa' method='POST' enctype='multipart/form-data'>
-                    <a title='Lihat Format File' href='".base_url().$this->uri->segment(1)."/download/import/format_data_siswa.xls'><span class='glyphicon glyphicon-file' aria-hidden='true'></span> Format Excel</a><br>
+                  <form class='col-sm-8 pull-right' action='".base_url().$this->uri->segment(1)."/import_excel_siswa/import_siswa' method='POST' enctype='multipart/form-data'>
+                    <a title='Lihat Format File' class='btn-sm btn-success' href='".base_url().$this->uri->segment(1)."/download/import/format_data_siswa.xls'><span class='glyphicon glyphicon-file' aria-hidden='true'></span> Download Format File Excel</a>
 
                       <input type='hidden' name='angkatan' value='$_GET[angkatan]'>
                       <input type='hidden' name='kelas' value='$_GET[kelas]'>

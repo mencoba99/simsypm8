@@ -24,17 +24,6 @@
             <li class="header" style='color:#fff; text-transform:uppercase;'>MENU <span class='uppercase'><?php if ($this->session->level2!=''){ echo "ORANG TUA "; } echo $this->session->level; ?></span></li>
             <li><a href="<?php echo base_url()."".$this->uri->segment(1); ?>/home"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
             
-            <li class="treeview">
-              <a href="#"><i class="fa fa-file"></i> <span>Pojok</span><i class="fa fa-angle-left pull-right"></i></a>
-              <ul class="treeview-menu">
-                <?php
-                    $cek=$this->model_app->umenu_akses("pojok_literasi",$this->session->id_session);
-                    if($cek==1 OR $this->session->level=='admin'){
-                      echo "<li><a href='".base_url()."pojok/pojok_literasi'><i class='fa fa-circle-o'></i> Pojok Literasi</a></li>";
-                    }
-                ?>
-              </ul>
-            </li>
             
             <li class="treeview">
               <a href="#"><i class="fa fa-wrench"></i> <span>Proses Akademik</span><i class="fa fa-angle-left pull-right"></i></a>

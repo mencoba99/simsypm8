@@ -33,7 +33,7 @@
                                                                       }
                                                                      echo "</select></td></tr>
                     <tr><th scope='row'>Guru </th> <td><select class='form-control combobox' name='c'>
-                                                                      <option value='' selected> Guru atau Pegawai yang menemukan kasus,... </option>";
+                                                                      <option value='' selected> Guru atau Pegawai yang menjadi saksi,... </option>";
                                                                       $guru = $this->model_app->view("rb_guru");
                                                                       foreach ($guru->result_array() as $row) {
                                                                         echo "<option value='$row[id_guru]'>$row[nip] - $row[nama_guru]</option>";

@@ -30,7 +30,7 @@
                               <td>$r[nama_jurusan]</td>
                               <td>$r[nama_ruangan]</td>
                               <td>$r[nama_gedung]</td>
-                              <td>$siswa Orang</td>
+                              <td>$siswa Siswa</td>
                               <td><center>
                                 <a class='btn btn-success btn-xs' title='List Bahan dan Tugas' href='".base_url().$this->uri->segment(1)."/detail_nilai_observasi_bk/$r[id_kelas]'><span class='glyphicon glyphicon-th'></span> Input Jurnal</a>
                               </center></td>

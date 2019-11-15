@@ -42,12 +42,12 @@
                       <tr>
                         <input type='hidden' value='$thn[id_tahun_akademik]' name='id_tahun_akademik'>
                         <td style='border:1px solid #e3e3e3' width='30px'><input type='hidden' value='spiritual' name='status'></td>
-                        <td style='border:1px solid #e3e3e3' width='120px'><input type='text' class='form-control' name='a' value='".date('d-m-Y')."'></td>
+                        <td style='border:1px solid #e3e3e3' width='200px'><input type='text' class='form-control' name='a' value='".date('d-m-Y')."'></td>
                         <td style='border:1px solid #e3e3e3' width='190px'><select name='b' style='padding:4px'>";
                                 echo "<option value=''>- Pilih Siswa -</option>";
-                                $siswa = $this->model_app->view_where('rb_siswa',array('id_kelas'=>$s['id_kelas']));
+                                $siswa = $this->model_app->view_where('rb_siswa',array('id_kelas'=>$this->uri->segment(3)));
                                 foreach ($siswa->result_array() as $k) {
-                                    echo "<option value='$k[id_siswa]'>$k[nama]</option>";
+                                    echo "<option value='$k[id_siswa]'>$k[nipd], $k[nama]</option>";
                                 }
                         echo "</select></td>
                         <td style='border:1px solid #e3e3e3'><textarea name='c' class='form-control' style='width:100%; height:32px;' onkeyup=\"auto_grow(this)\"></textarea></td>
@@ -110,12 +110,12 @@
                       <tr>
                         <input type='hidden' value='$thn[id_tahun_akademik]' name='id_tahun_akademik'>
                         <td style='border:1px solid #e3e3e3' width='30px'><input type='hidden' value='sosial' name='status'></td>
-                        <td style='border:1px solid #e3e3e3' width='120px'><input type='text' class='form-control' name='a' value='".date('d-m-Y')."'></td>
+                        <td style='border:1px solid #e3e3e3' width='200px'><input type='text' class='form-control' name='a' value='".date('d-m-Y')."'></td>
                         <td style='border:1px solid #e3e3e3' width='190px'><select name='b' style='padding:4px'>";
                                 echo "<option value=''>- Pilih Siswa -</option>";
-                                $siswa = $this->model_app->view_where('rb_siswa',array('id_kelas'=>$s['id_kelas']));
+                                $siswa = $this->model_app->view_where('rb_siswa',array('id_kelas'=>$this->uri->segment(3)));
                                 foreach ($siswa->result_array() as $k) {
-                                    echo "<option value='$k[id_siswa]'>$k[nama]</option>";
+                                    echo "<option value='$k[id_siswa]'>$k[nipd], $k[nama]</option>";
                                 }
                         echo "</select></td>
                         <td style='border:1px solid #e3e3e3'><textarea name='c' class='form-control' style='width:100%; height:32px;' onkeyup=\"auto_grow(this)\"></textarea></td>
