@@ -75,7 +75,7 @@
                     </td></tr>
                     
                     <tr><th width='120px'>Sub-Kelompok</th><td>
-                    <select class='form-control'id='sub_kel' name='bs' required>
+                    <select class='form-control'id='sub_kel' name='bs' >
                         <option value='' selected>- Pilih Sub Kelompok Mata Pelajaran -</option>";                          
                           foreach ($subkelmpok as $row) {
                             echo "<option value='$row[id_kelompok_mata_pelajaran_sub]'>$row[nama_kelompok_mata_pelajaran_sub]</option>";

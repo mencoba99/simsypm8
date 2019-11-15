@@ -644,6 +644,14 @@ class Smk extends CI_Controller {
     function tambah_gedung(){
         cek_session_akses('gedung',$this->session->id_session);
         if (isset($_POST['submit'])){
+            $config['upload_path'] = 'asset/asset_sekolah/';
+            $config['allowed_types'] = 'gif|jpg|png|JPG|JPEG';
+            $config['max_size'] = '3000'; // kb
+            $config['file_name'] = $this->uri->segment(1).'_'.$_FILES["foto"]['name'];
+            $this->load->library('upload', $config);
+            $this->upload->do_upload('foto');
+            $hasil=$this->upload->data();         
+            if ($_FILES["foto"]['name']==''){
             $data = array('id_identitas_sekolah'=>$this->session->sekolah,
                             'kode_gedung'=>$this->input->post('a'),
                             'nama_gedung'=>$this->input->post('b'),
@@ -653,6 +661,18 @@ class Smk extends CI_Controller {
                             'lebar'=>$this->input->post('f'),
                             'keterangan'=>$this->input->post('g'),
                             'aktif'=>$this->input->post('h'));
+            }else{
+                 $data = array('id_identitas_sekolah'=>$this->session->sekolah,
+                            'kode_gedung'=>$this->input->post('a'),
+                            'nama_gedung'=>$this->input->post('b'),
+                            'jumlah_lantai'=>$this->input->post('c'),
+                            'panjang'=>$this->input->post('d'),
+                            'tinggi'=>$this->input->post('e'),
+                            'lebar'=>$this->input->post('f'),
+                            'keterangan'=>$this->input->post('g'),
+                            'foto'=>$hasil['file_name'],
+                            'aktif'=>$this->input->post('h'));
+            }
             $this->model_app->insert('rb_gedung',$data);
             redirect($this->uri->segment(1).'/gedung');
         }else{
@@ -664,6 +684,14 @@ class Smk extends CI_Controller {
         cek_session_akses('gedung',$this->session->id_session);
         $id = $this->uri->segment(3);
         if (isset($_POST['submit'])){
+            $config['upload_path'] = 'asset/asset_sekolah/';
+            $config['allowed_types'] = 'gif|jpg|png|JPG|JPEG';
+            $config['max_size'] = '3000'; // kb
+            $config['file_name'] = $this->uri->segment(1).'_'.$_FILES["foto"]['name'];
+            $this->load->library('upload', $config);
+            $this->upload->do_upload('foto');
+            $hasil=$this->upload->data();         
+            if ($_FILES["foto"]['name']==''){
             $data = array('id_identitas_sekolah'=>$this->session->sekolah,
                             'kode_gedung'=>$this->input->post('a'),
                             'nama_gedung'=>$this->input->post('b'),
@@ -673,6 +701,18 @@ class Smk extends CI_Controller {
                             'lebar'=>$this->input->post('f'),
                             'keterangan'=>$this->input->post('g'),
                             'aktif'=>$this->input->post('h'));
+            }else{
+                 $data = array('id_identitas_sekolah'=>$this->session->sekolah,
+                            'kode_gedung'=>$this->input->post('a'),
+                            'nama_gedung'=>$this->input->post('b'),
+                            'jumlah_lantai'=>$this->input->post('c'),
+                            'panjang'=>$this->input->post('d'),
+                            'tinggi'=>$this->input->post('e'),
+                            'lebar'=>$this->input->post('f'),
+                            'keterangan'=>$this->input->post('g'),
+                            'foto'=>$hasil['file_name'],
+                            'aktif'=>$this->input->post('h'));
+            }
             $where = array('id_gedung' => $this->input->post('id'),'id_identitas_sekolah'=>$this->session->sekolah);
             $this->model_app->update('rb_gedung', $data, $where);
             redirect($this->uri->segment(1).'/gedung');
@@ -706,6 +746,14 @@ class Smk extends CI_Controller {
     function tambah_ruangan(){
         cek_session_akses('ruangan',$this->session->id_session);
         if (isset($_POST['submit'])){
+            $config['upload_path'] = 'asset/asset_sekolah/';
+            $config['allowed_types'] = 'gif|jpg|png|JPG|JPEG';
+            $config['max_size'] = '3000'; // kb
+            $config['file_name'] = $this->uri->segment(1).'_'.$_FILES["foto"]['name'];
+            $this->load->library('upload', $config);
+            $this->upload->do_upload('foto');
+            $hasil=$this->upload->data();         
+            if ($_FILES["foto"]['name']==''){
             $data = array('id_gedung'=>$this->input->post('a'),
                             'kode_ruangan'=>$this->input->post('b'),
                             'nama_ruangan'=>$this->input->post('c'),
@@ -713,6 +761,16 @@ class Smk extends CI_Controller {
                             'kapasitas_ujian'=>$this->input->post('e'),
                             'keterangan'=>$this->input->post('f'),
                             'aktif'=>$this->input->post('g'));
+            }else{
+                $data = array('id_gedung'=>$this->input->post('a'),
+                            'kode_ruangan'=>$this->input->post('b'),
+                            'nama_ruangan'=>$this->input->post('c'),
+                            'kapasitas_belajar'=>$this->input->post('d'),
+                            'kapasitas_ujian'=>$this->input->post('e'),
+                            'keterangan'=>$this->input->post('f'),
+                            'foto'=>$hasil['file_name'],
+                            'aktif'=>$this->input->post('g'));
+            }
             $this->model_app->insert('rb_ruangan',$data);
             redirect($this->uri->segment(1).'/ruangan');
         }else{
@@ -726,6 +784,14 @@ class Smk extends CI_Controller {
         cek_session_akses('ruangan',$this->session->id_session);
         $id = $this->uri->segment(3);
         if (isset($_POST['submit'])){
+             $config['upload_path'] = 'asset/asset_sekolah/';
+            $config['allowed_types'] = 'gif|jpg|png|JPG|JPEG';
+            $config['max_size'] = '2000'; // kb
+            $config['file_name'] = $this->uri->segment(1).'_'.$_FILES["foto"]['name'];
+            $this->load->library('upload', $config);
+            $this->upload->do_upload('foto');
+            $hasil=$this->upload->data();
+            if ($hasil['file_name']==''){
             $data = array('id_gedung'=>$this->input->post('a'),
                             'kode_ruangan'=>$this->input->post('b'),
                             'nama_ruangan'=>$this->input->post('c'),
@@ -733,6 +799,16 @@ class Smk extends CI_Controller {
                             'kapasitas_ujian'=>$this->input->post('e'),
                             'keterangan'=>$this->input->post('f'),
                             'aktif'=>$this->input->post('g'));
+            }else{
+                $data = array('id_gedung'=>$this->input->post('a'),
+                            'kode_ruangan'=>$this->input->post('b'),
+                            'nama_ruangan'=>$this->input->post('c'),
+                            'kapasitas_belajar'=>$this->input->post('d'),
+                            'kapasitas_ujian'=>$this->input->post('e'),
+                            'keterangan'=>$this->input->post('f'),
+                            'foto'=>$hasil['file_name'],
+                            'aktif'=>$this->input->post('g'));
+            }           
             $where = array('id_ruangan' => $this->input->post('id'));
             $this->model_app->update('rb_ruangan', $data, $where);
             redirect($this->uri->segment(1).'/ruangan');

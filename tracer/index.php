@@ -60,7 +60,8 @@ include "config/class_paging.php";
     // var_dump($s[gambar]);
     // echo "<img style='width:100%;' src='asset/logo/$s[gambar]' />";
     ?>
-    <img width="394" height="102" src="https://www.smkiqon.sch.id/wp-content/uploads/2019/10/cropped-logo.png" class="custom-logo" alt="SMK Islamic Qon – Website Resmi" srcset="https://www.smkiqon.sch.id/wp-content/uploads/2019/10/cropped-logo.png 394w, https://www.smkiqon.sch.id/wp-content/uploads/2019/10/cropped-logo-300x78.png 300w, https://www.smkiqon.sch.id/wp-content/uploads/2019/10/cropped-logo-250x65.png 250w" sizes="(max-width: 394px) 100vw, 394px" style="margin-bottom: 20px">
+    <a href="https://www.smkypm8.sch.id/" target="_BLANK" class="custom-logo-link" rel="home"><img width="" height="152" src="asset/images/sekolah_ypm.png" sizes="(max-width: 394px) 100vw, 394px"></a>
+    
 
     <nav class="navbar navbar-default" style='margin-bottom: 0px; border-bottom:3px solid #cecece'>
       <div class="container-fluid">
@@ -104,7 +105,7 @@ include "config/class_paging.php";
           <div class="row">
             <p class="footer" style="text-align:center; color:#8a8a8a;">
               Copyright © <?php echo date('Y'); ?> Sistem Pendataan dan Pelacakan Alumni<br>
-              SMK Islamic Qon - Gresik.
+              SMK YPM 8 SIDOARJO.
             </p>
           </div>
         </div>

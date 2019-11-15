@@ -938,7 +938,7 @@ class Model_app extends CI_model{
           $data8 = $worksheet[$i]['H'];
           $data9 = $worksheet[$i]['I'];
             if (trim($data1)!=''){
-                $kel = $this->model_app->view_where('rb_kelompok_mata_pelajaran',array('jenis_kelompok_mata_pelajaran'=>$data2,'id_identitas_sekolah'=>$this->session->sekolah))->row_array();
+                $kel = $this->model_app->view_where('rb_kelompok_mata_pelajaran',array('jenis_kelompok_mata_pelajaran'=>$data2,'id_identitas_sekolah'=>$this->session->sekolah))->row_array();                
                 $jur = $this->model_app->view_where('rb_jurusan',array('kode_jurusan'=>$data3,'id_identitas_sekolah'=>$this->session->sekolah))->row_array();                
                 $guru = $this->model_app->view_where('rb_guru',array('nip'=>$data4,'id_identitas_sekolah'=>$this->session->sekolah))->row_array();
                 if ($guru['id_guru']==''){ $id = 1; }else{ $id = $guru['id_guru']; }
