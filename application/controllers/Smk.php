@@ -6112,4 +6112,12 @@ class Smk extends CI_Controller {
             $this->template->load('administrator/template','administrator/mod_absensi_siswa/siprenta/view',$data);    
         }
     }
+
+    function rekap_user_siprenta() {
+        cek_session_akses('rekap_siprenta', $this->session->id_session);
+        $otherdb = $this->load->database('sub', TRUE);
+        $data['record'] = $otherdb->query("SELECT * FROM kehadirans a JOIN user_finger b ON a.id_penghadir = b.id WHERE a.nisn = ".$this->session->id_session);
+        $data['user'] = $otherdb->query("SELECT * FROM user_finger WHERE a.nisn = ".$this->session->id_session)->row_array();
+        $this->template->load('administrator/template','administrator/mod_absensi_siswa/siprenta/view_user',$data);    
+    }
 }
