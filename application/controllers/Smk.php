@@ -112,14 +112,6 @@ class Smk extends CI_Controller {
         }
     }
 
-    function bikang()
-    {
-        $otherdb = $this->load->database('sub', TRUE); // the TRUE paramater tells CI that you'd like to return the database object.
-
-        $query = $otherdb->select('*')->get('users');
-        return var_dump($query->result_array());
-    }
-
     function sekolah(){
         cek_session_akses('sekolah',$this->session->id_session);
         if (isset($_POST['submit'])){
@@ -6108,4 +6100,16 @@ class Smk extends CI_Controller {
         redirect($this->uri->segment(1).'/notulensi_rapat');
     }
     
+    function rekap_kehadiran_siprenta() {
+        cek_session_akses('rekap_siprenta', $this->session->id_session);
+        $otherdb = $this->load->database('sub', TRUE);
+        if (isset($_POST['submit'])){
+            $data['record'] = $otherdb->query("SELECT * FROM kehadirans a JOIN user_finger b ON a.id_penghadir = b.id WHERE a.tanggal = ".$this->input->post('c'));
+            $data['siswa'] = $otherdb->query("SELECT * FROM user_finger");
+            redirect($this->uri->segment(1).'/rekap_kehadiran_siprenta#'.$this->input->post('c'));
+        } else {
+            $data['record'] = $otherdb->query("SELECT * FROM kehadirans a JOIN user_finger b ON a.id_penghadir = b.id WHERE a.tanggal = ".date('Y-m-d'));
+            $this->template->load('administrator/template','administrator/mod_absensi_siswa/siprenta/view',$data);    
+        }
+    }
 }
