@@ -6118,20 +6118,22 @@ class Smk extends CI_Controller {
 
     function rekap_user_siprenta() {
         cek_session_akses('rekap_siprenta', $this->session->id_session);
-        $otherdb = $this->load->database('sub', TRUE);
+        // $otherdb = $this->load->database('sub', TRUE);
         
         if ($this->session->level() == 'guru') {
-            $nip = $this->db->query("SELECT nip FROM rb_guru");
-            $data['record'] = $otherdb->query("SELECT * FROM kehadirans a JOIN user_finger b ON a.id_penghadir = b.id WHERE a.nisn = ".$nip);
-            $data['user'] = $otherdb->query("SELECT * FROM user_finger WHERE a.nisn = ".$nip)->row_array();
+            $url = 'http://c1e082f4.ngrok.io/api/kehadiran?id='.$this->session->id_session();
+            $datauser = file_get_contents($url);
+            $characters = json_decode($datauser);
+            $data['record'] = $characters->data;
+            // $data['record'] = $otherdb->query("SELECT * FROM kehadirans a JOIN user_finger b ON a.id_penghadir = b.id WHERE a.nisn = ".$nip);
+            // $data['user'] = $otherdb->query("SELECT * FROM user_finger WHERE a.nisn = ".$nip)->row_array();
         } else if ($this->session->level() == 'siswa') {
-            $nipd = $this->db->query("SELECT nipd FROM rb_siswa");
-            $data['record'] = $otherdb->query("SELECT * FROM kehadirans a JOIN user_finger b ON a.id_penghadir = b.id WHERE a.nisn = ".$nipd);
-            return print_r($data['record']);
-            $data['user'] = $otherdb->query("SELECT * FROM user_finger WHERE a.nisn = ".$nipd)->row_array();
-        } else {
-            $data['record'] = $otherdb->query("SELECT * FROM kehadirans a JOIN user_finger b ON a.id_penghadir = b.id");
-            return print_r($data['record']);
+            $url = 'http://c1e082f4.ngrok.io/api/kehadiran?id='.$this->session->id_session();
+            $datauser = file_get_contents($url);
+            $characters = json_decode($datauser);
+            $data['record'] = $characters->data;
+            // $data['record'] = $otherdb->query("SELECT * FROM kehadirans a JOIN user_finger b ON a.id_penghadir = b.id WHERE a.nisn = ".$nipd);
+            // $data['user'] = $otherdb->query("SELECT * FROM user_finger WHERE a.nisn = ".$nipd)->row_array();
         }
 
         $this->template->load('administrator/template','administrator/mod_absensi_siswa/siprenta/view_user',$data);    
