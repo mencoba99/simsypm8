@@ -176,4 +176,49 @@ class Login extends CI_Controller {
 		$this->session->sess_destroy();
 		redirect($this->uri->segment(1));
 	}
+
+  function get_json_pegawai() {
+        $data = $this->db->query("SELECT a.nip, a.nama_guru, a.alamat_jalan, a.tempat_lahir, a.tanggal_lahir, a.hp FROM rb_guru a");
+        $response = array(
+            'content' => $data->result(),
+            'totalPages' => ceil($data->num_rows()));
+
+        $this->output
+            ->set_header('Access-Control-Allow-Origin: *')
+            ->set_status_header(200)
+            ->set_content_type('application/json', 'utf-8')
+            ->set_output(json_encode($response, JSON_PRETTY_PRINT))
+            ->_display();
+          exit;
+    }
+
+    function get_json_kelas() {
+        $data = $this->db->query("SELECT a.kode_kelas, a.id_kelas, a.nama_kelas FROM rb_kelas a");
+        $response = array(
+            'content' => $data->result(),
+            'totalPages' => ceil($data->num_rows()));
+
+        $this->output
+            ->set_header('Access-Control-Allow-Origin: *')
+            ->set_status_header(200)
+            ->set_content_type('application/json', 'utf-8')
+            ->set_output(json_encode($response, JSON_PRETTY_PRINT))
+            ->_display();
+          exit;
+    }
+
+    function get_json_siswa($kelas) {
+        $data = $this->db->query("SELECT a.nipd, a.nama, a.alamat, a.tempat_lahir, a.tanggal_lahir, a.hp FROM rb_siswa a WHERE id_kelas = ".$kelas);
+        $response = array(
+            'content' => $data->result(),
+            'totalPages' => ceil($data->num_rows()));
+
+        $this->output
+            ->set_header('Access-Control-Allow-Origin: *')
+            ->set_status_header(200)
+            ->set_content_type('application/json', 'utf-8')
+            ->set_output(json_encode($response, JSON_PRETTY_PRINT))
+            ->_display();
+          exit;
+    }
 }

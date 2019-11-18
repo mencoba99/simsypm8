@@ -6054,6 +6054,7 @@ class Smk extends CI_Controller {
     function notulensi_rapat(){
         cek_session_akses('notulensi_rapat',$this->session->id_session);
         $data['record'] = $this->model_app->view_ordering('rb_lk_notulensi_rapat','id_rapat','ASC');
+        return print_r($data['record']);
         $this->template->load('administrator/template','administrator/mod_notulensi_rapat/view',$data);
     }
 
@@ -6107,15 +6108,12 @@ class Smk extends CI_Controller {
     
     function rekap_kehadiran_siprenta() {
         cek_session_akses('rekap_siprenta', $this->session->id_session);
-        $otherdb = $this->load->database('sub', TRUE);
-        if (isset($_POST['submit'])){
-            $data['record'] = $otherdb->query("SELECT * FROM kehadirans a JOIN user_finger b ON a.id_penghadir = b.id WHERE a.tanggal = ".$this->input->post('c'));
-            $data['siswa'] = $otherdb->query("SELECT * FROM user_finger");
-            redirect($this->uri->segment(1).'/rekap_kehadiran_siprenta#'.$this->input->post('c'));
-        } else {
-            $data['record'] = $otherdb->query("SELECT * FROM kehadirans a JOIN user_finger b ON a.id_penghadir = b.id WHERE a.tanggal = ".date('Y-m-d'));
-            $this->template->load('administrator/template','administrator/mod_absensi_siswa/siprenta/view',$data);    
-        }
+        // $otherdb = $this->load->database('sub', TRUE);
+        $url = 'http://c1e082f4.ngrok.io/api/kehadiran-by-date?date='.$this->input->get('tanggal');
+        $datauser = file_get_contents($url);
+        $characters = json_decode($datauser);
+        $data['record'] = $characters->data;
+        $this->template->load('administrator/template','administrator/mod_absensi_siswa/siprenta/view',$data);    
     }
 
     function rekap_user_siprenta() {
@@ -6129,7 +6127,11 @@ class Smk extends CI_Controller {
         } else if ($this->session->level() == 'siswa') {
             $nipd = $this->db->query("SELECT nipd FROM rb_siswa");
             $data['record'] = $otherdb->query("SELECT * FROM kehadirans a JOIN user_finger b ON a.id_penghadir = b.id WHERE a.nisn = ".$nipd);
+            return print_r($data['record']);
             $data['user'] = $otherdb->query("SELECT * FROM user_finger WHERE a.nisn = ".$nipd)->row_array();
+        } else {
+            $data['record'] = $otherdb->query("SELECT * FROM kehadirans a JOIN user_finger b ON a.id_penghadir = b.id");
+            return print_r($data['record']);
         }
 
         $this->template->load('administrator/template','administrator/mod_absensi_siswa/siprenta/view_user',$data);    
