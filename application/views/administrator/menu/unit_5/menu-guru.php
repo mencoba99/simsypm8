@@ -268,6 +268,11 @@
                   echo "<li class='treeview'>
                     <a href='#'><i class='fa fa-user-secret'></i> <span>Bursa Kerja Khusus</span><i class='fa fa-angle-left pull-right'></i></a>
                     <ul class='treeview-menu'>";
+                    $cek=$this->model_app->umenu_akses("menuwebsite",$this->session->id_session);
+                      if($cek==1 OR $this->session->level=='admin'){
+                        echo "<li><a href='../tracer' target='_BLANK'><i class='fa fa-circle-o'></i>Menuju ke Halaman Tracer Alumni</a></li>";
+                      }
+                      
                       $cek=$this->model_app->umenu_akses("tracer_alumni",$this->session->id_session);
                       if($cek==1 OR $this->session->level=='admin'){
                         echo "<li><a href='".base_url()."/alumni/tracer_alumni'><i class='fa fa-circle-o'></i> Tracer Study</a></li>";

@@ -21,7 +21,7 @@
           <tr>
             <th style='width:40px'>No</th>
             <th>No Kartu</th>
-            <th>NIP / NIPD</th>
+            <th>NIP / NIS</th>
             <th>Nama Pemilik</th>
             <th>Alamat</th>
             <th style='width:70px'>Action</th>

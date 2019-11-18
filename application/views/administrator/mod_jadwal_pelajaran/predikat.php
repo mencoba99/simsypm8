@@ -3,7 +3,7 @@
               <div class='box box-info'>
                 <div class='box-header with-border'>
                   <h3 class='box-title'>Data Predikat / Grade Nilai</h3>
-                  <a class='pull-right btn btn-success btn-sm' style='margin-left:3px' href='".base_url().$this->uri->segment(1)."/default_predikat_jadwal_pelajaran/".$this->uri->segment(3)."'>Set Default</a>
+                  
                   <a class='pull-right btn btn-primary btn-sm' href='".base_url().$this->uri->segment(1)."/tambah_predikat_jadwal_pelajaran/".$this->uri->segment(3)."'>Tambahkan Data</a>
                 </div>
               <div class='box-body'>

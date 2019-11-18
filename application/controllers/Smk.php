@@ -5394,18 +5394,33 @@ class Smk extends CI_Controller {
         }
     }
 
+    public function import_excel_ki(){
+        $config['upload_path'] = 'asset/'.$this->uri->segment(3);
+        $config['allowed_types'] = 'xlsx|xls';
+        $this->load->library('upload', $config);
+        if ( ! $this->upload->do_upload('fileexcel_ki')){
+            $error = array('error' => $this->upload->display_errors());
+        }else{
+            $data = array('upload_data' => $this->upload->data());
+            $upload_data = $this->upload->data(); //Mengambil detail data yang di upload
+            $filename = $upload_data['file_name'];//Nama File
+            $this->model_app->import_excel_ki($this->uri->segment(3), $filename);
+            redirect($this->uri->segment(1).'/kompetensi_dasar'.'?sukses');
+        }
+    }
+
     public function import_excel_kd(){
         $config['upload_path'] = 'asset/'.$this->uri->segment(3);
         $config['allowed_types'] = 'xlsx|xls';
         $this->load->library('upload', $config);
-        if ( ! $this->upload->do_upload('fileexcel')){
+        if ( ! $this->upload->do_upload('fileexcel_kd')){
             $error = array('error' => $this->upload->display_errors());
         }else{
             $data = array('upload_data' => $this->upload->data());
             $upload_data = $this->upload->data(); //Mengambil detail data yang di upload
             $filename = $upload_data['file_name'];//Nama File
             $this->model_app->import_excel_kd($this->uri->segment(3),$filename);
-            redirect($this->uri->segment(1).'/detail_kompetensi_dasar/'.$this->uri->segment(4).'?sukses');
+            redirect($this->uri->segment(1).'/kompetensi_dasar/'.'?sukses');
         }
     }
 

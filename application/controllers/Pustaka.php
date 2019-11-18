@@ -131,14 +131,15 @@ class Pustaka extends CI_Controller {
 
     function buku(){
         cek_session_akses('buku',$this->session->id_session);
-        $data['record'] = $this->db->query("SELECT a.*, b.nama_kategori FROM rb_pustaka_buku a JOIN rb_pustaka_kategori b ON a.id_kategori=b.id_kategori where id_rak_buku='".$_GET['id']."' ORDER BY id_buku DESC");
+        $data['record'] = $this->db->query("SELECT a.*, b.nama_kategori FROM rb_pustaka_buku a JOIN rb_pustaka_kategori b ON a.id_kategori=b.id_kategori ORDER BY id_buku DESC");
+        // print_r($data['record']->row_array()); exit();
         $this->template->load('administrator/template','administrator/mod_pustaka/mod_buku/view',$data);
     }
 
     function tambah_buku(){
         cek_session_akses('buku',$this->session->id_session);
         if (isset($_POST['submit'])){
-            $config['upload_path'] = 'asset/foto_buku/';
+            $config['upload_path'] = realpath('asset/foto_buku/');
             $config['allowed_types'] = 'gif|jpg|png|JPG|JPEG|jpeg';
             $config['max_size'] = '10000'; // kb
             $config['file_name'] = date('YmdHis').'_'.$_FILES["f"]['name'];
@@ -147,7 +148,6 @@ class Pustaka extends CI_Controller {
             $hasil=$this->upload->data();
             if ($_FILES["foto"]['name']==''){
                 $data = array('id_identitas_sekolah'=>$this->session->sekolah,
-                                'id_rak_buku'=>$this->input->post('id_rak_buku'),
                                 'id_kategori'=>$this->input->post('a'),
                                 'kode_buku'=>$this->input->post('b'),
                                 'judul'=>$this->input->post('c'),
@@ -162,7 +162,6 @@ class Pustaka extends CI_Controller {
                                 'id_guru'=>$this->session->id_session);
             }else{
                 $data = array('id_identitas_sekolah'=>$this->session->sekolah,
-                                'id_rak_buku'=>$this->input->post('id_rak_buku'),
                                 'id_kategori'=>$this->input->post('a'),
                                 'kode_buku'=>$this->input->post('b'),
                                 'judul'=>$this->input->post('c'),
@@ -188,9 +187,9 @@ class Pustaka extends CI_Controller {
         cek_session_akses('buku',$this->session->id_session);
         $id = $this->uri->segment(3);
         if (isset($_POST['submit'])){
-            $config['upload_path'] = 'asset/foto_buku/';
+            $config['upload_path'] = realpath('asset/foto_buku/');
             $config['allowed_types'] = 'gif|jpg|png|JPG|JPEG|jpeg';
-            $config['max_size'] = '10000'; // kb
+            $config['max_size'] = '5000'; // kb
             $config['file_name'] = date('YmdHis').'_'.$_FILES["f"]['name'];
             $this->load->library('upload', $config);
             $this->upload->do_upload('f');
@@ -327,6 +326,36 @@ class Pustaka extends CI_Controller {
                                 'judul'=>$this->input->post('c'),
                                 'pengarang'=>$this->input->post('d'),
                                 'penerbit'=>$this->input->post('e'),
+                                'deskripsi'=>$this->input->post('g'),
+                                'jumlah'=>0,
+                                'tahun_terbit'=>$this->input->post('tahun_terbit'),
+                                'tahun_pengadaan'=>$this->input->post('tahun_pengadaan'),
+                                'harga_buku'=>$this->input->post('harga_buku'),
+                                'sumber_dana'=>'-',
+                                'id_guru'=>$this->session->id_session);
+            }if(isset($hasil_1) =='' && isset($hasil_2) !=''){
+                $data = array('id_identitas_sekolah'=>$this->session->sekolah,
+                                'id_kategori'=>$this->input->post('a'),
+                                'kode_buku'=>$this->input->post('b'),
+                                'judul'=>$this->input->post('c'),
+                                'pengarang'=>$this->input->post('d'),
+                                'penerbit'=>$this->input->post('e'),
+                                'file'=>$hasil_1['file_name'],
+                                'deskripsi'=>$this->input->post('g'),
+                                'jumlah'=>0,
+                                'tahun_terbit'=>$this->input->post('tahun_terbit'),
+                                'tahun_pengadaan'=>$this->input->post('tahun_pengadaan'),
+                                'harga_buku'=>$this->input->post('harga_buku'),
+                                'sumber_dana'=>'-',
+                                'id_guru'=>$this->session->id_session);
+            }if(isset($hasil_2) =='' && isset($hasil_1) !=''){
+                $data = array('id_identitas_sekolah'=>$this->session->sekolah,
+                                'id_kategori'=>$this->input->post('a'),
+                                'kode_buku'=>$this->input->post('b'),
+                                'judul'=>$this->input->post('c'),
+                                'pengarang'=>$this->input->post('d'),
+                                'penerbit'=>$this->input->post('e'),
+                                'foto'=>$hasil_2['file_name'],
                                 'deskripsi'=>$this->input->post('g'),
                                 'jumlah'=>0,
                                 'tahun_terbit'=>$this->input->post('tahun_terbit'),

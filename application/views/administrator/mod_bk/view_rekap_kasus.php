@@ -45,13 +45,19 @@
         }else{
           $cek = $this->db->query("SELECT count(*) as kasus, sum(b.bobot) as bobot FROM rb_bk_rekam a JOIN rb_bk_jenis_detail b ON a.id_jenis_detail=b.id_jenis_detail where a.id_siswa='$r[id_siswa]'")->row_array();
         }
-       
+        if ($r[bobot] < 45) {
+          $color = 'yellow';
+        }if ($r[bobot] > 45 AND $r[bobot] < 80) {
+          $color = '#ffcc33';
+        }if ($r[bobot] > 80) {          
+          $color = '#ff6600';
+        }
         echo "<tr><td>$no</td>
-                  <td>$r[nipd]</td>
-                  <td>$r[nama]</td>
-                  <td><b style='color:green'>$cek[kasus] Kasus</td>
-                  <td>$cek[bobot]</td>
-                  <td><center>";
+                  <td style='background-color:$color'>$r[nipd]</td>
+                  <td style='background-color:$color'>$r[nama]</td>
+                  <td style='background-color:$color'><b style='color:green'>$cek[kasus] Kasus</td>
+                  <td style='background-color:$color'>$cek[bobot]</td>
+                  <td style='background-color:$color'><center>";
                   if ($_GET['tahun']!=''){
                     echo "<a class='btn btn-success btn-xs' title='Lihat Data' href='".base_url().$this->uri->segment(1)."/detail_rekap_kasus/$r[id_siswa]/$_GET[tahun]'><span class='glyphicon glyphicon-th-list'></span> Lihat kasus</a>";
                   }else{

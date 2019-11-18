@@ -138,7 +138,9 @@ if($this->input->get('tanggal')==''){ $tanggal = date('d-m-Y'); }else{ $tanggal 
 
                             $kompetensi_dasar_jml = $this->model_app->kd_penilaian_hitung($s['id_mata_pelajaran'],$s['id_tahun_akademik'],$s['id_kelas']);
                             $nilai_raport = $rataasum/$kompetensi_dasar_jml->num_rows();
-                            
+                            if (is_nan($nilai_raport)) {
+                              $nilai_raport = 0;
+                            }
                             /* $max = $this->db->query("SELECT a.kompetensi_dasar, a.kkm, a.nilai FROM (SELECT sum(a.nilai)/count(*) as nilai, a.id_kompetensi_dasar, b.kompetensi_dasar, b.kkm
                                                                       FROM `rb_nilai_pengetahuan` a JOIN rb_kompetensi_dasar b ON a.id_kompetensi_dasar=b.id_kompetensi_dasar 
                                                                       JOIN rb_jadwal_pelajaran c ON a.kodejdwl=c.kodejdwl where a.id_siswa='$r[id_siswa]' AND c.id_mata_pelajaran='$s[id_mata_pelajaran]' AND b.ranah='pengetahuan' GROUP BY a.id_kompetensi_dasar ORDER BY a.id_kompetensi_dasar) as a 

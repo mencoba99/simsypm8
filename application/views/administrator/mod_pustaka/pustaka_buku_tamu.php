@@ -21,7 +21,7 @@
         <thead>
           <tr>
             <th style='width:40px'>No</th>
-            <th>ID / NIP / NIPD</th>
+            <th>ID / NIP / NIS</th>
             <th>Nama Pengunjung</th>
             <th>Kelas / Status</th>
             <th>Jenis Kelamin</th>

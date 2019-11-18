@@ -122,6 +122,9 @@ if($this->input->get('tanggal')==''){ $tanggal = date('d-m-Y'); }else{ $tanggal 
                     $aa = $this->db->query("SELECT GROUP_CONCAT(a.nilai SEPARATOR ',') as nilai_tertulis, GROUP_CONCAT(DATE_FORMAT(a.tanggal_penilaian,'%d/%m/%Y') SEPARATOR ',') as tanggal_nilai_tertulis FROM `rb_nilai_pengetahuan` a JOIN rb_jadwal_pelajaran b ON a.kodejdwl=b.kodejdwl where a.kategori_nilai='1' AND a.id_siswa='$r[id_siswa]' AND b.id_mata_pelajaran='$s[id_mata_pelajaran]' AND b.id_tahun_akademik='$s[id_tahun_akademik]' AND a.id_kompetensi_dasar='".$this->input->get('kd')."'")->row_array();
                     $nilai_tertulis = explode(',',$aa['nilai_tertulis']);
                     $rataa = array_sum($nilai_tertulis)/(count(array_filter($nilai_tertulis)));
+                    if (is_nan($rataa)) {
+                      $rataa = 0;
+                    }
                     echo "<tr><td>$no</td>
                               <td>$r[nipd]</td>
                               <td>$r[nisn]</td>

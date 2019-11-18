@@ -38,7 +38,11 @@
                       $ratasum = $rataasum + $rata_pengetahuan;
                     }
                     $nilai_raport = number_format($rataasum/$kompetensi_dasar->num_rows());
-
+                    if ($nilai_raport == 'nan') {
+                        $nilai_raport = 0 ;
+                    }if ($nilai_raport == 'inf') {
+                        $nilai_raport = '0' ;
+                    }
                     $desk = $this->db->query("SELECT * FROM `rb_nilai_pengetahuan_deskripsi` a JOIN rb_jadwal_pelajaran b ON a.kodejdwl=b.kodejdwl where b.id_mata_pelajaran='$m[id_mata_pelajaran]' AND a.id_siswa='".$this->session->id_session."' AND a.id_tahun_akademik='$thn[id_tahun_akademik]'")->row_array();
                     $grade = $this->db->query("SELECT * FROM `rb_predikat` where (".number_format($nilai_raport)." >=nilai_a) AND (".number_format($nilai_raport)." <= nilai_b) AND id_mata_pelajaran='$m[id_mata_pelajaran]'")->row_array();
 
@@ -109,6 +113,11 @@
                       $rata_keterampilan_sum = $rata_keterampilan_sum + $rata_keterampilan;
                     }
                   $nilai_raport_keterampilan = number_format($rata_keterampilan_sum/$kompetensi_dasar->num_rows());
+                   if ($nilai_raport_keterampilan == 'nan') {
+                        $nilai_raport_keterampilan = '0' ;
+                    }if ($nilai_raport_keterampilan == 'inf') {
+                        $nilai_raport_keterampilan = '0' ;
+                    }
                   $desk = $this->db->query("SELECT * FROM `rb_nilai_keterampilan_deskripsi` a JOIN rb_jadwal_pelajaran b ON a.kodejdwl=b.kodejdwl where b.id_mata_pelajaran='$m[id_mata_pelajaran]' AND a.id_siswa='".$this->session->id_session."' AND a.id_tahun_akademik='$thn[id_tahun_akademik]'")->row_array();
                   $grade = $this->db->query("SELECT * FROM `rb_predikat` where (".number_format($nilai_raport_keterampilan)." >=nilai_a) AND (".number_format($nilai_raport_keterampilan)." <= nilai_b) AND id_mata_pelajaran='$m[id_mata_pelajaran]'")->row_array();
                   

@@ -55,6 +55,9 @@
                     }
                     $persen = $h/$pertemuan*100;
                     if($persen<=50){ $color = 'red'; }else{ $color = 'black'; }
+                    if (is_nan($persen)) {
+                      $persen = 0;
+                    }
                     echo "<tr><td>$no</td>
                               <td>$r[namamatapelajaran]</td>
                               <td>$r[nama_guru]</td>

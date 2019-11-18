@@ -2,7 +2,7 @@
               <div class="box">
                 <div class="box-header">
                   <h3 class="box-title">Data Buku </h3>
-                  <a class='pull-right btn btn-primary btn-sm' href='<?php echo base_url().$this->uri->segment(1); ?>/tambah_buku?id=<?php echo $_GET[id]; ?>'>Tambahkan Data</a>
+                  <a class='pull-right btn btn-primary btn-sm' href='<?php echo base_url().$this->uri->segment(1); ?>/tambah_buku'>Tambahkan Data</a>
 
                 </div><!-- /.box-header -->
                 <div class="box-body">
@@ -28,8 +28,8 @@
                     $pinjam = $this->db->query("SELECT sum(jumlah) as jumlah FROM rb_pustaka_pinjam_detail where id_buku='$r[id_buku]'")->row_array();
                     $kembali = $this->db->query("SELECT sum(jumlah) as jumlah FROM rb_pustaka_kembali where id_buku='$r[id_buku]'")->row_array();
                     $deskripsi =strip_tags($r['deskripsi']);
-                    $isi = substr($deskripsi,0,100); 
-                    $isi = substr($deskripsi,0,strrpos($isi,".. ")); 
+                    $isi = substr($deskripsi,0,300); 
+                    $isi = substr($deskripsi,0,strrpos($isi," ")); 
                     echo "<tr><td>$no</td>
                               <td width='70px'><img width='70px' src='".base_url()."asset/foto_buku/$foto'></td>
                               <td width='250px'><b>Kode :</b> <span style='color:red'>$r[kode_buku]</span><br>
@@ -46,8 +46,8 @@
                               <td>$isi...</td>
                               <td>
                               <center>
-                                <a class='btn btn-primary btn-xs' title='Kondisi Buku' href='".base_url().$this->uri->segment(1)."/kondisi_buku/$r[id_buku]'><span class='fa fa-check-square-o'></span> Kondisi</a>
-                                <a class='btn btn-success btn-xs' title='Edit Data' href='".base_url().$this->uri->segment(1)."/edit_buku/$r[id_buku]?id=$_GET[id]'><span class='glyphicon glyphicon-edit'></span></a>
+                                <a class='btn btn-primary btn-xs' title='Edit Data' href='".base_url().$this->uri->segment(1)."/kondisi_buku/$r[id_buku]'><span class='fa fa-check-square-o'></span> Kondisi</a>
+                                <a class='btn btn-success btn-xs' title='Edit Data' href='".base_url().$this->uri->segment(1)."/edit_buku/$r[id_buku]'><span class='glyphicon glyphicon-edit'></span></a>
                                 <a class='btn btn-danger btn-xs' title='Delete Data' href='".base_url().$this->uri->segment(1)."/delete_buku/$r[id_buku]' onclick=\"return confirm('Apa anda yakin untuk hapus Data ini?')\"><span class='glyphicon glyphicon-remove'></span></a>
                               </center></td>
                           </tr>";

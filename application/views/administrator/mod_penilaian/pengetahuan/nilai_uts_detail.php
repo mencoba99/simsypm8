@@ -124,7 +124,9 @@ if($this->input->get('tanggal')==''){ $tanggal = date('d-m-Y'); }else{ $tanggal 
                     $nilai_uts = explode(',',$aa['nilai_uts']);
                     $rata = array_sum($nilai_uts)/(count(array_filter($nilai_uts)));
                     $rataa = $rata;
-                    // print_r($rataa); exit();
+                    if (is_nan($rataa)) {
+                      $rataa = 0;
+                    }
                     echo "<tr><td>$no</td>
                               <td>$r[nipd]</td>
                               <td>$r[nisn]</td>

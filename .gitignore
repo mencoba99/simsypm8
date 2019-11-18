@@ -6,6 +6,8 @@ asset/banner/*
 asset/logo/*
 asset/import_siswa/*
 asset/import_mapel/*
+asset/import_jadwal/*
+asset/import_ruangan/*
 !application/cache/index.html
 !application/cache/.htaccess
 

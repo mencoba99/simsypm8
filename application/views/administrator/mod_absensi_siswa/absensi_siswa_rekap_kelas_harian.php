@@ -42,6 +42,9 @@ $cek = $this->model_app->view_where('rb_journal_list',array('kodejdwl'=>$s['kode
                     $a = $this->db->query("SELECT a.* FROM `rb_absensi_siswa_harian` a where a.id_tahun_akademik='$_GET[tahun]' AND a.id_kelas='$_GET[kelas]' AND a.id_siswa='$r[id_siswa]' AND a.kode_kehadiran='A'")->num_rows();
                     $persen = $h/$pertemuan*100;
                     if($persen<=50){ $color = 'red'; }else{ $color = 'black'; }
+                    if (Is_Nan($persen)) {
+                      $persen = 0 ;
+                    }
                     echo "<tr><td>$no</td>
                             <td>$r[nipd]</td>
                             <td>$r[nisn]</td>

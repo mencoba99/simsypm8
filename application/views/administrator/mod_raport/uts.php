@@ -95,13 +95,18 @@
                                     LEFT JOIN rb_mata_pelajaran_alias c ON b.sesi=c.id_mata_pelajaran_alias
                                     where a.id_kelas='$_GET[kelas]' AND a.id_tahun_akademik='$_GET[tahun]'
                                     GROUP BY a.id_mata_pelajaran ORDER BY b.urutan) as z GROUP BY namamatapelajaran ORDER BY urutan ASC")->num_rows();
+                  $jumlah = (number_format($peringkat['nilai_total']/($mapel*2),2));
+                  if ($jumlah == 'nan') {
+                   $jumlah = 0 ;
+                  }
+
                   echo "<tr><td>$no</td>
                             <td>$r[nipd]</td>
                             <td>$r[nisn]</td>
                             <td>$r[nama]</td>
                             <td>$r[jenis_kelamin]</td>
                             <td>$peringkat[rank]</td>
-                            <td>$peringkat[nilai_total] = <span style='color:red'>".(number_format($peringkat['nilai_total']/($mapel*2),2))."</span></td>
+                            <td>$peringkat[nilai_total] = <span style='color:red'>".$jumlah."</span></td>
                             <td><center>
                               <a class='btn btn-success btn-xs' target='_BLANK' title='Penilaian Diri' href='".base_url().$this->uri->segment(1)."/cetak_uts_raport?angkatan=$_GET[angkatan]&kelas=$_GET[kelas]&tahun=$_GET[tahun]&siswa=$r[id_siswa]&page=1'><span class='glyphicon glyphicon-print'></span> 1</a>
                               <a class='btn btn-success btn-xs' target='_BLANK' title='Penilaian Diri' href='".base_url().$this->uri->segment(1)."/cetak_uts_raport?angkatan=$_GET[angkatan]&kelas=$_GET[kelas]&tahun=$_GET[tahun]&siswa=$r[id_siswa]&page=2'><span class='glyphicon glyphicon-print'></span> 2</a>

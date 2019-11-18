@@ -870,62 +870,6 @@ class Model_app extends CI_model{
         }
     }
 
-    public function import_excel_kd($directory,$filename){
-        ini_set('memory_limit', '-1');
-        $inputFileName = './asset/'.$directory.'/'.$filename;
-        try {
-        $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
-        } catch(Exception $e) {
-        die('Error loading file :' . $e->getMessage());
-        }
-
-        $worksheet = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
-        $numRows = count($worksheet);
-
-        for ($i=2; $i < ($numRows+1) ; $i++) { 
-          $data1 = $worksheet[$i]['A'];
-          $data2 = $worksheet[$i]['B'];
-          $data3 = $worksheet[$i]['C'];
-          $data4 = $worksheet[$i]['D'];
-          $data5 = $worksheet[$i]['E'];
-          $data6 = $worksheet[$i]['F'];
-            if (trim($data5)!=''){
-                if (substr($data2, 0,1) =='1'){
-                    $ranah = 'spiritual';
-                }elseif (substr($data2, 0,1) =='2'){
-                    $ranah = 'sosial';
-                }elseif (substr($data2, 0,1) =='3'){
-                    $ranah = 'pengetahuan';
-                }elseif (substr($data2, 0,1) =='4'){
-                    $ranah = 'keterampilan';
-                }
-
-                if (trim($data3)=='' OR $data3=='0'){
-                    $kkm = 75;
-                }else{
-                    $kkm = $data3;
-                }
-                
-
-                $ins = array("id_identitas_sekolah" =>$this->session->sekolah,
-                             "id_mata_pelajaran"    =>$this->uri->segment(4),
-                             "kd"                   =>$data2,
-                             "ki"                   =>$data4,
-                             "ranah"                =>$data1,
-                             "kompetensi_dasar"     =>$data5,
-                             "kkm"                  =>$kkm,
-                             "deskripsi"            =>$data6,
-                             "waktu_input"          =>date('Y-m-d H:i:s'));
-                $this->db->insert('rb_kompetensi_dasar', $ins);
-              }
-        }
-
-        $kkm_kd = $this->db->query("SELECT (sum(kkm)/count(*)) as nilai FROM rb_kompetensi_dasar where id_mata_pelajaran='".$this->uri->segment(4)."'")->row_array();
-        $data_kkm = array('kkm'=>$kkm_kd['nilai']);
-        $where_kkm = array('id_mata_pelajaran' => $this->uri->segment(4),'id_identitas_sekolah'=>$this->session->sekolah);
-        $this->model_app->update('rb_mata_pelajaran', $data_kkm, $where_kkm);
-    }
-
 
     public function import_excel_uas($directory,$filename){
         ini_set('memory_limit', '-1');
@@ -1061,11 +1005,101 @@ class Model_app extends CI_model{
                              "remedial"                 => '1',
                              "penilaian"                => 'umum',
                              "aktif"                    => $data10);
-                $this->db->insert('rb_jadwal_pelajaran', $jadwal);
+                            $this->db->insert('rb_jadwal_pelajaran', $jadwal);
             }
         }
     }
 
+    public function import_excel_ki($directory,$filename) {
+        ini_set('memory_limit', '-1');
+        $inputFileName = './asset/'.$directory.'/'.$filename;
+        try {
+        $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
+        } catch(Exception $e) {
+        die('Error loading file :' . $e->getMessage());
+        }
+
+        $worksheet = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
+        $numRows = count($worksheet);
+
+        for ($i=2; $i < ($numRows+1) ; $i++) { 
+          $data1 = $worksheet[$i]['A'];
+          $data2 = $worksheet[$i]['B'];
+          $data3 = $worksheet[$i]['C'];
+            $mapel = $this->db->query("SELECT * FROM rb_mata_pelajaran where kode_pelajaran='$data1' AND id_identitas_sekolah='".$this->session->sekolah."'")->row_array();
+            if ($data1!=''){
+                $ki = array(
+                    "id_identitas_sekolah"  => $this->session->sekolah,
+                    "id_mata_pelajaran"     => $mapel['id_mata_pelajaran'],
+                    "kode"                  => $data2,
+                    "kompetensi"            => $data3
+                );
+                $this->db->insert('rb_kompetensi_inti', $ki);
+            }
+        }
+    }
+
+    public function import_excel_kd($directory,$filename){
+        ini_set('memory_limit', '-1');
+        $inputFileName = './asset/'.$directory.'/'.$filename;
+        try {
+        $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
+        } catch(Exception $e) {
+        die('Error loading file :' . $e->getMessage());
+        }
+
+        $worksheet = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
+        $numRows = count($worksheet);
+
+        for ($i=2; $i < ($numRows+1) ; $i++) { 
+          $data1 = $worksheet[$i]['A'];
+          $data2 = $worksheet[$i]['B'];
+          $data3 = $worksheet[$i]['C'];
+          $data4 = $worksheet[$i]['D'];
+          $data5 = $worksheet[$i]['E'];
+          $data6 = $worksheet[$i]['F'];
+          $data7 = $worksheet[$i]['G'];
+          $data8 = $worksheet[$i]['H'];
+          $data9 = $worksheet[$i]['I'];
+            $ki = $this->db->query("SELECT * FROM rb_kompetensi_inti where kode ='$data2' AND id_identitas_sekolah='".$this->session->sekolah."'")->row_array();            
+            $mapel = $this->db->query("SELECT * FROM rb_mata_pelajaran where kode_pelajaran='$data1' AND id_identitas_sekolah='".$this->session->sekolah."'")->row_array();
+            if (trim($data3)!=''){
+                if (substr($data5, 0,1) =='1'){
+                    $ranah = 'spiritual';
+                }elseif (substr($data5, 0,1) =='2'){
+                    $ranah = 'sosial';
+                }elseif (substr($data5, 0,1) =='3'){
+                    $ranah = 'pengetahuan';
+                }elseif (substr($data5, 0,1) =='4'){
+                    $ranah = 'keterampilan';
+                }
+
+                if (trim($data6)=='' OR $data6=='0'){
+                    $kkm = 75;
+                }else{
+                    $kkm = $data6;
+                }
+                
+                $kd = array("id_identitas_sekolah"   => $this->session->sekolah,
+                             "id_mata_pelajaran"     => $mapel['id_mata_pelajaran'],
+                             "kd"                    => $data4,
+                             "id_kompetensi_inti"    => $ki['id_kompetensi_inti'],
+                             "ranah"                 => $data5,
+                             "kompetensi_dasar"      => $data3,
+                             "kkm"                   => $kkm,
+                             "kkm_proses"            => $data7,
+                             "deskripsi"             => $data8,
+                             "waktu_input"           => date('Y-m-d H:i:s'),
+                             "aktif"                 => 'Ya');
+                $this->db->insert('rb_kompetensi_dasar', $kd);
+              }
+        }
+
+        $kkm_kd = $this->db->query("SELECT (sum(kkm)/count(*)) as nilai FROM rb_kompetensi_dasar where id_mata_pelajaran='".$this->uri->segment(4)."'")->row_array();
+        $data_kkm = array('kkm'=>$kkm_kd['nilai']);
+        $where_kkm = array('id_mata_pelajaran' => $this->uri->segment(4),'id_identitas_sekolah'=>$this->session->sekolah);
+        $this->model_app->update('rb_mata_pelajaran', $data_kkm, $where_kkm);
+    }
     public function import_excel_borongan($directory,$filename){
         ini_set('memory_limit', '-1');
         $inputFileName = './asset/'.$directory.'/'.$filename;
