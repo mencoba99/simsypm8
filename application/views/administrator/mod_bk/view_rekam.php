@@ -42,13 +42,20 @@
       <?php 
         $no = 1;
         foreach ($record->result_array() as $r){
-        echo "<tr><td>$no</td>
-                  <td>$r[nipd]</td>
-                  <td>$r[nama]</td>
-                  <td><b style='color:green'>$r[judul]</b> - $r[pelanggaran]</td>
-                  <td>$r[bobot]</td>
-                  <td>$r[nama_guru]</td>
-                  <td><center>
+        if ($r[bobot] < 45) {
+          $color = 'yellow';
+        }if ($r[bobot] > 45 AND $r[bobot] < 80) {
+          $color = '#ffcc33';
+        }if ($r[bobot] > 80) {          
+          $color = '#ff6600';
+        }
+        echo "<tr><td style='background-color:$color'>$no</td>
+                  <td style='background-color:$color'>$r[nipd]</td>
+                  <td style='background-color:$color'>$r[nama]</td>
+                  <td style='background-color:$color'><b style='color:green'>$r[judul]</b> - $r[pelanggaran]</td>
+                  <td style='background-color:$color'>$r[bobot]</td>
+                  <td style='background-color:$color'>$r[nama_guru]</td>
+                  <td style='background-color:$color'><center>
                     <a class='btn btn-success btn-xs' title='Edit Data' href='".base_url().$this->uri->segment(1)."/edit_rekam_kasus/$r[id_rekam]'><span class='glyphicon glyphicon-edit'></span></a>
                     <a class='btn btn-danger btn-xs' title='Delete Data' href='".base_url().$this->uri->segment(1)."/delete_rekam_kasus/$r[id_rekam]' onclick=\"return confirm('Apa anda yakin untuk hapus Data ini?')\"><span class='glyphicon glyphicon-remove'></span></a>
                   </center></td>

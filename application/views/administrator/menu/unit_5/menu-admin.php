@@ -626,6 +626,8 @@
               <a href="#"><i class="fa fa-user-secret"></i> <span>PPDB Online</span><i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
               <?php
+
+
                 $cek=$this->model_app->umenu_akses("menuwebsite",$this->session->id_session);
                 if($cek==1 OR $this->session->level=='admin'){
                   echo "<li><a href='../psb' target='_BLANK'><i class='fa fa-circle-o'></i>Menuju ke Halaman Pendaftaran</a></li>";
@@ -698,6 +700,11 @@
               <a href="#"><i class="fa fa-building"></i> <span>Bursa Kerja Khusus</span><i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
                 <?php
+
+                $cek=$this->model_app->umenu_akses("menuwebsite",$this->session->id_session);
+                if($cek==1 OR $this->session->level=='admin'){
+                  echo "<li><a href='../tracer' target='_BLANK'><i class='fa fa-circle-o'></i>Menuju ke Halaman Tracer Alumni</a></li>";
+                }
                     $cek=$this->model_app->umenu_akses("tracer_alumni",$this->session->id_session);
                     if($cek==1 OR $this->session->level=='admin'){
                       echo "<li><a href='".base_url()."/alumni/tracer_alumni'><i class='fa fa-circle-o'></i> Tracer Study</a></li>";

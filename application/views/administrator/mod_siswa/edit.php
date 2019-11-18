@@ -35,7 +35,7 @@
                                 }
                             echo "</th></tr>
                             <input type='hidden' value='$s[id_siswa]' name='id'>
-                            <tr><th width='120px' scope='row'>Username/NIPD</th> <td><input type='text' class='form-control' value='$s[nipd]' name='nipd' onkeyup=\"nospaces(this)\"></td></tr>
+                            <tr><th width='120px' scope='row'>Username/NIS</th> <td><input type='text' class='form-control' value='$s[nipd]' name='nipd' onkeyup=\"nospaces(this)\"></td></tr>
                             <tr><th scope='row'>NISN</th> <td><input type='text' class='form-control' value='$s[nisn]' name='nisn' onkeyup=\"nospaces(this)\"></td></tr>
                             <tr><th scope='row'>Email</th> <td><input type='email' class='form-control' value='$s[email]' onkeyup=\"nospaces(this)\" name='email'></td></tr>
                             <tr><th scope='row'>Password</th> <td><input type='password' class='form-control' value='' name='password' onkeyup=\"nospaces(this)\"><small><i>Biarkan password Kosong jika tidak di ubah!</i></small></td></tr>
@@ -83,6 +83,7 @@
                           <table class='table table-condensed table-bordered'>
                           <tbody>
                             <tr><th width='120px' scope='row'>NIK</th> <td><input type='text' class='form-control' value='$s[nik]' name='nik'></td></tr>
+
                             <tr><th scope='row'>Tempat Lahir</th> <td><input type='text' class='form-control' value='$s[tempat_lahir]' name='tempat_lahir'></td></tr>
                             <tr><th scope='row'>Tanggal Lahir</th> <td><input type='text' class='form-control datepicker' value='".tgl_view($s['tanggal_lahir'])."' name='tanggal_lahir'></td></tr>
                             

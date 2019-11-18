@@ -11,7 +11,7 @@
                         echo form_open_multipart($this->uri->segment(1).'/tambah_siswa',$attributes); 
                           echo "<div class='col-md-6'>
                             <table class='table table-condensed table-bordered'>
-                            <tr><th width='130px' scope='row'>Username/NIPD</th> <td><input type='text' class='form-control' name='nipd' onkeyup=\"nospaces(this)\"></td></tr>
+                            <tr><th width='130px' scope='row'>Username/NIS</th> <td><input type='text' class='form-control' name='nipd' onkeyup=\"nospaces(this)\"></td></tr>
                               <tr><th scope='row'>NISN</th> <td><input type='text' class='form-control' name='nisn' onkeyup=\"nospaces(this)\"></td></tr>
                               <tr><th scope='row'>Email</th> <td><input type='email' class='form-control' onkeyup=\"nospaces(this)\" name='email'></td></tr>
                               <tr><th scope='row'>Password</th> <td><input type='password' class='form-control' name='password' onkeyup=\"nospaces(this)\"></td></tr>

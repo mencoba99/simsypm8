@@ -36,7 +36,7 @@
                                 </center>
                               </td>
                               <td>
-                                <a class='btn btn-primary btn-xs' title='Data Asset' href='".base_url().$this->uri->segment(1)."/asset_lab?id=$r[id_lab]'><span class='glyphicon glyphicon-list'></span> Asset</a>
+                                <a class='btn btn-primary btn-xs' title='Data Asset' href='".base_url().$this->uri->segment(1)."/asset_lab?id=$r[id_lab]'><span class='glyphicon glyphicon-list'></span> Data Asset</a>
                                 <a class='btn btn-success btn-xs' title='Edit Data' href='".base_url().$this->uri->segment(1)."/edit_lab/$r[id_lab]'><span class='glyphicon glyphicon-edit'></span></a>
                                 <a class='btn btn-danger btn-xs' title='Delete Data' href='".base_url().$this->uri->segment(1)."/delete_lab/$r[id_lab]' onclick=\"return confirm('Apa anda yakin untuk hapus Data ini Beserta Asset?')\"><span class='glyphicon glyphicon-remove'></span></a>
                               </td>

@@ -751,8 +751,8 @@ class Smk extends CI_Controller {
         $this->template->load('administrator/template','administrator/mod_ruangan/view',$data);
     }
     
-    public function import_ruangan(){
-        $config['upload_path'] = 'asset/'.$this->uri->segment(3);
+    public function import_excel_ruangan(){
+        $config['upload_path'] = 'asset/ruangan/'.$this->uri->segment(3);
         $config['allowed_types'] = 'xlsx|xls';
         $this->load->library('upload', $config);
         if ( ! $this->upload->do_upload('fileexcel')){
@@ -762,6 +762,11 @@ class Smk extends CI_Controller {
             $upload_data = $this->upload->data(); //Mengambil detail data yang di upload
             $filename = $upload_data['file_name'];//Nama File
             $this->model_app->import_excel_ruangan($this->uri->segment(3),$filename);
+            $flash = "<div class='alert alert-success alert-dismissible fade in' role='alert'> 
+                          <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                          <span aria-hidden='true'>×</span></button> <strong>Import data ruangan Sukses..!</strong>
+                          </div>";
+            $this->session->set_flashdata('data',$flash); 
             redirect($this->uri->segment(1).'/ruangan?sukses');
         }
     }
@@ -814,7 +819,7 @@ class Smk extends CI_Controller {
             $this->load->library('upload', $config);
             $this->upload->do_upload('foto');
             $hasil=$this->upload->data();
-            if ($hasil['file_name']==''){
+            if ($_FILES["foto"]['name']==''){            
             $data = array('id_gedung'=>$this->input->post('a'),
                             'kode_ruangan'=>$this->input->post('b'),
                             'nama_ruangan'=>$this->input->post('c'),

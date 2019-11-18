@@ -3,12 +3,13 @@
                 <div class="box-header">
                   <h3 class="box-title">Data Ruangan </h3>
                   <a class='pull-right btn btn-primary btn-sm' href='<?php echo base_url().$this->uri->segment(1); ?>/tambah_ruangan'>Tambahkan Data</a>           
-                  <form style='margin-right:5px; margin-top:0px' class='pull-right' action='<?php echo base_url().$this->uri->segment(1)."/import_excel_guru/import_guru"; ?>' method='POST' enctype='multipart/form-data'>
+                  <form style='margin-right:5px; margin-top:0px' class='pull-right' action='<?php echo base_url().$this->uri->segment(1)."/import_excel_ruangan/"; ?>' method='POST' enctype='multipart/form-data'>
                     <a title='Lihat Format File' class='btn-sm btn-success' href='<?php echo base_url().$this->uri->segment(1)."/download/import/format_data_ruangan.xlsx"; ?>'><span class="glyphicon glyphicon-file" aria-hidden="true"></span>Download Format File</a> 
                     <input type="file" name='fileexcel' style='padding:3px; width:250px; display:inline-block; border:1px solid #ccc; padding:3px'>
                     <input type="submit" name='tambahkan' style='margin-top:-4px' class='btn btn-info btn-sm' value='Import'>
                   </form>
                 </div><!-- /.box-header -->
+                <?php echo $this->session->flashdata('data');?>
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
@@ -32,8 +33,8 @@
                               <td>$r[nama_gedung]</td>
                               <td>$r[kode_ruangan]</td>
                               <td>$r[nama_ruangan]</td>
-                              <td>$r[kapasitas_belajar] Orang</td>
-                              <td>$r[kapasitas_ujian] Orang</td>
+                              <td>$r[kapasitas_belajar] Siswa</td>
+                              <td>$r[kapasitas_ujian] Siswa</td>
                               <td>
                                 <center>";
                               if (trim($r['foto'])=='' OR !file_exists("asset/asset_sekolah/".$r['foto'])){

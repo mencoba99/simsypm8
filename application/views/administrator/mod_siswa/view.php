@@ -53,8 +53,7 @@
                                      }
                                  echo"
                                   <input type='submit' style='margin-left: 5px;margin-right:10px' class='btn btn-info btn-sm' value='Tampilkan'>
-                                  <a href='".base_url().$this->uri->segment(1)."/unduh_siswa?angkatan=".$_GET['angkatan']."&kelas=".$_GET['kelas']."' title='Unduh Data' class='btn btn-success btn-sm' >Unduh</a>
-                                  <a title='Print Data Siswa' style='margin-top: px' class='btn btn-danger btn-sm' target='_BLANK' href='print/print-siswa.php?kelas=$_GET[kelas]&angkatan=$_GET[angkatan]'>Print</a>
+                                  <a href='".base_url().$this->uri->segment(1)."/unduh_siswa?angkatan=".$_GET['angkatan']."&kelas=".$_GET['kelas']."' title='Unduh Data' class='btn btn-success btn-sm' >Unduh</a>                                  
                               </td>
                            </tr>
                         </tbody>
@@ -73,7 +72,7 @@
                       <tr>
                         <th><input type='checkbox' onClick=\"check_semua(this)\"/></th>
                         <th style='width:40px'>No</th>
-                        <th>NIPD</th>
+                        <th>NIS</th>
                         <th>NISN</th>
                         <th>Nama siswa</th>
                         <th>Jenis Kelamin</th>

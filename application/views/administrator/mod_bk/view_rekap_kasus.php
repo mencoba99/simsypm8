@@ -45,6 +45,7 @@
         }else{
           $cek = $this->db->query("SELECT count(*) as kasus, sum(b.bobot) as bobot FROM rb_bk_rekam a JOIN rb_bk_jenis_detail b ON a.id_jenis_detail=b.id_jenis_detail where a.id_siswa='$r[id_siswa]'")->row_array();
         }
+       
         echo "<tr><td>$no</td>
                   <td>$r[nipd]</td>
                   <td>$r[nama]</td>

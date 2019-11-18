@@ -23,9 +23,10 @@
         foreach ($tampil->result_array() as $r) {
         $j = $this->db->query("SELECT sum(jumlah) as jumlah FROM rb_pustaka_pinjam_detail where id_pinjam='$r[id_pinjam]'")->row_array();
         $k = $this->db->query("SELECT sum(jumlah) as jumlah FROM rb_pustaka_kembali where id_pinjam='$r[id_pinjam]'")->row_array();
-        if ($j['jumlah']==$k['jumlah']){ $status = '<i style="color:green">Sudah Dikembalikan</i>'; }else{ $status = '<i style="color:red">Belum Dikembalikan</i>'; }
+        if ($j['jumlah']==$k['jumlah']){ $status = '<i style="color:green">Sudah Dikembalikan</i>'; }else{ $status = '<i style="color:red">Belum Dikembalikan</i>'; }      
 
-        $kelas = $this->db->query("SELECT nama_kelas FROM rb_kelas where id_kelas = ".$r['id_kelas']." ")->result_array()[0];
+        $siswa = $this->model_app->view_where('rb_siswa',array('id_siswa'=>$r['id_siswa']))->row_array();
+        $kelas = $this->model_app->view_where('rb_kelas',array('id_kelas'=>$siswa['id_kelas']))->row_array();
         echo "<tr><td>$no</td>
                   <td>$r[nama]</td>
                   <td>$kelas[nama_kelas]</td>

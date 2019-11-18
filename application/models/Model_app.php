@@ -565,29 +565,24 @@ class Model_app extends CI_model{
           $data7 = $worksheet[$i]['G'];
          
           $id_gedung = $this->model_app->view_where('rb_gedung',array('kode_gedung'=>$data1))->row_array();  
-          print_r($id_gedung); exit();
 
           $cek_kode_ruangan = $this->model_app->view_where('rb_ruangan','kode_ruangan')->row_array();         
-          if ($cek->num_rows()<=0 AND trim($data3)!=''){
+          if ($id_gedung >=1 ){
             $ins = array(
-                    "id_gedung"         => $id_ruangan['id_gedung'],
+                    "id_gedung"         => $id_gedung['id_gedung'],
                     "kode_gedung"       => $data1,
                     "kode_ruangan"      => $data2,
                     "nama_ruangan"      => $data3,
                     "kapasitas_belajar" => $data4,
                     "kapasitas_ujian"   => $data5,
                     "keterangan"        => $data6,
-                    "aktif"             => $data7                    
+                    "aktif"             => $data7
                     );
-            $this->db->insert('rb_gedung', $ins);
+            $this->db->insert('rb_ruangan', $ins);
             echo "Sukses - <b><span style='color:green'>$data2 / $data3</span></b>, a/n <b> $data3</b> Sukses di import,.. <br>";
-          }else{
-            $ins_update = array("angkatan" => $data46,
-                                "id_kelas" => $kelas['id_kelas']);
-            $this->db->where('nipd',$data1);
-            $this->db->update('rb_siswa',$ins_update);
-            foreach ($cek->result_array() as $row) {
-                echo "<b>Gagal - <span style='color:red'>$row[nipd] / $row[nisn]</span></b>, a/n <b> $row[nama]</b> sudah ada di database,.. <br>";
+          }else{           
+            foreach ($id_gedung as $row) {
+                echo "<b>Gagal - <span style='color:red'>kode gedung : $row[kode_gedung]</span></b>, a/n <b> $row[nama_gedung]</b> tidak ada!!!.. <br>";
             }
           }
         }
@@ -658,6 +653,8 @@ class Model_app extends CI_model{
           $data50 = str_replace(" "," ",$worksheet[$i]['AX']);
           $data51 = $worksheet[$i]['AY'];
           $data52 = $worksheet[$i]['AZ'];
+          $data53 = $worksheet[$i]['BA'];
+          $data54 = md5(trim($worksheet[$i]['BB']));
           if (trim($data5)==''){ $data5x = rand(10000,99999999); }else{ $data5x = $data5; }
           if (trim($data5)==''){ $data5x = rand(10000,99999999); }else{ $data5x = $data5; }
           if (trim($data22)==''){ $data22x = 'siswa@schoolmedia.id'; }else{ $data22x = $data22; }
@@ -674,7 +671,7 @@ class Model_app extends CI_model{
                     "id_jenis_kelamin"      => $data4,
                     "nisn"                  => $data5x,
                     "tempat_lahir"          => $data6,
-                    "tanggal_lahir"         => $data7,
+                    "tanggal_lahir"         => tgl_simpan($data7),
                     "nik"                   => $data8,
                     "id_agama"              => $data9,
                     "kebutuhan_khusus"      => $data10,
@@ -723,6 +720,12 @@ class Model_app extends CI_model{
                     "email_sekolah"         => '',
                     "no_rek"                => '');
             $this->db->insert('rb_siswa', $ins);
+            $ortu = $this->db->query("SELECT * FROM rb_siswa where nipd='$data1' AND id_identitas_sekolah='".$this->session->sekolah."'")->row_array();
+            $ortue = array(
+                    "id_siswa"              => $ortu['id_siswa'],
+                    "email"                 => $data53,
+                    "password"              => $data54);
+            $this->db->insert('rb_siswa_ortu', $ortue);
             echo "Sukses - <b><span style='color:green'>$data1 / $data5x</span></b>, a/n <b> $data3</b> Sukses di import,.. <br>";
           }else{
             $ins_update = array("angkatan" => $data46,
@@ -811,7 +814,7 @@ class Model_app extends CI_model{
                     "nama_guru"             =>$data3,
                     "id_jenis_kelamin"      =>$data4,
                     "tempat_lahir"          =>$data5,
-                    "tanggal_lahir"         =>$data6,
+                    "tanggal_lahir"         =>tgl_simpan($data6),
                     "nik"                   =>$data7,
                     "niy_nigk"              =>$data8,
                     "nuptk"                 =>$data9,

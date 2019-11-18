@@ -10,7 +10,7 @@
           <tr bgcolor='#e3e3e3'>
             <th style='width:40px'>No</th>
             <th>Jenis Sanksi</th>
-            <th>Bobot</th>
+            <th style='width:80px'>Bobot</th>
             <th>Keterangan</th>
             <th style='width:80px'>Action</th>
           </tr>
