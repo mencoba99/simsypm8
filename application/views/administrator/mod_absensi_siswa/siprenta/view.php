@@ -30,7 +30,7 @@
                         foreach ($record as $r){
                             $siswa = $this->db->query("SELECT * FROM rb_siswa a JOIN rb_kelas b ON a.id_kelas = b.id_kelas WHERE a.nisn = ".$r->no_induk)->row_array();
                             if ($siswa === NULL ) {
-                                $kel = "Guru";
+                                $kel = "Pegawai";
                             } else {
                                 $kel = $siswa['nama_kelas'];
                             } 

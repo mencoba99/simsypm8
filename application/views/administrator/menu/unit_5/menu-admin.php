@@ -299,7 +299,7 @@
                   echo "<li><a href='".base_url()."$sekolah[keyword]/rekap_kehadiran_siprenta'><i class='fa fa-circle-o'></i> Rekap Kehadiran Siprenta</a></li>";
                 }
 
-                $cek=$this->model_app->umenu_akses("rekap_kehadiran_siprenta",$this->session->id_session);
+                $cek=$this->model_app->umenu_akses("rekap_user_siprenta",$this->session->id_session);
                 if($cek==1 OR $this->session->level=='admin'){
                   echo "<li><a href='".base_url()."$sekolah[keyword]/rekap_user_siprenta'><i class='fa fa-circle-o'></i> Rekap Kehadiran-User Siprenta</a></li>";
                 }
