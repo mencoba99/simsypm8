@@ -259,6 +259,11 @@
                       if($cek==1 OR $this->session->level=='admin'){
                         echo "<li><a href='".base_url()."$sekolah[keyword]/rekap_kasus'><i class='fa fa-circle-o'></i> Rekapitulasi Kasus</a></li>";
                       }
+
+                      $cek=$this->model_app->umenu_akses("rekap_kasus",$this->session->id_session);
+                      if($cek==1 OR $this->session->level=='admin'){
+                        echo "<li><a href='".base_url()."$sekolah[keyword]/rekap_kehadiran_siprenta'><i class='fa fa-circle-o'></i> Rekap Kehadiran Siprenta</a></li>";
+                      }
                     echo "</ul>
                   </li>";
                 }
@@ -272,7 +277,7 @@
                       if($cek==1 OR $this->session->level=='admin'){
                         echo "<li><a href='../tracer' target='_BLANK'><i class='fa fa-circle-o'></i>Menuju ke Halaman Tracer Alumni</a></li>";
                       }
-                      
+
                       $cek=$this->model_app->umenu_akses("tracer_alumni",$this->session->id_session);
                       if($cek==1 OR $this->session->level=='admin'){
                         echo "<li><a href='".base_url()."/alumni/tracer_alumni'><i class='fa fa-circle-o'></i> Tracer Study</a></li>";
