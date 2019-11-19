@@ -88,7 +88,7 @@
 
                 $cek=$this->model_app->umenu_akses("rekap_user_siprenta",$this->session->id_session);
                 if($cek==1 OR $this->session->level=='admin'){
-                  echo "<li><a href='".base_url()."$sekolah[keyword]/rekap_user_siprenta'><i class='fa fa-circle-o'></i> Rekap Kehadiran Siprenta</a></li>";
+                  echo "<li><a href='".base_url()."$sekolah[keyword]/rekap_user_siprenta'><i class='fa fa-circle-o'></i> Rekap User Siprenta</a></li>";
                 }
               ?>
               </ul>
