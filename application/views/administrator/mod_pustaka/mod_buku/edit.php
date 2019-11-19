@@ -28,7 +28,8 @@ echo "<div class='col-md-12'>
         <tr><th scope='row'>Penerbit</th> <td><input type='text' class='form-control' name='e' value='$s[penerbit]' required> </td></tr>
         <tr><th scope='row'>Tahun Terbit</th> <td><input type='number' class='form-control' name='tahun_terbit' value='$s[tahun_terbit]'> </td></tr>
         <tr><th scope='row'>Foto</th> <td><input type='file' class='form-control' name='f'>";
-        if ($s['foto']!=''){ echo "<small>Foto saat ini : <a href='foto_buku/$s[foto]'><i>$s[foto]</i></a></small>"; } echo "</td></tr>
+        /*if ($s['foto']!=''){ echo "<small>Foto saat ini : <a href='foto_buku/$s[foto]'><i>$s[foto]</i></a></small>"; }*/ echo "</td></tr>
+        <tr><th scope='row'></th> <td><img src='".base_url()."asset/foto_buku/$s[foto]' style='height: 200px'></td></tr>
         <tr><th scope='row'>Deskripsi</th> <td><textarea class='form-control' name='g'>$s[deskripsi]</textarea></td></tr>
         <tr><th scope='row'>Jumlah</th> <td><input autocomplete='off' type='number' class='form-control' name='h' value='$s[jumlah]'> </td></tr>
         <tr><th scope='row'>Tahun Pengadaan</th> <td><input autocomplete='off' type='number' class='form-control' name='tahun_pengadaan' value='$s[tahun_pengadaan]'> </td></tr>
