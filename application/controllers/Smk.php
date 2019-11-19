@@ -6122,9 +6122,9 @@ class Smk extends CI_Controller {
     }
     
     function rekap_kehadiran_siprenta() {
-        cek_session_akses('rekap_siprenta', $this->session->id_session);
+        cek_session_akses('rekap_kehadiran_siprenta', $this->session->id_session);
         // $otherdb = $this->load->database('sub', TRUE);
-        $url = 'http://c1e082f4.ngrok.io/api/kehadiran-by-date?date='.$this->input->get('tanggal');
+        $url = 'http://192.168.1.1/siprenta/api/kehadiran-by-date?date='.$this->input->get('tanggal');
         $datauser = file_get_contents($url);
         $characters = json_decode($datauser);
         $data['record'] = $characters->data;
@@ -6132,18 +6132,18 @@ class Smk extends CI_Controller {
     }
 
     function rekap_user_siprenta() {
-        cek_session_akses('rekap_siprenta', $this->session->id_session);
+        cek_session_akses('rekap_kehadiran_siprenta', $this->session->id_session);
         // $otherdb = $this->load->database('sub', TRUE);
         
         if ($this->session->level() == 'guru') {
-            $url = 'http://c1e082f4.ngrok.io/api/kehadiran?id='.$this->session->id_session();
+            $url = 'http://192.168.1.1/siprenta/api/kehadiran?id='.$this->session->id_session();
             $datauser = file_get_contents($url);
             $characters = json_decode($datauser);
             $data['record'] = $characters->data;
             // $data['record'] = $otherdb->query("SELECT * FROM kehadirans a JOIN user_finger b ON a.id_penghadir = b.id WHERE a.nisn = ".$nip);
             // $data['user'] = $otherdb->query("SELECT * FROM user_finger WHERE a.nisn = ".$nip)->row_array();
         } else if ($this->session->level() == 'siswa') {
-            $url = 'http://c1e082f4.ngrok.io/api/kehadiran?id='.$this->session->id_session();
+            $url = 'http://192.168.1.1/siprenta/api/kehadiran?id='.$this->session->id_session();
             $datauser = file_get_contents($url);
             $characters = json_decode($datauser);
             $data['record'] = $characters->data;
