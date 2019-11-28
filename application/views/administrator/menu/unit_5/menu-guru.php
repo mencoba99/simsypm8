@@ -97,7 +97,10 @@
                 if($cek==1 OR $this->session->level=='admin'){
                   echo "<li><a href='".base_url()."$sekolah[keyword]/nilai_observasi'><i class='fa fa-circle-o'></i> Jurnal Guru</a></li>";
                 }
-
+                // $cek=$this->model_app->umenu_akses("nilai_uts",$this->session->id_session);
+                // if($cek==1 OR $this->session->level=='admin' | $this->session->level=='guru' ){
+                //   echo "<li><a href='".base_url()."$sekolah[keyword]/nilai_uts'><i class='fa fa-circle-o'></i> Nilai UTS</a></li>";
+                // }
                 $cek=$this->model_app->umenu_akses("nilai_pengetahuan",$this->session->id_session);
                 if($cek==1 OR $this->session->level=='admin'){
                   echo "<li class='treeview'>
@@ -280,7 +283,7 @@
 
                       $cek=$this->model_app->umenu_akses("tracer_alumni",$this->session->id_session);
                       if($cek==1 OR $this->session->level=='admin'){
-                        echo "<li><a href='".base_url()."/alumni/tracer_alumni'><i class='fa fa-circle-o'></i> Tracer Study</a></li>";
+                        echo "<li><a href='".base_url()."alumni/tracer_alumni'><i class='fa fa-circle-o'></i> Tracer Study</a></li>";
                     }
                       $cek=$this->model_app->umenu_akses("alumni_bkk",$this->session->id_session);
                       if($cek==1 OR $this->session->level=='admin'){

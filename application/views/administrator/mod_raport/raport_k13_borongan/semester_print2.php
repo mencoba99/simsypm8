@@ -226,6 +226,7 @@ echo "<br/><b>D. Ekstrakurikuler</b>
             <th width='40px'>No</th>
             <th width='30%'>Kegiatan Ekstrakurikuler</th>
             <th>Keterangan</th>
+            <th>Predikat</th>
           </tr>";
           $no = 1;
           $view = $this->db->query("SELECT * FROM `rb_nilai_extrakulikuler` where id_siswa='$_GET[siswa]' AND id_tahun_akademik='$_GET[tahun]' ORDER BY `id_nilai_extrakulikuler` ASC");
@@ -233,6 +234,7 @@ echo "<br/><b>D. Ekstrakurikuler</b>
             echo "<tr><td>$no</td>
                       <td>$row[kegiatan]</td>
                       <td>$row[deskripsi]</td>
+                      <td>$row[predikat]</td>
                   </tr>";
               $no++;
           }

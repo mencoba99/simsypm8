@@ -12,8 +12,19 @@
 
                 echo "<div class='col-md-12'>
                   <table class='table table-condensed table-bordered'>
-                  <tbody>
-                    <tr><th scope='row' width='120px'>Kode</th>  <td><input type='text' class='form-control' name='a' required></td></tr>
+                  <tbody>";
+                    $ranah = array('1'=>'spiritual',
+                                        '2'=>'sosial',
+                                        '3'=>'pengetahuan',
+                                        '4'=>'keterampilan'
+                                      );
+                    echo"<tr><th scope='row' width='120px'>Kode</th>  <td><select class='form-control' name='a' required>
+                        <option value='' selected>-- Pilih Ranah --<option>";
+                        foreach ($ranah as $key) {
+                          echo "<option value='$key'>$key</option>";
+                        }
+                        echo"
+                    </td></tr>
                     <tr><th scope='row'>KKM</th>  <td><input type='number' class='form-control' name='e' value='75' id='result' style='width:80px; display:inline; margin-right:30px' required>
                                                       <span style='color:red'>Kompleksitas : </span> <input type='number' class='form-control input value1' name='e1' value='75' style='width:80px; display:inline; color:red' required>
                                                       <span style='color:green'>Intake : </span>     <input type='number' class='form-control input value2' name='e2' value='75' style='width:80px; display:inline; color:green' required>

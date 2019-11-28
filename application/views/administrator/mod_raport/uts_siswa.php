@@ -4,7 +4,7 @@
                   <h3 class="box-title">Raport UTS <?php echo $thn['nama_tahun']; ?></h3>
                   <?php 
                     $row = $this->model_app->view_where('rb_siswa',array('id_siswa'=>$this->session->id_session))->row_array();
-                    echo "<a class='btn btn-success btn-xs pull-right' target='_BLANK' title='Penilaian Diri' href='".base_url().$this->uri->segment(1)."/cetak_uts_raport?angkatan=$row[angkatan]&kelas=$row[id_kelas]&tahun=$thn[id_tahun_akademik]&siswa=$row[id_siswa]'><span class='glyphicon glyphicon-print'></span> Print Raport UTS</a>";
+                   echo "<a class='btn btn-success btn-xs pull-right' target='_BLANK' title='Penilaian Diri' href='".base_url().$this->uri->segment(1)."/cetak_uts_raport?angkatan=$row[angkatan]&kelas=$row[id_kelas]&tahun=$thn[id_tahun_akademik]&siswa=$row[id_siswa]&page=1'><span class='glyphicon glyphicon-print'></span> Print Raport UTS</a>";
                   ?>
                 </div><!-- /.box-header -->
                 <div class="box-body">

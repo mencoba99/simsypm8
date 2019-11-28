@@ -744,7 +744,7 @@ class Smk extends CI_Controller {
     }
     
     public function import_excel_ruangan(){
-        $config['upload_path'] = 'asset/ruangan/'.$this->uri->segment(3);
+        $config['upload_path'] = 'asset/'.$this->uri->segment(3);
         $config['allowed_types'] = 'xlsx|xls';
         $this->load->library('upload', $config);
         if ( ! $this->upload->do_upload('fileexcel')){
@@ -3250,13 +3250,13 @@ class Smk extends CI_Controller {
     function tambah_kompetensi_dasar(){
         cek_session_akses('kompetensi_dasar',$this->session->id_session);
         if (isset($_POST['submit'])){
-            if (substr($this->input->post('a'), 0,1) =='1'){
+            if ($this->input->post('a') =='spiritual'){
                 $ranah = 'spiritual';
-            }elseif (substr($this->input->post('a'), 0,1) =='2'){
+            }elseif ($this->input->post('a') =='sosial'){
                 $ranah = 'sosial';
-            }elseif (substr($this->input->post('a'), 0,1) =='3'){
+            }elseif ($this->input->post('a') =='pengetahuan'){
                 $ranah = 'pengetahuan';
-            }elseif (substr($this->input->post('a'), 0,1) =='4'){
+            }elseif ($this->input->post('a') =='keterampilan'){
                 $ranah = 'keterampilan';
             }
                 $data = array('id_identitas_sekolah'=>$this->session->sekolah,
@@ -3875,6 +3875,7 @@ class Smk extends CI_Controller {
                         'kegiatan'=>$this->input->post('jenis').''.$this->input->post('a'),
                         'nilai'=>$this->input->post('b'),
                         'deskripsi'=>$this->input->post('c'),
+                        'predikat'=>$this->input->post('d'),
                         'user_akses'=>$this->session->id_session,
                         'waktu_input'=>date('Y-m-d H:i:s'));
                 $this->model_app->insert('rb_nilai_extrakulikuler',$data);
@@ -4422,11 +4423,14 @@ class Smk extends CI_Controller {
                   $id_siswa = $_POST['id_siswa'.$ia];
                   if ($id_siswa!=''){
                   if ($this->input->post('kategori_nilai')=='3'){
+
                     $cek = $this->db->query("SELECT * FROM rb_nilai_pengetahuan a JOIN rb_jadwal_pelajaran b ON a.kodejdwl=b.kodejdwl where a.id_siswa='$id_siswa' AND a.kodejdwl='".$this->uri->segment(3)."' AND a.kategori_nilai='".$this->input->post('kategori_nilai')."' AND b.id_tahun_akademik='".$this->input->post('id_tahun_akademik')."'");
                   }else{
+
                     $cek = $this->model_app->view_where('rb_nilai_pengetahuan',array('kodejdwl'=>$this->uri->segment(3),'id_siswa'=>$id_siswa,'id_kompetensi_dasar'=>$this->input->post('kd'),'tanggal_penilaian'=>tgl_simpan($this->input->post('tanggal')),'kategori_nilai'=>$this->input->post('kategori_nilai')));
                   }
                     if ($cek->num_rows() >= '1'){
+
                         $data = array('nilai'=>$a);
                         if ($this->input->post('kategori_nilai')=='3'){
                             $where = array('kodejdwl' => $this->input->post('kodejdwl'),'id_siswa'=>$id_siswa,'kategori_nilai'=>$this->input->post('kategori_nilai'));
@@ -4453,6 +4457,79 @@ class Smk extends CI_Controller {
             $edit = $this->model_app->jadwal_pelajaran_detail($id)->row_array();
             $data = array('s' => $edit);
             $this->template->load('administrator/template','administrator/mod_penilaian/pengetahuan/nilai_penugasan_detail',$data);
+        }
+    }
+
+    function nilai_uhb(){
+        cek_session_akses('nilai_pengetahuan',$this->session->id_session);
+        if($this->session->level=='guru'){
+            $thn = $this->model_app->view_where('rb_tahun_akademik',array('aktif'=>'Ya','id_identitas_sekolah'=>$this->session->sekolah))->row_array();
+            $record = $this->model_app->jadwal_pelajaran_guru_kurikulum($thn['id_tahun_akademik'],1);
+            $data = array('record' => $record, 'nama_tahun'=>$thn['nama_tahun']);
+            $this->template->load('administrator/template','administrator/mod_penilaian/pengetahuan/nilai_penugasan_guru',$data);
+        }else{
+          $record = $this->model_app->mata_pelajaran_semester(1);
+          $tahun = $this->model_app->view_where_ordering('rb_tahun_akademik',array('id_identitas_sekolah'=>$this->session->sekolah),'id_tahun_akademik','ASC');
+          $kelas = $this->model_app->view_join_where('rb_kelas.*','rb_kelas','rb_tingkat','id_tingkat',array('rb_kelas.id_identitas_sekolah'=>$this->session->sekolah,'rb_tingkat.kode_kurikulum'=>1),'id_kelas','ASC');
+          $data = array('record' => $record,'tahun' => $tahun,'kelas' => $kelas);
+          $this->template->load('administrator/template','administrator/mod_penilaian/pengetahuan/nilai_uhb',$data);
+        }
+    }
+
+    function detail_nilai_uhb(){
+        cek_session_akses('nilai_pengetahuan',$this->session->id_session);
+        $id = $this->uri->segment(3);
+        if (isset($_POST['submit'])){
+            if ($this->input->post('kd_pindah')!=''){
+                $jumls = $this->input->post('jumlah');
+                for ($ia=1; $ia<=$jumls; $ia++){
+                    $id_siswa = $_POST['id_siswa'.$ia];
+                    $data = array('id_kompetensi_dasar'=>$this->input->post('kd_pindah'));
+                    $where = array('kodejdwl' => $this->input->post('kodejdwl'),'id_siswa'=>$id_siswa,'id_kompetensi_dasar'=>$this->input->post('kd'),'tanggal_penilaian'=>tgl_simpan($this->input->post('tanggal')),'kategori_nilai'=>$this->input->post('kategori_nilai'));
+                    $this->model_app->update('rb_nilai_pengetahuan', $data, $where);
+                }
+                redirect($this->uri->segment(1).'/detail_nilai_uhb/'.$this->uri->segment(3).'?tanggal='.$this->input->post('tanggal').'&kd='.$this->input->post('kd'));
+            }else{
+                $jumls = $this->input->post('jumlah');
+                for ($ia=1; $ia<=$jumls; $ia++){
+                  $a  = $_POST['a'.$ia];
+                  $id_siswa = $_POST['id_siswa'.$ia];
+                  if ($id_siswa!=''){
+                  if ($this->input->post('kategori_nilai')=='3'){
+
+                    $cek = $this->db->query("SELECT * FROM rb_nilai_pengetahuan a JOIN rb_jadwal_pelajaran b ON a.kodejdwl=b.kodejdwl where a.id_siswa='$id_siswa' AND a.kodejdwl='".$this->uri->segment(3)."' AND a.kategori_nilai='".$this->input->post('kategori_nilai')."' AND b.id_tahun_akademik='".$this->input->post('id_tahun_akademik')."'");
+                  }else{
+
+                    $cek = $this->model_app->view_where('rb_nilai_pengetahuan',array('kodejdwl'=>$this->uri->segment(3),'id_siswa'=>$id_siswa,'id_kompetensi_dasar'=>$this->input->post('kd'),'tanggal_penilaian'=>tgl_simpan($this->input->post('tanggal')),'kategori_nilai'=>$this->input->post('kategori_nilai')));
+                  }
+                    if ($cek->num_rows() >= '1'){
+                        $data = array('nilai'=>$a);
+                        if ($this->input->post('kategori_nilai')=='3'){
+                            $where = array('kodejdwl' => $this->input->post('kodejdwl'),'id_siswa'=>$id_siswa,'kategori_nilai'=>$this->input->post('kategori_nilai'));
+                        }else{
+                            $where = array('kodejdwl' => $this->input->post('kodejdwl'),'id_siswa'=>$id_siswa,'id_kompetensi_dasar'=>$this->input->post('kd'),'tanggal_penilaian'=>tgl_simpan($this->input->post('tanggal')),'kategori_nilai'=>$this->input->post('kategori_nilai'));
+                        }
+                        $this->model_app->update('rb_nilai_pengetahuan', $data, $where);
+                    }else{
+                      $data = array('kodejdwl'=>$this->uri->segment(3),
+                                    'id_siswa'=>$id_siswa,
+                                    'id_kompetensi_dasar'=>$this->input->post('kd'),
+                                    'nilai'=>$a,
+                                    'kategori_nilai'=>$this->input->post('kategori_nilai'),
+                                    'tanggal_penilaian'=>tgl_simpan($this->input->post('tanggal')),
+                                    'user_akses'=>$this->session->id_session,
+                                    'waktu'=>date('Y-m-d H:i:s'));
+                      // print_r($data); exit();
+                        $this->model_app->insert('rb_nilai_pengetahuan',$data);
+                    }
+                  }
+                }
+                redirect($this->uri->segment(1).'/detail_nilai_uhb/'.$this->uri->segment(3).'?tanggal='.$this->input->post('tanggal').'&kd='.$this->input->post('kd'));
+            }
+        }else{
+            $edit = $this->model_app->jadwal_pelajaran_detail($id)->row_array();
+            $data = array('s' => $edit);
+            $this->template->load('administrator/template','administrator/mod_penilaian/pengetahuan/nilai_uhb_detail',$data);
         }
     }
 
@@ -5117,7 +5194,9 @@ class Smk extends CI_Controller {
             redirect($this->uri->segment(1).'/detail_nilai_observasi_bk/'.$this->uri->segment(3));
         }else{
             $thn = $this->model_app->view_where('rb_tahun_akademik',array('aktif'=>'Ya','id_identitas_sekolah'=>$this->session->sekolah))->row_array();
-            $edit = $this->model_app->wali_kelas($id)->row_array();
+            // $edit = $this->model_app->wali_kelas($id)->result_array();
+            $edit = $this->model_app->view_where('rb_kelas',array('id_kelas'=>$id))->row_array();
+
             $data = array('s' => $edit, 'thn'=>$thn);
             $this->template->load('administrator/template','administrator/mod_penilaian/nilai_observasi_detail_bk',$data);
         }
@@ -5148,7 +5227,7 @@ class Smk extends CI_Controller {
     }
 
     function cetak_uts_raport(){
-        cek_session_akses('cetak_uts',$this->session->id_session);
+        cek_session_akses('cetak_uts',$this->session->id_session);        
         $edit = $this->db->query("SELECT a.*, b.nama_kelas, b.kode_kelas, c.nama_guru as wali_kelas, c.nip FROM rb_siswa a JOIN rb_kelas b ON a.id_kelas=b.id_kelas 
                                     JOIN rb_guru c ON b.id_guru=c.id_guru where a.id_siswa='$_GET[siswa]'")->row_array();
         $identitas = $this->model_app->view_where('rb_identitas_sekolah',array('id_identitas_sekolah'=>$this->session->sekolah))->row_array();

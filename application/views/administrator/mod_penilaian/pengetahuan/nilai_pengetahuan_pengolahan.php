@@ -90,6 +90,9 @@ if($this->input->get('tanggal')==''){ $tanggal = date('d-m-Y'); }else{ $tanggal 
                                     $bagi = $nt+$nl+$np+$nu+$n;
 
                                     $rata_pengetahuan = ($lisan + $tertulis + $penugasan + $uts + $akhir)/$bagi;
+                                    if (is_nan($rata_pengetahuan)) {
+                                      $rata_pengetahuan = 0;
+                                    }
                                   }else{
                                     if ($a['nilai_tertulis']!=''){ $nt = 1; }else{ $nt = 0; }
                                     if ($aa['nilai_lisan']!=''){ $nl = 1; }else{ $nl = 0; }
@@ -109,6 +112,7 @@ if($this->input->get('tanggal')==''){ $tanggal = date('d-m-Y'); }else{ $tanggal 
 
                               if (strlen($k['kompetensi_dasar']) > 55){ $kdasar = substr($k['kompetensi_dasar'],0,55).',..';  }else{ $kdasar = $k['kompetensi_dasar']; }
                               $rataasum = $rataasum + $rata_pengetahuan;
+                              
 
                               $nilai[] = $rata_pengetahuan;
                               if (max($nilai)==$rata_pengetahuan){
@@ -141,14 +145,14 @@ if($this->input->get('tanggal')==''){ $tanggal = date('d-m-Y'); }else{ $tanggal 
                             if (is_nan($nilai_raport)) {
                               $nilai_raport = 0;
                             }
-                            /* $max = $this->db->query("SELECT a.kompetensi_dasar, a.kkm, a.nilai FROM (SELECT sum(a.nilai)/count(*) as nilai, a.id_kompetensi_dasar, b.kompetensi_dasar, b.kkm
-                                                                      FROM `rb_nilai_pengetahuan` a JOIN rb_kompetensi_dasar b ON a.id_kompetensi_dasar=b.id_kompetensi_dasar 
-                                                                      JOIN rb_jadwal_pelajaran c ON a.kodejdwl=c.kodejdwl where a.id_siswa='$r[id_siswa]' AND c.id_mata_pelajaran='$s[id_mata_pelajaran]' AND b.ranah='pengetahuan' GROUP BY a.id_kompetensi_dasar ORDER BY a.id_kompetensi_dasar) as a 
-                                                        ORDER BY a.nilai DESC LIMIT 1")->row_array();
-                            $min = $this->db->query("SELECT a.kompetensi_dasar, a.kkm, a.nilai FROM (SELECT sum(a.nilai)/count(*) as nilai, a.id_kompetensi_dasar, b.kompetensi_dasar, b.kkm 
-                                                                      FROM `rb_nilai_pengetahuan` a JOIN rb_kompetensi_dasar b ON a.id_kompetensi_dasar=b.id_kompetensi_dasar 
-                                                                      JOIN rb_jadwal_pelajaran c ON a.kodejdwl=c.kodejdwl where a.id_siswa='$r[id_siswa]' AND c.id_mata_pelajaran='$s[id_mata_pelajaran]' AND b.ranah='pengetahuan' GROUP BY a.id_kompetensi_dasar ORDER BY a.id_kompetensi_dasar) as a 
-                                                        ORDER BY a.nilai ASC LIMIT 1")->row_array(); */
+                           // $max = $this->db->query("SELECT a.kompetensi_dasar, a.kkm, a.nilai FROM (SELECT sum(a.nilai)/count(*) as nilai, a.id_kompetensi_dasar, b.kompetensi_dasar, b.kkm
+                           //                                            FROM `rb_nilai_pengetahuan` a JOIN rb_kompetensi_dasar b ON a.id_kompetensi_dasar=b.id_kompetensi_dasar 
+                           //                                            JOIN rb_jadwal_pelajaran c ON a.kodejdwl=c.kodejdwl where a.id_siswa='$r[id_siswa]' AND c.id_mata_pelajaran='$s[id_mata_pelajaran]' AND b.ranah='pengetahuan' GROUP BY a.id_kompetensi_dasar ORDER BY a.id_kompetensi_dasar) as a 
+                           //                              ORDER BY a.nilai DESC LIMIT 1")->row_array();
+                           //  $min = $this->db->query("SELECT a.kompetensi_dasar, a.kkm, a.nilai FROM (SELECT sum(a.nilai)/count(*) as nilai, a.id_kompetensi_dasar, b.kompetensi_dasar, b.kkm 
+                           //                                            FROM `rb_nilai_pengetahuan` a JOIN rb_kompetensi_dasar b ON a.id_kompetensi_dasar=b.id_kompetensi_dasar 
+                           //                                            JOIN rb_jadwal_pelajaran c ON a.kodejdwl=c.kodejdwl where a.id_siswa='$r[id_siswa]' AND c.id_mata_pelajaran='$s[id_mata_pelajaran]' AND b.ranah='pengetahuan' GROUP BY a.id_kompetensi_dasar ORDER BY a.id_kompetensi_dasar) as a 
+                           //                              ORDER BY a.nilai ASC LIMIT 1")->row_array();
 
                             if ($nilai_raport=='0'){
                                 $minus = "";

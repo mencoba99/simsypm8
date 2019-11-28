@@ -198,7 +198,7 @@ if($this->input->get('tanggal')==''){ $tanggal = date('d-m-Y'); }else{ $tanggal 
                                   $rata_rata = $row['kkm'];
                                 }elseif ($remedial['nilai_remedial']<$row['kkm']){
                                   $rata_rata = $remedial['nilai_remedial'];
-                                }
+                                }                                
                                 echo "<td align=center><a class='btn btn-xs btn-danger' href='' onclick=\"return popup('".base_url().$this->uri->segment(1)."/remedial_pengetahuan?kodejdwl=".$this->uri->segment(3)."&kd=".$this->input->get('kd')."&siswa=$r[id_siswa]')\">".number_format($rata_rata)."</a></td>";
                               }
                           echo "</tr>";

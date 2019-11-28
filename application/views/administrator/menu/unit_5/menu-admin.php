@@ -165,10 +165,10 @@
                   echo "<li><a href='".base_url()."$sekolah[keyword]/manajemenuser'><i class='fa fa-circle-o'></i> Administrator</a></li>";
                 }
 
-               $cek=$this->model_app->umenu_akses("akses_khusus",$this->session->id_session);
-                if($cek==1 OR $this->session->level=='admin'){
-                  echo "<li><a href='".base_url()."$sekolah[keyword]/akses_khusus'><i class='fa fa-circle-o'></i> Modul Akses Khusus</a></li>";
-                }
+               // $cek=$this->model_app->umenu_akses("akses_khusus",$this->session->id_session);
+               //  if($cek==1 OR $this->session->level=='admin'){
+               //    echo "<li><a href='".base_url()."$sekolah[keyword]/akses_khusus'><i class='fa fa-circle-o'></i> Modul Akses Khusus</a></li>";
+               //  }
                 
                 $cek=$this->model_app->umenu_akses("daftar_siswa",$this->session->id_session);
                 if($cek==1 OR $this->session->level=='admin'){
@@ -347,6 +347,7 @@
                           <li><a href='".base_url()."$sekolah[keyword]/nilai_lisan'><i class='fa fa-circle-o'></i> Lisan</a></li>
                           <li><a href='".base_url()."$sekolah[keyword]/nilai_tertulis'><i class='fa fa-circle-o'></i> Tertulis</a></li>
                           <li><a href='".base_url()."$sekolah[keyword]/nilai_penugasan'><i class='fa fa-circle-o'></i> Penugasan</a></li>
+                          <li><a href='".base_url()."$sekolah[keyword]/nilai_uhb'><i class='fa fa-circle-o'></i> UHB</a></li>
                           <li><a href='".base_url()."$sekolah[keyword]/nilai_uts_kd'><i class='fa fa-circle-o'></i> UTS</a></li>
                           <li><a href='".base_url()."$sekolah[keyword]/nilai_pengetahuan'><i class='fa fa-circle-o'></i> Nilai Akhir</a></li>
                         </ul>
@@ -400,7 +401,7 @@
               </ul>
             </li>
 
-            <li class="treeview">
+           <!--  <li class="treeview">
               <a href="#"><i class="fa fa-book"></i> <span>Notulensi Rapat</span><i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
               <?php 
@@ -410,7 +411,7 @@
                 }
               ?>
               </ul>
-            </li>
+            </li> -->
 
             <!-- <li class="treeview">
               <a href="#"><i class="fa fa-bank"></i> <span>Bank Mini</span><i class="fa fa-angle-left pull-right"></i></a>
@@ -559,11 +560,14 @@
                   echo "<li><a href='".base_url()."pustaka/kategori'><i class='fa fa-circle-o'></i> Kategori</a></li>";
                 }
 
+                 $cek=$this->model_app->umenu_akses("buku",$this->session->id_session);
+                          if($cek==1 OR $this->session->level=='admin'){
+                            echo "<li><a href='".base_url()."pustaka/rak_buku'><i class='fa fa-circle-o'></i> Rak Buku</a></li>";
+                          }
                 $cek=$this->model_app->umenu_akses("buku",$this->session->id_session);
-                if($cek==1 OR $this->session->level=='admin'){
-                  echo "<li><a href='".base_url()."pustaka/buku'><i class='fa fa-circle-o'></i> Buku</a></li>";
-                }
-
+                          if($cek==1 OR $this->session->level=='admin'){
+                            echo "<li><a href='".base_url()."pustaka/ebook'><i class='fa fa-circle-o'></i> E-Book</a></li>";
+                          }
                 $cek=$this->model_app->umenu_akses("kartu_pustaka",$this->session->id_session);
                 if($cek==1 OR $this->session->level=='admin'){
                   echo "<li><a href='".base_url()."pustaka/kartu_pustaka'><i class='fa fa-circle-o'></i> Kartu Pustaka</a></li>";

@@ -206,19 +206,18 @@ class Model_app extends CI_model{
     function magang_selected(){
         $this->db->select('*');
         $this->db->from('rb_siswa a');
-        $this->db->join('rb_jurusan b','a.id_jurusan=b.id_jurusan', 'left');
-        $this->db->join('rb_kelas c','a.id_kelas=c.id_kelas', 'left');
-        $this->db->join('rb_tingkat d','c.id_tingkat=d.id_tingkat', 'left');
-        
+        $this->db->join('rb_jurusan b','a.id_jurusan=b.id_jurusan');
+        $this->db->join('rb_kelas c','a.id_kelas=c.id_kelas');
+        $this->db->join('rb_tingkat d','c.id_tingkat=d.id_tingkat');        
         if ($this->input->get('angkatan')!=''){
             $this->db->where('a.angkatan',$this->input->get('angkatan'));
         }
         
         if ($this->input->get('jurusan')!=''){
             $this->db->where('a.id_jurusan',$this->input->get('jurusan'));
-        }
+        }        
 
-        $this->db->where('a.id_bkk', NULL);
+        // $this->db->where('a.id_bkk', NULL);
         $this->db->where('a.status_siswa', 'Aktif');
         $this->db->where('c.id_tingkat', 12);
         $this->db->order_by('a.id_siswa','ASC');
@@ -277,6 +276,27 @@ class Model_app extends CI_model{
     }
 
     function mata_pelajaran_semester($kurikulum){
+        $this->db->select('a.*, c.nama_guru, d.kode_tahun_akademik, e.namamatapelajaran, e.kkm, f.nama_kelas');
+        $this->db->from('rb_jadwal_pelajaran a');
+        $this->db->join('rb_guru c','a.id_guru=c.id_guru', 'left');
+        $this->db->join('rb_tahun_akademik d','a.id_tahun_akademik=d.id_tahun_akademik', 'left');
+        $this->db->join('rb_mata_pelajaran e','a.id_mata_pelajaran=e.id_mata_pelajaran', 'left');
+        $this->db->join('rb_kelas f','a.id_kelas=f.id_kelas', 'left');
+        $this->db->join('rb_tingkat g','f.id_tingkat=g.id_tingkat', 'left');
+        if ($this->input->get('tahun')!=''){
+            $this->db->where('a.id_tahun_akademik',$this->input->get('tahun'));
+        }
+        if ($this->input->get('kelas')!=''){
+            $this->db->where('a.id_kelas',$this->input->get('kelas'));
+        }
+        $this->db->where('g.kode_kurikulum',$kurikulum);
+        $this->db->where('e.id_identitas_sekolah',$this->session->sekolah);
+        $this->db->order_by('e.urutan','ASC');
+        $this->db->group_by('a.id_mata_pelajaran');
+        return $this->db->get();
+    }
+
+    function mata_pelajaran_semester_uhb($kurikulum){
         $this->db->select('a.*, c.nama_guru, d.kode_tahun_akademik, e.namamatapelajaran, e.kkm, f.nama_kelas');
         $this->db->from('rb_jadwal_pelajaran a');
         $this->db->join('rb_guru c','a.id_guru=c.id_guru', 'left');
@@ -563,7 +583,9 @@ class Model_app extends CI_model{
           $data5 = $worksheet[$i]['E'];
           $data6 = $worksheet[$i]['F'];
           $data7 = $worksheet[$i]['G'];
-         
+          if (Is_Null($data6)) {
+              $data6 = '-';
+          }
           $id_gedung = $this->model_app->view_where('rb_gedung',array('kode_gedung'=>$data1))->row_array();  
 
           $cek_kode_ruangan = $this->model_app->view_where('rb_ruangan','kode_ruangan')->row_array();         

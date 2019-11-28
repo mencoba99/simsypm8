@@ -38,11 +38,12 @@
                 }
                   echo "<table id='example' class='table table-bordered table-striped table-condensed'>
                     <thead>
-                      <tr><th rowspan='2'>No</th>
+                      <tr><th>No</th>
                         <th>NISN</th>
                         <th>Nama Siswa</th>
                         <th style='max-width:270px; min-width:150px'><center>Kegiatan</center></th>
                         <th><center>Deskripsi</center></th>
+                        <th><center>Predikat</center></th>
                         <th><center>Action</center></th>
                       </tr>
                     </thead>
@@ -82,8 +83,10 @@
                                     }
                                   }
                                   echo "</select></td>"; */
-                                  echo "<td><textarea name='a' class='form-control' style='width:100%; height:32px;' placeholder=' Tuliskan Kegiatan...' onkeyup=\"auto_grow(this)\">$e[kegiatan]</textarea></td>
+                                  echo "<td><textarea name='d' class='form-control' style='width:100%; height:32px;' placeholder=' Tuliskan Kegiatan...' onkeyup=\"auto_grow(this)\">$e[kegiatan]</textarea></td>
                                   <td><textarea name='c' class='form-control' style='width:100%; height:32px;' placeholder=' Tuliskan Deskripsi...' onkeyup=\"auto_grow(this)\">$e[deskripsi]</textarea></td>
+                                  <td><text name='d' class='form-control' style='width:100%; height:32px;'readonly>$e[predikat]</textarea></td>                                
+                                </td>
                                   <td align=center><input type='submit' name='simpan' class='btn btn-xs btn-primary' style='width:65px' value='$name'></td>
                                 </tr>
                               </form>";
@@ -104,8 +107,19 @@
                                   }
                                   echo "</select></td>";*/
                                   echo "<td><textarea name='a' class='form-control' style='width:100%; height:32px;' placeholder=' Tuliskan Kegiatan...' onkeyup=\"auto_grow(this)\"></textarea></td>
-                                  <td><textarea name='c' class='form-control' style='width:100%; height:32px;' placeholder=' Tuliskan Deskripsi...' onkeyup=\"auto_grow(this)\"></textarea></td>
-                                  <td align=center><input type='submit' name='simpan' class='btn btn-xs btn-primary' style='width:65px' value='$name'></td>
+                                  <td><textarea name='c' class='form-control' style='width:100%; height:32px;' placeholder=' Tuliskan Deskripsi...' onkeyup=\"auto_grow(this)\"></textarea></td>";
+                                  $predikat = array('Sangat baik'=>'Sangat baik',
+                                        'Baik'=>'Baik',
+                                        'Kurang Baik'=>'Kurang Baik'
+                                      );
+                                echo"<td><select class='form-control' name='d' required>
+                                    <option value='' selected>-- Pilih Predikat --<option>";
+                                    foreach ($predikat as $key) {
+                                      echo "<option value='$key'>$key</option>";
+                                    }
+                                    echo"
+                                </td>
+                                  <td align=center><input type='submit' name='simpan' class='btn btn-xs btn-primary' style='width:50px' value='$name'></td>
                                 </tr>
                               </form>";
                       }
@@ -119,6 +133,7 @@
                                           <td></td>
                                           <td><span style='padding-left:15px'>$n[kegiatan]</span></td>
                                           <td>$n[deskripsi]</td>
+                                          <td>$n[predikat]</td>
                                           <td align=center><a href='".base_url().$this->uri->segment(1)."/nilai_ekstrakurikuler?tahun=$_GET[tahun]&kelas=$_GET[kelas]&id_siswa=$r[id_siswa]&id=$n[id_nilai_extrakulikuler]' class='btn btn-xs btn-success'><span class='glyphicon glyphicon-edit'></span></a>
                                                           <a href='".base_url().$this->uri->segment(1)."/delete_nilai_ekstrakurikuler?tahun=$_GET[tahun]&kelas=$_GET[kelas]&id=$n[id_nilai_extrakulikuler]' class='btn btn-xs btn-danger' onclick=\"return confirm('Apa anda yakin untuk hapus Data ini?')\"><span class='glyphicon glyphicon-remove'></span></a></td>
                                         </tr>";

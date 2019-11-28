@@ -56,7 +56,7 @@
                     <div class='col-md-12'>";
                         $attributes = array('class'=>'form-horizontal','role'=>'form');
                         echo form_open_multipart($this->uri->segment(1).'/tambah_magang/'.$this->uri->segment(3), $attributes);
-                        $juml = $record->num_rows();
+                        // $juml = $record->num_rows();
                         echo "<input type='hidden' name='jumblah' value='$juml'>";
                         echo "<table id='example1' class='table table-condensed table-bordered table-striped'>
                             <thead>

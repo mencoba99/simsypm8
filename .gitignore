@@ -8,6 +8,7 @@ asset/import_siswa/*
 asset/import_mapel/*
 asset/import_jadwal/*
 asset/import_ruangan/*
+asset/foto_buku/*
 !application/cache/index.html
 !application/cache/.htaccess
 

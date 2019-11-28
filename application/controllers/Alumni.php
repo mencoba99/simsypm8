@@ -166,8 +166,9 @@ class Alumni extends CI_Controller {
                             'berangkat'=>$this->input->post('l'),
                             'kembali'=>$this->input->post('m'),
                             'waktu_input'=>date('Y-m-d H:i:s'));
+
             $this->model_app->insert('rb_lk_bkk',$data);
-            redirect($this->uri->segment(1).'/magang/'.$this->uri->segment(3));
+            redirect($this->uri->segment(1).'/alumni_bkk/'.$this->uri->segment(3));
         } else {
             $this->template->load('administrator/template','administrator/mod_lk_bkk/tambah');
         }
@@ -210,11 +211,12 @@ class Alumni extends CI_Controller {
     function magang(){
         cek_session_akses('alumni_bkk',$this->session->id_session);
         $id = $this->uri->segment(3);
-
         $data['angkatan'] = $this->db->query("SELECT angkatan FROM rb_siswa WHERE id_identitas_sekolah='".$this->session->sekolah."' GROUP BY angkatan ORDER BY angkatan ASC")->result_array();
         $data['jurusan'] = $this->model_app->view('rb_jurusan')->result_array();
         $data['tingkat'] = $this->model_app->view('rb_tingkat')->result_array();
+        // $data['record'] = $this->model_app->view_where('rb_siswa', array());
         $data['record'] = $this->model_app->magang_selected();
+        // print_r($data['record']); exit();
         $this->template->load('administrator/template','administrator/mod_lk_bkk/siswa',$data);
     }
 
@@ -269,6 +271,7 @@ class Alumni extends CI_Controller {
                         $this->model_app->update('rb_siswa', $siswa, $where);
                     }
                 }
+                print_r($data); exit();
                 redirect($this->uri->segment(1).'/detail_alumni_bkk/'.$this->uri->segment(3));
             }
         } else {

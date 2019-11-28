@@ -163,7 +163,7 @@
                           <div style='clear:both'></div>
                           <div class='box-footer'>
                             <button type='submit' name='submit' class='btn btn-info'>Update</button>
-                            <a href='".$this->uri->segment(1).'/daftar_siswa'."'><button type='button' class='btn btn-default pull-right'>Cancel</button></a>
+                            <a href='".base_url().$this->uri->segment(1)."/daftar_siswa'><button type='button' class='btn btn-default pull-right'>Cancel</button></a>
                           </div>
                           </form>
                         </div>

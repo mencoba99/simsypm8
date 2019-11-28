@@ -61,7 +61,6 @@ echo "<b>A. Nilai Akademik</b>
           }else{ // Jika Tidak ada Mata Pelajaran Paralel
             $a = $this->db->query("SELECT a.* FROM rb_nilai_borongan_uts a JOIN rb_jadwal_pelajaran b ON a.kodejdwl=b.kodejdwl where a.id_siswa='$_GET[siswa]' AND a.kodejdwl='$m[kodejdwl]' AND b.id_tahun_akademik='$_GET[tahun]'")->row_array();
           }
-
           $nilai_raport = $a['nilai_pengetahuan'];
           $nilai_raport_ket = $a['nilai_keterampilan'];
 
@@ -80,9 +79,8 @@ echo "<b>A. Nilai Akademik</b>
           //}else{
             $grade_ket = $this->db->query("SELECT predikat_kkm as grade FROM `rb_predikat_kkm` where nilaia<='".number_format($nilai_raport_ket)."' AND nilaib>='".number_format($nilai_raport_ket)."' AND nilai_kkm='$m[kkm]' AND id_identitas_sekolah='".$this->session->sekolah."'")->row_array();
           //}
-
           echo "<tr>
-                  <td valign=top align=center>$no</td>
+                  <td align=top align=center>$no</td>
                   <td valign=top>$m[namamatapelajaran]</td>
                   <td valign=top align=center>$m[kkm]</td>
                   <td valign=top align=center>".number_format($nilai_raport)." </td>
@@ -135,7 +133,7 @@ echo "<b>A. Nilai Akademik</b>
             //}else{
               $grade_ket = $this->db->query("SELECT predikat_kkm as grade FROM `rb_predikat_kkm` where nilaia<='".number_format($nilai_raport_ket)."' AND nilaib>='".number_format($nilai_raport_ket)."' AND nilai_kkm='$m[kkm]' AND id_identitas_sekolah='".$this->session->sekolah."'")->row_array();
             //}
-
+              
             echo "<tr>
                     <td valign=top align=center>$no</td>
                     <td valign=top>$m[namamatapelajaran]</td>
@@ -212,6 +210,7 @@ echo "<br/><b>D. Ekstrakurikuler</b>
             <th width='40px'>No</th>
             <th width='30%'>Kegiatan Ekstrakurikuler</th>
             <th>Keterangan</th>
+            <th>Predikat</th>
           </tr>";
           $no = 1;
           $view = $this->db->query("SELECT * FROM `rb_nilai_extrakulikuler` where id_siswa='$_GET[siswa]' AND id_tahun_akademik='$_GET[tahun]' ORDER BY `id_nilai_extrakulikuler` ASC");
@@ -219,6 +218,7 @@ echo "<br/><b>D. Ekstrakurikuler</b>
             echo "<tr><td>$no</td>
                       <td>$row[kegiatan]</td>
                       <td>$row[deskripsi]</td>
+                      <td>$row[predikat]</td>
                   </tr>";
               $no++;
           }
