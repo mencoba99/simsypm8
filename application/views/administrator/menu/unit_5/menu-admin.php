@@ -642,10 +642,10 @@
               <?php
 
 
-                $cek=$this->model_app->umenu_akses("menuwebsite",$this->session->id_session);
-                if($cek==1 OR $this->session->level=='admin'){
-                  echo "<li><a href='../psb' target='_BLANK'><i class='fa fa-circle-o'></i>Menuju ke Halaman Pendaftaran</a></li>";
-                }
+                // $cek=$this->model_app->umenu_akses("menuwebsite",$this->session->id_session);
+                // if($cek==1 OR $this->session->level=='admin'){
+                //   echo "<li><a href='../psb' target='_BLANK'><i class='fa fa-circle-o'></i>Menuju ke Halaman Pendaftaran</a></li>";
+                // }
 
                 $cek=$this->model_app->umenu_akses("menuwebsite",$this->session->id_session);
                 if($cek==1 OR $this->session->level=='admin'){
@@ -715,10 +715,10 @@
               <ul class="treeview-menu">
                 <?php
 
-                $cek=$this->model_app->umenu_akses("menuwebsite",$this->session->id_session);
-                if($cek==1 OR $this->session->level=='admin'){
-                  echo "<li><a href='../tracer' target='_BLANK'><i class='fa fa-circle-o'></i>Menuju ke Halaman Tracer Alumni</a></li>";
-                }
+                // $cek=$this->model_app->umenu_akses("menuwebsite",$this->session->id_session);
+                // if($cek==1 OR $this->session->level=='admin'){
+                //   echo "<li><a href='../tracer' target='_BLANK'><i class='fa fa-circle-o'></i>Menuju ke Halaman Tracer Alumni</a></li>";
+                // }
                     $cek=$this->model_app->umenu_akses("tracer_alumni",$this->session->id_session);
                     if($cek==1 OR $this->session->level=='admin'){
                       echo "<li><a href='".base_url()."/alumni/tracer_alumni'><i class='fa fa-circle-o'></i> Tracer Study</a></li>";

@@ -22,22 +22,22 @@
 			<tr>
 				<td style='width: 20%'>Nama Yayasan</td> 
 				<td style='width: 20px'>:</td> 
-				<td>YAYASAN PONDOK PESANTREN AL-QONA’AH GRESIK</td> 
+				<td>SMK YPM 8 SIDOARJO</td> 
 			</tr>
 			<tr>
 				<td style='width: 20%'>Alamat</td> 
 				<td style='width: 20px'>:</td> 
-				<td>Jalan Rantau Gg. Masjid No. 01, GKB Sukomulyo, Kecamatan Manyar, Kabupaten Gresik, Provinsi Jawa Timur</td> 
+				<td>Jl. Sarirogo No.481, Sari Rogo, Kec. Sidoarjo, Kabupaten Sidoarjo, Jawa Timur </td> 
 			</tr>
 			<tr>
 				<td style='width: 20%'>Kode pos</td> 
 				<td style='width: 20px'>:</td> 
-				<td>61151</td> 
+				<td>61251</td> 
 			</tr>
 			<tr>
 				<td style='width: 20%'>No. Telepon</td> 
 				<td style='width: 20px'>:</td> 
-				<td>(031) 3930977</td> 
+				<td>-</td> 
 			</tr>
 		</table>";
 	echo "</div>";

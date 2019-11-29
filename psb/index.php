@@ -15,7 +15,7 @@ include "config/class_paging.php";
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" href="favicon.ico">
+  <link rel="icon" href="asset/images/sekolah_ypm.png" sizes="32x32" />  
   <title>Sistem Penerimaan Siswa Baru</title>
   <link href="asset/css/bootstrap.min.css" rel="stylesheet">
   <link href="asset/css/style.css" rel="stylesheet">

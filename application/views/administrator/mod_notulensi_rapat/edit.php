@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
     echo "<div class='col-md-12'>
               <div class='box box-info'>
                 <div class='box-header with-border'>
@@ -29,3 +29,4 @@
               echo form_close();
             echo "</div>";
             
+ -->

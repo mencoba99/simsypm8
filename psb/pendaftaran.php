@@ -187,7 +187,7 @@ if (mysqli_num_rows($cek_pendaftaran)>=1){
                 <tr><th scope='row'>No Induk (NISN)</th> <td>$s[no_induk]</td></tr>
                 <tr><th scope='row'>Tahun Lulus</th> <td>".$ex[0]."</td></tr>
                 <tr><th scope='row'>Akreditasi Sekolah</th> <td>".$ex[1]."</td></tr>
-                <tr><th scope='row'>Tahu SMK LIMAKODE </th> <td>".$ex[2]."</td></tr>
+                <tr><th scope='row'>Tahu SMK YPM 8 SIDOARJO </th> <td>".$ex[2]."</td></tr>
                 <tr><th scope='row'>Tanggal Daftar</th> <td>".tgl_indo($tanggal).", $jam Wib</td></tr>
               </tbody>
               </table>
@@ -424,7 +424,7 @@ if (mysqli_num_rows($cek_pendaftaran)>=1){
 		</div>
 
 		<div class="form-group">
-			<label for="inputEmail3" class="col-sm-4 control-label">Tahu SMK LIMAKODE Dari</label>
+			<label for="inputEmail3" class="col-sm-4 control-label">Tahu SMK YPM 8 Dari</label>
 			<div style="background:#fff;" class="input-group col-lg-4">
 				<input type="text" class="required form-control" name="optional3">
 			</div>
@@ -832,7 +832,7 @@ $ss = mysqli_fetch_array(mysqli_query($koneksi,"SELECT id_pendaftaran FROM rb_ps
                             <tr><th scope='row'>No Induk (NISN)</th> <td><input type='text' class='form-control' name='rr' value='$s[no_induk]'></td></tr>
                             <tr><th scope='row'>Tahun Lulus</th> <td><input type='text' class='form-control' name='ss' value='".$ex[0]."'></td></tr>
                             <tr><th scope='row'>Akreditasi Sekolah</th> <td><input type='text' class='form-control' name='tt' value='".$ex[1]."'></td></tr>
-                            <tr><th scope='row'>Tahu SMK LIMAKODE</th> <td><input type='text' class='form-control' name='uu' value='".$ex[2]."'></td></tr>
+                            <tr><th scope='row'>Tahu SMK YPM 8</th> <td><input type='text' class='form-control' name='uu' value='".$ex[2]."'></td></tr>
                           </tbody>
                           </table>
                         </div>   

@@ -118,6 +118,7 @@
                           <li><a href='".base_url()."$sekolah[keyword]/nilai_lisan'><i class='fa fa-circle-o'></i> Lisan</a></li>
                           <li><a href='".base_url()."$sekolah[keyword]/nilai_tertulis'><i class='fa fa-circle-o'></i> Tertulis</a></li>
                           <li><a href='".base_url()."$sekolah[keyword]/nilai_penugasan'><i class='fa fa-circle-o'></i> Penugasan</a></li>
+                          <li><a href='".base_url()."$sekolah[keyword]/nilai_uhb'><i class='fa fa-circle-o'></i> UHB</a></li>
                           <li><a href='".base_url()."$sekolah[keyword]/nilai_uts_kd'><i class='fa fa-circle-o'></i> UTS</a></li>
                           <li><a href='".base_url()."$sekolah[keyword]/nilai_pengetahuan'><i class='fa fa-circle-o'></i> Nilai Akhir</a></li>
                         </ul>
@@ -281,10 +282,10 @@
                   echo "<li class='treeview'>
                     <a href='#'><i class='fa fa-user-secret'></i> <span>Bursa Kerja Khusus</span><i class='fa fa-angle-left pull-right'></i></a>
                     <ul class='treeview-menu'>";
-                    $cek=$this->model_app->umenu_akses("menuwebsite",$this->session->id_session);
-                      if($cek==1 OR $this->session->level=='admin'){
-                        echo "<li><a href='../tracer' target='_BLANK'><i class='fa fa-circle-o'></i>Menuju ke Halaman Tracer Alumni</a></li>";
-                      }
+                    // $cek=$this->model_app->umenu_akses("menuwebsite",$this->session->id_session);
+                    //   if($cek==1 OR $this->session->level=='admin'){
+                    //     echo "<li><a href='../tracer' target='_BLANK'><i class='fa fa-circle-o'></i>Menuju ke Halaman Tracer Alumni</a></li>";
+                    //   }
 
                       $cek=$this->model_app->umenu_akses("tracer_alumni",$this->session->id_session);
                       if($cek==1 OR $this->session->level=='admin'){

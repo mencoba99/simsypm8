@@ -3250,13 +3250,13 @@ class Smk extends CI_Controller {
     function tambah_kompetensi_dasar(){
         cek_session_akses('kompetensi_dasar',$this->session->id_session);
         if (isset($_POST['submit'])){
-            if ($this->input->post('a') =='spiritual'){
+            if (substr($this->input->post('a'), 0,1) =='1'){
                 $ranah = 'spiritual';
-            }elseif ($this->input->post('a') =='sosial'){
+            }elseif (substr($this->input->post('a'), 0,1) =='2'){
                 $ranah = 'sosial';
-            }elseif ($this->input->post('a') =='pengetahuan'){
+            }elseif (substr($this->input->post('a'), 0,1) =='3'){
                 $ranah = 'pengetahuan';
-            }elseif ($this->input->post('a') =='keterampilan'){
+            }elseif (substr($this->input->post('a'), 0,1) =='4'){
                 $ranah = 'keterampilan';
             }
                 $data = array('id_identitas_sekolah'=>$this->session->sekolah,
@@ -4503,6 +4503,8 @@ class Smk extends CI_Controller {
                     $cek = $this->model_app->view_where('rb_nilai_pengetahuan',array('kodejdwl'=>$this->uri->segment(3),'id_siswa'=>$id_siswa,'id_kompetensi_dasar'=>$this->input->post('kd'),'tanggal_penilaian'=>tgl_simpan($this->input->post('tanggal')),'kategori_nilai'=>$this->input->post('kategori_nilai')));
                   }
                     if ($cek->num_rows() >= '1'){
+                      print_r('cek 3'); exit();
+
                         $data = array('nilai'=>$a);
                         if ($this->input->post('kategori_nilai')=='3'){
                             $where = array('kodejdwl' => $this->input->post('kodejdwl'),'id_siswa'=>$id_siswa,'kategori_nilai'=>$this->input->post('kategori_nilai'));
@@ -4519,7 +4521,6 @@ class Smk extends CI_Controller {
                                     'tanggal_penilaian'=>tgl_simpan($this->input->post('tanggal')),
                                     'user_akses'=>$this->session->id_session,
                                     'waktu'=>date('Y-m-d H:i:s'));
-                      // print_r($data); exit();
                         $this->model_app->insert('rb_nilai_pengetahuan',$data);
                     }
                   }
@@ -6146,64 +6147,63 @@ class Smk extends CI_Controller {
     // Controller Notulensi
 
     function notulensi_rapat(){
-        cek_session_akses('notulensi_rapat',$this->session->id_session);
+        cek_session_akses('predikat_karakter',$this->session->id_session);
         $data['record'] = $this->model_app->view_ordering('rb_lk_notulensi_rapat','id_rapat','ASC');
         return print_r($data['record']);
         $this->template->load('administrator/template','administrator/mod_notulensi_rapat/view',$data);
     }
 
-    function tambah_notulensi_rapat(){
-        cek_session_akses('notulensi_rapat',$this->session->id_session);
-        if (isset($_POST['submit'])){
-
-            $data = array(  'tgl_rapat'=>tgl_simpan($this->input->post('tanggal')),
-                            'topik_rapat'=>$this->input->post('topik_rapat'),
-                            'agenda_rapat'=>$this->input->post('agenda_rapat'),
-                            'ruang_rapat'=>$this->input->post('ruang_rapat'),
-                            'pembahasan'=>$this->input->post('pembahasan'),
-                            'tindak_lanjut'=>$this->input->post('tindak_lanjut'),
-                            'peserta_rapat'=>$this->input->post('peserta_rapat'));                          
+    // function tambah_notulensi_rapat(){
+    //     cek_session_akses('predikat_karakter',$this->session->id_session);
+    //     if (isset($_POST['submit'])){
+    //         $data = array(  'tgl_rapat'=>tgl_simpan($this->input->post('tanggal')),
+    //                         'topik_rapat'=>$this->input->post('topik_rapat'),
+    //                         'agenda_rapat'=>$this->input->post('agenda_rapat'),
+    //                         'ruang_rapat'=>$this->input->post('ruang_rapat'),
+    //                         'pembahasan'=>$this->input->post('pembahasan'),
+    //                         'tindak_lanjut'=>$this->input->post('tindak_lanjut'),
+    //                         'peserta_rapat'=>$this->input->post('peserta_rapat'));                          
                             
-            $this->model_app->insert('rb_lk_notulensi_rapat',$data);
-            redirect($this->uri->segment(1).'/notulensi_rapat');
-        }else{
-            $this->template->load('administrator/template','administrator/mod_notulensi_rapat/tambah');
-        }
-    }
+    //         $this->model_app->insert('rb_lk_notulensi_rapat',$data);
+    //         redirect($this->uri->segment(1).'/notulensi_rapat');
+    //     }else{
+    //         $this->template->load('administrator/template','administrator/mod_notulensi_rapat/tambah');
+    //     }
+    // }
 
-    function edit_notulensi_rapat(){
-        cek_session_akses('notulensi_rapat',$this->session->id_session);
-        $id = $this->uri->segment(3);
-        if (isset($_POST['submit'])){
-            $data = array(  'tgl_rapat'=>tgl_simpan($this->input->post('tanggal')),
-                            'topik_rapat'=>$this->input->post('topik_rapat'),
-                            'agenda_rapat'=>$this->input->post('agenda_rapat'),
-                            'ruang_rapat'=>$this->input->post('ruang_rapat'),
-                            'pembahasan'=>$this->input->post('pembahasan'),
-                            'tindak_lanjut'=>$this->input->post('tindak_lanjut'),
-                            'peserta_rapat'=>$this->input->post('peserta_rapat'));
+    // function edit_notulensi_rapat(){
+    //     cek_session_akses('predikat_karakter',$this->session->id_session);
+    //     $id = $this->uri->segment(3);
+    //     if (isset($_POST['submit'])){
+    //         $data = array(  'tgl_rapat'=>tgl_simpan($this->input->post('tanggal')),
+    //                         'topik_rapat'=>$this->input->post('topik_rapat'),
+    //                         'agenda_rapat'=>$this->input->post('agenda_rapat'),
+    //                         'ruang_rapat'=>$this->input->post('ruang_rapat'),
+    //                         'pembahasan'=>$this->input->post('pembahasan'),
+    //                         'tindak_lanjut'=>$this->input->post('tindak_lanjut'),
+    //                         'peserta_rapat'=>$this->input->post('peserta_rapat'));
                             
-            $where = array('id_rapat' => $this->input->post('id'));
-            $this->model_app->update('rb_lk_notulensi_rapat', $data, $where);
-            redirect($this->uri->segment(1).'/notulensi_rapat');
-        }else{
-            $edit = $this->model_app->view_where('rb_lk_notulensi_rapat', array('id_rapat'=>$id))->row_array();
-            $data = array('s' => $edit);
-            $this->template->load('administrator/template','administrator/mod_notulensi_rapat/edit',$data);
-        }
-    }
+    //         $where = array('id_rapat' => $this->input->post('id'));
+    //         $this->model_app->update('rb_lk_notulensi_rapat', $data, $where);
+    //         redirect($this->uri->segment(1).'/notulensi_rapat');
+    //     }else{
+    //         $edit = $this->model_app->view_where('rb_lk_notulensi_rapat', array('id_rapat'=>$id))->row_array();
+    //         $data = array('s' => $edit);
+    //         $this->template->load('administrator/template','administrator/mod_notulensi_rapat/edit',$data);
+    //     }
+    // }
 
-    function delete_notulensi_rapat(){
-        cek_session_akses('notulensi_rapat',$this->session->id_session);
-        $id = array('id_rapat' => $this->uri->segment(3));
-        $this->model_app->delete('rb_lk_notulensi_rapat',$id);
-        redirect($this->uri->segment(1).'/notulensi_rapat');
-    }
+    // function delete_notulensi_rapat(){
+    //     cek_session_akses('predikat_karakter',$this->session->id_session);
+    //     $id = array('id_rapat' => $this->uri->segment(3));
+    //     $this->model_app->delete('rb_lk_notulensi_rapat',$id);
+    //     redirect($this->uri->segment(1).'/notulensi_rapat');
+    // }
     
     function rekap_kehadiran_siprenta() {
         cek_session_akses('rekap_siprenta', $this->session->id_session);
         // $otherdb = $this->load->database('sub', TRUE);
-        $url = 'http://192.168.1.1/siprenta/api/kehadiran-by-date?date='.$this->input->get('tanggal');
+        $url = 'http://c1e082f4.ngrok.io/api/kehadiran-by-date?date='.$this->input->get('tanggal');
         $datauser = file_get_contents($url);
         $characters = json_decode($datauser);
         $data['record'] = $characters->data;
@@ -6211,23 +6211,23 @@ class Smk extends CI_Controller {
     }
 
     function rekap_user_siprenta() {
-        cek_session_akses('rekap_user_siprenta', $this->session->id_session);
+        cek_session_akses('rekap_siprenta', $this->session->id_session);
         // $otherdb = $this->load->database('sub', TRUE);
-        // return print_r($this->session->level);
-        if ($this->session->level == 'guru') {
-            $url = 'http://192.168.1.1/siprenta/api/kehadiran?id='.$this->session->id_session;
+        
+        if ($this->session->level() == 'guru') {
+            $url = 'http://c1e082f4.ngrok.io/api/kehadiran?id='.$this->session->id_session();
             $datauser = file_get_contents($url);
             $characters = json_decode($datauser);
             $data['record'] = $characters->data;
-            // $data['user'] = $otherdb->query("SELECT * FROM user_finger WHERE a.nisn = ".$nip)->row_array();
             // $data['record'] = $otherdb->query("SELECT * FROM kehadirans a JOIN user_finger b ON a.id_penghadir = b.id WHERE a.nisn = ".$nip);
-        } else if ($this->session->level == 'siswa') {
-            $url = 'http://192.168.1.1/siprenta/api/kehadiran?id='.$this->session->id_session;
+            // $data['user'] = $otherdb->query("SELECT * FROM user_finger WHERE a.nisn = ".$nip)->row_array();
+        } else if ($this->session->level() == 'siswa') {
+            $url = 'http://c1e082f4.ngrok.io/api/kehadiran?id='.$this->session->id_session();
             $datauser = file_get_contents($url);
             $characters = json_decode($datauser);
             $data['record'] = $characters->data;
-            // $data['user'] = $otherdb->query("SELECT * FROM user_finger WHERE a.nisn = ".$nipd)->row_array();
             // $data['record'] = $otherdb->query("SELECT * FROM kehadirans a JOIN user_finger b ON a.id_penghadir = b.id WHERE a.nisn = ".$nipd);
+            // $data['user'] = $otherdb->query("SELECT * FROM user_finger WHERE a.nisn = ".$nipd)->row_array();
         }
 
         $this->template->load('administrator/template','administrator/mod_absensi_siswa/siprenta/view_user',$data);    
