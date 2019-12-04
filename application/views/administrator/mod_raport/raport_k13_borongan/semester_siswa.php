@@ -35,9 +35,9 @@
                         }elseif ($remedial['nilai_remedial']<$k['kkm']){
                           $rata_pengetahuan = $remedial['nilai_remedial'];
                         }
-                      $rataasum = $rataasum + $rata_pengetahuan;
+                      $ratasum = $rataasum + $rata_pengetahuan;
                     }
-                    $nilai_raport = number_format($rataasum/$kompetensi_dasar->num_rows());
+                    $nilai_raport = number_format($ratasum/$kompetensi_dasar->num_rows());
                     if ($nilai_raport == 'nan') {
                         $nilai_raport = 0 ;
                     }if ($nilai_raport == 'inf') {
@@ -45,7 +45,6 @@
                     }
                     $desk = $this->db->query("SELECT * FROM `rb_nilai_pengetahuan_deskripsi` a JOIN rb_jadwal_pelajaran b ON a.kodejdwl=b.kodejdwl where b.id_mata_pelajaran='$m[id_mata_pelajaran]' AND a.id_siswa='".$this->session->id_session."' AND a.id_tahun_akademik='$thn[id_tahun_akademik]'")->row_array();
                     $grade = $this->db->query("SELECT * FROM `rb_predikat` where (".number_format($nilai_raport)." >=nilai_a) AND (".number_format($nilai_raport)." <= nilai_b) AND id_mata_pelajaran='$m[id_mata_pelajaran]'")->row_array();
-
                     
                     $plus = $this->db->query("SELECT b.kompetensi_dasar FROM temp_deskripsi a JOIN rb_kompetensi_dasar b ON a.id_kompetensi_dasar=b.id_kompetensi_dasar where a.id_siswa='".$this->session->id_session."' AND b.id_mata_pelajaran='$m[id_mata_pelajaran]' AND a.status='pengetahuan' ORDER BY a.rata_rata DESC LIMIT 1");
                     $minus = $this->db->query("SELECT b.kompetensi_dasar FROM temp_deskripsi a JOIN rb_kompetensi_dasar b ON a.id_kompetensi_dasar=b.id_kompetensi_dasar where a.id_siswa='".$this->session->id_session."' AND b.id_mata_pelajaran='$m[id_mata_pelajaran]' AND a.status='pengetahuan' ORDER BY a.rata_rata ASC LIMIT 1");
@@ -110,9 +109,9 @@
                           $rata_keterampilan = $remedial['nilai_remedial'];
                         }
 
-                      $rata_keterampilan_sum = $rata_keterampilan_sum + $rata_keterampilan;
+                      $rata_keterampilan = $rata_keterampilan_sum + $rata_keterampilan;
                     }
-                  $nilai_raport_keterampilan = number_format($rata_keterampilan_sum/$kompetensi_dasar->num_rows());
+                  $nilai_raport_keterampilan = number_format($rata_keterampilan/$kompetensi_dasar->num_rows());
                   // print_r($nilai_raport_keterampilan); exit();
                    if ($nilai_raport_keterampilan == 'nan') {
                         $nilai_raport_keterampilan = 0 ;

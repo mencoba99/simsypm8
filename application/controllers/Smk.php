@@ -2831,6 +2831,7 @@ class Smk extends CI_Controller {
             $data = array('record' => $record, 'nama_tahun'=>$thn['nama_tahun']);
             $this->template->load('administrator/template','administrator/mod_jadwal_pelajaran/view_siswa',$data);
         }else{
+          
             if (isset($_POST['transfer'])){
                 $record = $this->db->query("SELECT * FROM rb_jadwal_pelajaran where id_kelas='$_POST[kelas]' AND id_tahun_akademik='$_POST[tahun]'");
                 foreach ($record->result_array() as $r){

@@ -13,7 +13,7 @@
                 echo "<div class='col-md-12'>
                   <table class='table table-condensed table-bordered'>
                   <tbody>
-                    <tr><th scope='row' width='120px'>Kode</th>  <td><input type='text' class='form-control' name='a' required><small><i>*. contoh pengisian = 2.01 (diawali kode 1 = ranah spiritual, kode 2 = ranah sosial, kode 3 = ranah pengetahuan, dan 4 = ranah keterampilan, kemudian dilanjutkan dengan kode urutan KD)<b></i></small></td></tr>
+                    <tr><th scope='row' width='120px'>Kode</th>  <td><input type='text' class='form-control' name='a' required><small><i>*. contoh pengisian = 2/01/01 (diawali kode 1 = ranah spiritual, kode 2 = ranah sosial, kode 3 = ranah pengetahuan, dan 4 = ranah keterampilan), kemudian dilanjutkan dengan kode KI, kemudian urutan KD)<b></i></small></td></tr>
                     <tr><th scope='row'>KKM</th>  <td><input type='number' class='form-control' name='e' value='75' id='result' style='width:80px; display:inline; margin-right:30px' required>
                                                       <span style='color:red'>Kompleksitas : </span> <input type='number' class='form-control input value1' name='e1' value='75' style='width:80px; display:inline; color:red' required>
                                                       <span style='color:green'>Intake : </span>     <input type='number' class='form-control input value2' name='e2' value='75' style='width:80px; display:inline; color:green' required>

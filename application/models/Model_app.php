@@ -413,7 +413,7 @@ class Model_app extends CI_model{
             $this->db->where('a.id_guru',$this->session->id_session);
         }
         $this->db->where('e.id_identitas_sekolah',$this->session->sekolah);
-        $this->db->where('a.kodejdwl',$id);
+        $this->db->where('a.kodejdwl',$id);        
         $this->db->order_by('e.urutan','ASC');
         return $this->db->get();
     }

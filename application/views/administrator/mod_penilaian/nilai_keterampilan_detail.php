@@ -18,7 +18,7 @@ if($this->input->get('tanggal')==''){ $tanggal = date('d-m-Y'); }else{ $tanggal 
                     <tr><th scope='row'>Komp. Dasar</th>                  <td><select name='kd' class='form-control' style='padding:4px;' onchange=\"changeValue(this.value)\" required>
                             <option value=''>- Pilih -</option>";
                             $jsArray = "var prdName = new Array();\n";  
-                            $kompetensi_dasar = $this->model_app->view_where('rb_kompetensi_dasar',array('id_mata_pelajaran'=>$s['id_mata_pelajaran']));
+                            $kompetensi_dasar = $this->model_app->view_where('rb_kompetensi_dasar',array('id_mata_pelajaran'=>$s['id_mata_pelajaran'],'ranah'=>'keterampilan'));
                             $row = $this->model_app->view_where('rb_kompetensi_dasar',array('id_mata_pelajaran'=>$s['id_mata_pelajaran'],'id_kompetensi_dasar'=>$this->input->get('kd')))->row_array();
                             foreach ($kompetensi_dasar->result_array() as $k) {
                               if ($this->input->get('kd')==$k['id_kompetensi_dasar']){

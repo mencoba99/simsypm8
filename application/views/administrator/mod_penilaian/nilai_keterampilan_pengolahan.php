@@ -131,6 +131,9 @@ if($this->input->get('tanggal')==''){ $tanggal = date('d-m-Y'); }else{ $tanggal 
                             }else{
                               $deskripsi_keterampilan = '-';
                             }
+                            if ($nilai_raport_keterampilan = nan) {
+                              $nilai_raport_keterampilan = 0; 
+                            }
 
                             echo "<tr class='danger'><td colspan='2' align=right><b>Nilai Raport</b></td>
                                     <td colspan='7' align=right></td> 
