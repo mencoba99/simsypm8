@@ -66,7 +66,6 @@ class Pustaka extends CI_Controller {
         $id = $this->uri->segment(3);
         if (isset($_POST['submit'])){
             $data = array('kode_rak'=>$this->input->post('kode_rak'));
-
             $where = array('id_rak_buku' => $this->input->post('id'));
             $this->model_app->update('rb_rak_buku', $data, $where);
             redirect($this->uri->segment(1).'/rak_buku');
@@ -131,8 +130,12 @@ class Pustaka extends CI_Controller {
 
     function buku(){
         cek_session_akses('buku',$this->session->id_session);
+        if ($_GET[id] != '') {
+        $data['record'] = $this->db->query("SELECT a.*, b.nama_kategori FROM rb_pustaka_buku a JOIN rb_pustaka_kategori b ON a.id_kategori=b.id_kategori WHERE id_rak_buku = '".$_GET[id]."'  ORDER BY id_buku DESC");
+            
+        }else{            
         $data['record'] = $this->db->query("SELECT a.*, b.nama_kategori FROM rb_pustaka_buku a JOIN rb_pustaka_kategori b ON a.id_kategori=b.id_kategori ORDER BY id_buku DESC");
-        // print_r($data['record']->row_array()); exit();
+        }
         $this->template->load('administrator/template','administrator/mod_pustaka/mod_buku/view',$data);
     }
 
@@ -159,6 +162,7 @@ class Pustaka extends CI_Controller {
                                 'tahun_pengadaan'=>$this->input->post('tahun_pengadaan'),
                                 'harga_buku'=>$this->input->post('harga_buku'),
                                 'sumber_dana'=>$this->input->post('sumber_dana'),
+                                'id_rak_buku'=>$this->input->post('id_rak'),
                                 'id_guru'=>$this->session->id_session);
             }else{
                 $data = array('id_identitas_sekolah'=>$this->session->sekolah,
@@ -174,6 +178,7 @@ class Pustaka extends CI_Controller {
                                 'tahun_pengadaan'=>$this->input->post('tahun_pengadaan'),
                                 'harga_buku'=>$this->input->post('harga_buku'),
                                 'sumber_dana'=>$this->input->post('sumber_dana'),
+                                'id_rak_buku'=>$this->input->post('id_rak'),                                
                                 'id_guru'=>$this->session->id_session);
             }
             $this->model_app->insert('rb_pustaka_buku',$data);

@@ -11,6 +11,7 @@ echo "<div class='col-md-12'>
       <table class='table table-condensed table-bordered table-condensed'>
       <tbody>
         <input type='hidden' name='id' value=''>
+        <input type='hidden' name='id_rak' value='$_GET[id]'>
         <tr><th width='130px' scope='row'>Kategori Buku</th> <td><select class='form-control' name='a'> 
                                                         <option value='0' selected>- Pilih -</option>"; 
                                                           $kategori = $this->db->query("SELECT * FROM rb_pustaka_kategori");
@@ -23,7 +24,7 @@ echo "<div class='col-md-12'>
         <tr><th scope='row'>Pengarang</th> <td><input type='text' class='form-control' name='d' required> </td></tr>
         <tr><th scope='row'>Penerbit</th> <td><input type='text' class='form-control' name='e' required> </td></tr>
         <tr><th scope='row'>Tahun Terbit</th> <td><input type='number' class='form-control' name='tahun_terbit'> </td></tr>
-        <tr><th scope='row'>Foto</th> <td><input type='file' class='form-control' name='f'></td></tr>
+        <input type='hidden' class='form-control' value='image.' name='f'>
         <tr><th scope='row'>Deskripsi</th> <td><textarea class='form-control' name='g'></textarea></td></tr>
         <tr><th scope='row'>Jumlah</th> <td><input autocomplete='off' type='number' class='form-control' name='h'> </td></tr>
         <tr><th scope='row'>Tahun Pengadaan</th> <td><input autocomplete='off' type='number' class='form-control' name='tahun_pengadaan'> </td></tr>

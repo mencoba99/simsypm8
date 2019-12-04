@@ -13,7 +13,7 @@
                     <thead>
                       <tr bgcolor='#e3e3e3'>
                         <th style='width:40px'>No</th>
-                        <th>Jadwal Pelajaran</th>
+                        <th>Mata Pelajaran</th>
                         <th>Guru</th>
                         <th>KKM</th>
                         <th><center>Nilai Pengetahuan</center></th>

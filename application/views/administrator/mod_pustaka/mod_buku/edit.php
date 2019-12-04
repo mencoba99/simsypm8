@@ -27,8 +27,8 @@ echo "<div class='col-md-12'>
         <tr><th scope='row'>Pengarang</th> <td><input type='text' class='form-control' name='d' value='$s[pengarang]' required> </td></tr>
         <tr><th scope='row'>Penerbit</th> <td><input type='text' class='form-control' name='e' value='$s[penerbit]' required> </td></tr>
         <tr><th scope='row'>Tahun Terbit</th> <td><input type='number' class='form-control' name='tahun_terbit' value='$s[tahun_terbit]'> </td></tr>
-        <tr><th scope='row'>Foto</th> <td><input type='file' class='form-control' name='f'>";
-        /*if ($s['foto']!=''){ echo "<small>Foto saat ini : <a href='foto_buku/$s[foto]'><i>$s[foto]</i></a></small>"; }*/ echo "</td></tr>
+        <input type='hidden' class='form-control' name='f'>";
+        /*if ($s['foto']!=''){ echo "<small>Foto saat ini : <a href='foto_buku/$s[foto]'><i>$s[foto]</i></a></small>"; }*/ echo "
         <tr><th scope='row'></th> <td><img src='".base_url()."asset/foto_buku/$s[foto]' style='height: 200px'></td></tr>
         <tr><th scope='row'>Deskripsi</th> <td><textarea class='form-control' name='g'>$s[deskripsi]</textarea></td></tr>
         <tr><th scope='row'>Jumlah</th> <td><input autocomplete='off' type='number' class='form-control' name='h' value='$s[jumlah]'> </td></tr>
@@ -41,7 +41,7 @@ echo "<div class='col-md-12'>
   </div>
   <div class='box-footer'>
         <button type='submit' name='submit' class='btn btn-info'>Update</button>
-        <a href='".base_url()."".$this->uri->segment(1)."/produk/ya'><button type='button' class='btn btn-default pull-right'>Cancel</button></a>
+        <a href='".base_url()."".$this->uri->segment(1)."/buku'><button type='button' class='btn btn-default pull-right'>Cancel</button></a>
   </div>";
   echo form_close();
 echo "</div>";
