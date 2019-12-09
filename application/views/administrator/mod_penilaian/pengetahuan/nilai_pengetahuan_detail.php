@@ -117,7 +117,7 @@ if($this->input->get('tanggal')==''){ $tanggal = date('d-m-Y'); }else{ $tanggal 
                         <th rowspan='2'>NIPD</th>
                         <th rowspan='2'>NISN</th>
                         <th rowspan='2'>Nama Siswa</th>
-                        <th colspan='4'><center>Nilai / KD</center></th>
+                        <th colspan='5'><center>Nilai / KD</center></th>
                         <th rowspan='2'><center>Akhir Semester</center></th>
                         <th rowspan='2'><center>Rata-rata</center></th>
                       </tr>
@@ -125,6 +125,7 @@ if($this->input->get('tanggal')==''){ $tanggal = date('d-m-Y'); }else{ $tanggal 
                         <th>Tertulis</th>
                         <th>Lisan</th>
                         <th>Penugasan</th>
+                        <th>UHB</th>
                         <th>UTS</th>
                       </tr>
                     </thead>
@@ -136,13 +137,18 @@ if($this->input->get('tanggal')==''){ $tanggal = date('d-m-Y'); }else{ $tanggal 
                     foreach ($siswa as $r) {
                     $a = $this->db->query("SELECT GROUP_CONCAT(a.nilai SEPARATOR ',') as nilai_tertulis, GROUP_CONCAT(DATE_FORMAT(a.tanggal_penilaian,'%d/%m/%Y') SEPARATOR ',') as tanggal_nilai_tertulis FROM `rb_nilai_pengetahuan` a JOIN rb_jadwal_pelajaran b ON a.kodejdwl=b.kodejdwl where a.kategori_nilai='1' AND a.id_siswa='$r[id_siswa]' AND b.id_mata_pelajaran='$s[id_mata_pelajaran]' AND b.id_tahun_akademik='$s[id_tahun_akademik]' AND a.id_kompetensi_dasar='".$this->input->get('kd')."'")->row_array();
                     $aa = $this->db->query("SELECT GROUP_CONCAT(a.nilai SEPARATOR ',') as nilai_lisan, GROUP_CONCAT(DATE_FORMAT(a.tanggal_penilaian,'%d/%m/%Y') SEPARATOR ',') as tanggal_nilai_lisan FROM `rb_nilai_pengetahuan` a JOIN rb_jadwal_pelajaran b ON a.kodejdwl=b.kodejdwl where a.kategori_nilai='4' AND a.id_siswa='$r[id_siswa]' AND b.id_mata_pelajaran='$s[id_mata_pelajaran]' AND b.id_tahun_akademik='$s[id_tahun_akademik]' AND a.id_kompetensi_dasar='".$this->input->get('kd')."'")->row_array();
+
+                    $aab = $this->db->query("SELECT GROUP_CONCAT(a.nilai SEPARATOR ',') as nilai_uhb, GROUP_CONCAT(DATE_FORMAT(a.tanggal_penilaian,'%d/%m/%Y') SEPARATOR ',') as tanggal_nilai_uhb FROM `rb_nilai_pengetahuan` a JOIN rb_jadwal_pelajaran b ON a.kodejdwl=b.kodejdwl where a.kategori_nilai='12' AND a.id_siswa='$r[id_siswa]' AND b.id_mata_pelajaran='$s[id_mata_pelajaran]' AND b.id_tahun_akademik='$s[id_tahun_akademik]' AND a.id_kompetensi_dasar='".$this->input->get('kd')."'")->row_array();
+
                     $aaa = $this->db->query("SELECT GROUP_CONCAT(a.nilai SEPARATOR ',') as nilai_penugasan, GROUP_CONCAT(DATE_FORMAT(a.tanggal_penilaian,'%d/%m/%Y') SEPARATOR ',') as tanggal_nilai_penugasan FROM `rb_nilai_pengetahuan` a JOIN rb_jadwal_pelajaran b ON a.kodejdwl=b.kodejdwl where a.kategori_nilai='5' AND a.id_siswa='$r[id_siswa]' AND b.id_mata_pelajaran='$s[id_mata_pelajaran]' AND b.id_tahun_akademik='$s[id_tahun_akademik]' AND a.id_kompetensi_dasar='".$this->input->get('kd')."'")->row_array();
+
                     $aaaa = $this->db->query("SELECT GROUP_CONCAT(a.nilai SEPARATOR ',') as nilai_uts, GROUP_CONCAT(DATE_FORMAT(a.tanggal_penilaian,'%d/%m/%Y') SEPARATOR ',') as tanggal_nilai_uts FROM `rb_nilai_pengetahuan` a JOIN rb_jadwal_pelajaran b ON a.kodejdwl=b.kodejdwl where a.kategori_nilai='11' AND a.id_siswa='$r[id_siswa]' AND b.id_mata_pelajaran='$s[id_mata_pelajaran]' AND b.id_tahun_akademik='$s[id_tahun_akademik]' AND a.id_kompetensi_dasar='".$this->input->get('kd')."'")->row_array();
                     $b = $this->db->query("SELECT a.nilai FROM `rb_nilai_pengetahuan` a JOIN rb_jadwal_pelajaran b ON a.kodejdwl=b.kodejdwl where a.kategori_nilai='3' AND a.id_siswa='$r[id_siswa]' AND b.id_mata_pelajaran='$s[id_mata_pelajaran]' AND b.id_tahun_akademik='$s[id_tahun_akademik]' AND a.id_kompetensi_dasar='".$this->input->get('kd')."'")->row_array();
                     
                     $nilai_tertulis = explode(',',$a['nilai_tertulis']);
                     $nilai_lisan = explode(',',$aa['nilai_lisan']);
                     $nilai_penugasan = explode(',',$aaa['nilai_penugasan']);
+                    $nilai_uhb = explode(',',$aab['nilai_uhb']);
                     $nilai_uts = explode(',',$aaaa['nilai_uts']);
                     $remedial = $this->db->query("SELECT max(a.nilai_remedial) as nilai_remedial FROM rb_nilai_remedial_pengetahuan a JOIN rb_jadwal_pelajaran b ON a.kodejdwl=b.kodejdwl where b.id_mata_pelajaran='$s[id_mata_pelajaran]' AND a.id_kompetensi_dasar='".$this->input->get('kd')."' AND a.id_siswa='$r[id_siswa]'")->row_array();
 
@@ -152,27 +158,30 @@ if($this->input->get('tanggal')==''){ $tanggal = date('d-m-Y'); }else{ $tanggal 
                         $lisan      = array_sum($nilai_lisan)/count(array_filter($nilai_lisan))*$bobot['lisan'];
                         $tertulis   = array_sum($nilai_tertulis)/count(array_filter($nilai_tertulis))*$bobot['tertulis'];
                         $penugasan  = array_sum($nilai_penugasan)/count(array_filter($nilai_penugasan))*$bobot['penugasan'];
-                        $uts  = array_sum($nilai_uts)/count(array_filter($nilai_uts))*$bobot['uts'];
+                        $uhb        = array_sum($nilai_uhb)/count(array_filter($nilai_uhb))*$bobot['uhb'];
+                        $uts        = array_sum($nilai_uts)/count(array_filter($nilai_uts))*$bobot['uts'];
                         $akhir      = $b['nilai']*$bobot['akhir_semester'];
 
                         if ($a['nilai_tertulis']!=''){ $nt = $bobot['tertulis']; }else{ $nt = 0; }
                         if ($aa['nilai_lisan']!=''){ $nl = $bobot['lisan']; }else{ $nl = 0; }
                         if ($aaa['nilai_penugasan']!=''){ $np = $bobot['penugasan']; }else{ $np = 0; }
+                        if ($aab['nilai_uhb']!=''){ $nuh = $bobot['uhb']; }else{ $nuh = 0; }
                         if ($aaaa['nilai_uts']!=''){ $nu = $bobot['uts']; }else{ $nu = 0; }
                         if ($b['nilai']!=''){ $n = $bobot['akhir_semester']; }else{ $n = 0; }
 
-                        $bagi = $nt+$nl+$np+$nu+$n;
-                        $rataa = number_format(($lisan + $tertulis + $penugasan + $uts + $akhir)/$bagi);
+                        $bagi = $nt+$nl+$np+$nuh+$nu+$n;
+                        $rataa = number_format(($lisan + $tertulis + $penugasan + $uhb + $uts + $akhir)/$bagi);
                       }else{
                         if ($a['nilai_tertulis']!=''){ $nt = 1; }else{ $nt = 0; }
                         if ($aa['nilai_lisan']!=''){ $nl = 1; }else{ $nl = 0; }
                         if ($aaa['nilai_penugasan']!=''){ $np = 1; }else{ $np = 0; }
+                        if ($aab['nilai_uhb']!=''){ $nuh = 1; }else{ $nuh = 0; }
                         if ($aaaa['nilai_uts']!=''){ $nu = 1; }else{ $nu = 0; }
                         if ($b['nilai']!=''){ $n = 1; }else{ $n = 0; }
 
-                        $bagi = $nt+$nl+$np+$nu+$n;
+                        $bagi = $nt+$nl+$np+$nuh+$nu+$n;
 
-                        $rataa = number_format(array_sum($nilai_tertulis)/count(array_filter($nilai_tertulis))+array_sum($nilai_lisan)/count(array_filter($nilai_lisan))+array_sum($nilai_penugasan)/count(array_filter($nilai_penugasan))+array_sum($nilai_uts)/count(array_filter($nilai_uts))+$b['nilai'])/$bagi;
+                        $rataa = number_format(array_sum($nilai_tertulis)/count(array_filter($nilai_tertulis))+array_sum($nilai_lisan)/count(array_filter($nilai_lisan))+array_sum($nilai_penugasan)/count(array_filter($nilai_penugasan))+array_sum($nilai_uhb)/count(array_fiter($nilai_uhb))+array_sum($nilai_uts)/count(array_filter($nilai_uts))+$b['nilai'])/$bagi;
                       }
                     }elseif ($remedial['nilai_remedial']>$k['kkm']){
                       $rataa = $k['kkm'];
@@ -187,6 +196,7 @@ if($this->input->get('tanggal')==''){ $tanggal = date('d-m-Y'); }else{ $tanggal 
                               <td><a data-toggle='tooltip' data-placement='right' title='$a[tanggal_nilai_tertulis]' href=''>$a[nilai_tertulis]</a></td>
                               <td><a data-toggle='tooltip' data-placement='right' title='$aa[tanggal_nilai_lisan]' href=''>$aa[nilai_lisan]</a></td>
                               <td><a data-toggle='tooltip' data-placement='right' title='$aaa[tanggal_nilai_penugasan]' href=''>$aaa[nilai_penugasan]</a></td>
+                              <td><a data-toggle='tooltip' data-placement='right' title='$aab[tanggal_nilai_uhb]' href=''>$aab[nilai_uhb]</a></td>
                               <td><a data-toggle='tooltip' data-placement='right' title='$aaa[tanggal_nilai_uts]' href=''>$aaaa[nilai_uts]</a></td>
                               <td align=center>$b[nilai]</td>";
                               if ($row['kkm']<=$rataa){

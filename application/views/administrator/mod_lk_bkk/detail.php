@@ -1,5 +1,9 @@
 <?php
-
+ $ceklimit = $this->model_app->view_where('rb_lk_bkk', array('id_bkk' => $this->uri->segment(3)))->row_array();
+                    $total = $this->model_app->view_where('rb_lk_daftar_bkk', array('id_bkk' => $this->uri->segment(3)))->num_rows();
+                    // print_r($total); exit();
+                    $limit = $ceklimit['limit_daftar'];
+                    
     echo "<div class='col-md-12'>
             <div class='box box-success'>
                 <div class='box-header'>
@@ -97,8 +101,15 @@
                             $no++;
                             }
                         echo "</tbody>
-                    </table>
-                    <a style='margin-right: 10px' class='btn btn-primary btn-sm' href='".base_url().$this->uri->segment(1)."/magang/$datarecord[id_bkk]'>Daftarkan Siswa</a>
+                    </table>";
+
+                   
+                    if($total < $limit){
+                    echo"
+                    <a style='margin-right: 10px' class='btn btn-primary btn-sm' href='".base_url().$this->uri->segment(1)."/magang/$datarecord[id_bkk]'>Daftarkan Siswa</a>";
+
+                    }
+                    echo"
                     <a style='margin-right: 10px' class='btn btn-sm' href='".base_url().$this->uri->segment(1)."/alumni_bkk'>Kembali</a>
                     </div>
         </div>";

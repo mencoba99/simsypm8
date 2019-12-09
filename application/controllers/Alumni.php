@@ -142,7 +142,7 @@ class Alumni extends CI_Controller {
     function detail_alumni_bkk(){
         cek_session_akses('alumni_bkk',$this->session->id_session);
         $id = $this->uri->segment(3);
-        $where = array('id_bkk' => $id);
+        $where = array('id_bkk' => $id);        
         $data['datarecord']     = $this->model_app->view_where('rb_lk_bkk', $where)->row_array();
         $data['datas']     = $this->model_app->view_where_ordering('rb_lk_daftar_bkk', $where, 'id_daftar_bkk','ASC' );
         $this->template->load('administrator/template','administrator/mod_lk_bkk/detail',$data);
@@ -166,9 +166,8 @@ class Alumni extends CI_Controller {
                             'berangkat'=>$this->input->post('l'),
                             'kembali'=>$this->input->post('m'),
                             'waktu_input'=>date('Y-m-d H:i:s'));
-
             $this->model_app->insert('rb_lk_bkk',$data);
-            redirect($this->uri->segment(1).'/alumni_bkk/'.$this->uri->segment(3));
+            redirect($this->uri->segment(1).'/alumni_bkk');
         } else {
             $this->template->load('administrator/template','administrator/mod_lk_bkk/tambah');
         }
@@ -211,6 +210,8 @@ class Alumni extends CI_Controller {
     function magang(){
         cek_session_akses('alumni_bkk',$this->session->id_session);
         $id = $this->uri->segment(3);
+        $ceklimit = $this->model_app->view_where('rb_lk_bkk', array('id_bkk' => $id))->row_array();
+        $limit = $ceklimit['limit_daftar'];                
         $data['angkatan'] = $this->db->query("SELECT angkatan FROM rb_siswa WHERE id_identitas_sekolah='".$this->session->sekolah."' GROUP BY angkatan ORDER BY angkatan ASC")->result_array();
         $data['jurusan'] = $this->model_app->view('rb_jurusan')->result_array();
         $data['tingkat'] = $this->model_app->view('rb_tingkat')->result_array();
@@ -226,9 +227,8 @@ class Alumni extends CI_Controller {
         
         if (isset($_POST['submit'])) {
             $jums = $this->input->post('jumblah');
-            $where = array('id_bkk', $id);
-            $ceklimit = $this->model_app->view_where('rb_lk_bkk', $where)->row_array();
-            $jumlahmagang = $this->model_app->view_where('rb_lk_daftar_bkk', $where)->num_rows();
+            $ceklimit = $this->model_app->view_where('rb_lk_bkk', array('id_bkk' => $id))->row_array();
+            $jumlahmagang = $this->model_app->view_where('rb_lk_daftar_bkk', array('id_bkk'=>$id))->num_rows();
             
             $jumlahlimit = $ceklimit['limit_daftar'];
             $limit = 0;
@@ -243,13 +243,14 @@ class Alumni extends CI_Controller {
             $sisa = $jumlahlimit - $jumlahmagang;
 
             if ($validasilimit > $jumlahlimit) {
+
                 $this->session->set_flashdata('error', 'Limit Pendaftar Magang adalah '.$jumlahlimit.' orang. Anda hanya dapat mendaftarkan '.$sisa.' orang.');
                 redirect($this->uri->segment(1).'/magang/'.$this->uri->segment(3));
             } else {
+
                 for($ia=1;$ia<=$jums;$ia++) {
                     $id_siswa = $_POST['id_siswa'.$ia];
                     $cek = $this->model_app->magang_all($id_siswa)->row_array();
-                    // return print_r($id);
                     if ($_POST['daftar'.$ia] == 'Daftar') {
                         $data = array(
                             'id_siswa' => $cek['id_siswa'],
@@ -261,7 +262,7 @@ class Alumni extends CI_Controller {
                             'id_bkk' => $this->uri->segment(3),
                             'waktu_daftar' => date('Y-m-d H:i:s')
                         );
-    
+
                         $this->model_app->insert('rb_lk_daftar_bkk', $data);
                         
                         $siswa = array(
@@ -271,14 +272,13 @@ class Alumni extends CI_Controller {
                         $this->model_app->update('rb_siswa', $siswa, $where);
                     }
                 }
-                print_r($data); exit();
                 redirect($this->uri->segment(1).'/detail_alumni_bkk/'.$this->uri->segment(3));
             }
         } else {
             $data['angkatan'] = $this->db->query("SELECT angkatan FROM rb_siswa WHERE id_identitas_sekolah='".$this->session->sekolah."' GROUP BY angkatan ORDER BY angkatan ASC")->result_array();
             $data['jurusan'] = $this->model_app->view('rb_jurusan')->result_array();
             $data['tingkat'] = $this->model_app->view('rb_tingkat')->result_array();
-            $data['record'] = $this->model_app->magang_selected();
+            $data['record'] = $this->model_app->magang_selected();            
             $this->template->load('administrator/template','administrator/mod_lk_bkk/siswa',$data);
         }
     }

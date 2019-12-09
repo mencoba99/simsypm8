@@ -4467,7 +4467,7 @@ class Smk extends CI_Controller {
             $thn = $this->model_app->view_where('rb_tahun_akademik',array('aktif'=>'Ya','id_identitas_sekolah'=>$this->session->sekolah))->row_array();
             $record = $this->model_app->jadwal_pelajaran_guru_kurikulum($thn['id_tahun_akademik'],1);
             $data = array('record' => $record, 'nama_tahun'=>$thn['nama_tahun']);
-            $this->template->load('administrator/template','administrator/mod_penilaian/pengetahuan/nilai_penugasan_guru',$data);
+            $this->template->load('administrator/template','administrator/mod_penilaian/pengetahuan/nilai_uhb_guru',$data);
         }else{
           $record = $this->model_app->mata_pelajaran_semester(1);
           $tahun = $this->model_app->view_where_ordering('rb_tahun_akademik',array('id_identitas_sekolah'=>$this->session->sekolah),'id_tahun_akademik','ASC');
