@@ -6210,6 +6210,7 @@ class Smk extends CI_Controller {
         $data['record'] = $characters->data;
         $this->template->load('administrator/template','administrator/mod_absensi_siswa/siprenta/view',$data);    
     }
+   
 
     function rekap_user_siprenta() {
         cek_session_akses('rekap_siprenta', $this->session->id_session);
