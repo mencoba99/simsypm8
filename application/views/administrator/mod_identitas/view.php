@@ -25,10 +25,7 @@
                     <tr><th scope='row'>Email</th>                        <td><input type='text' class='form-control' name='l' value='$s[email]'></td></tr>
                     <tr><th scope='row'>Tgl Rapor 1</th>                  <td><input type='text' class='form-control' name='tanggal_rapor1' value='$s[tanggal_rapor1]'></td></tr>
                     <tr><th scope='row'>Tgl Rapor 2</th>                  <td><input type='text' class='form-control' name='tanggal_rapor2' value='$s[tanggal_rapor2]'></td></tr>
-                    <tr><th scope='row'>Logo 1</th>                       <td><input type='file' name='foto1'>";
-                                                                               if ($s['logo1'] != ''){ echo "<i style='color:red'>Logo 1 Saat ini : </i><a target='_BLANK' href='".base_url()."asset/logo/$s[logo1]'>$s[logo1]</a>"; } echo "</td></tr>
-                    <tr><th scope='row'>Logo 2</th>                       <td><input type='file' name='foto2'>";
-                                                                               if ($s['logo2'] != ''){ echo "<i style='color:red'>Logo 2 Saat ini : </i><a target='_BLANK' href='".base_url()."asset/logo/$s[logo2]'>$s[logo2]</a>"; } echo "</td></tr>
+                    
                   </tbody>
                   </table>
                 </div>
