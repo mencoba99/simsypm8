@@ -5,7 +5,7 @@
             
         </div><!-- /.box-header -->
         
-        <div class="box-body" style="height: 100%;" >
+        <div class="box-body" >
             <iframe style="width: 100%; height: 600px; border: 0" src="http://192.168.0.5/siprenta-smkypm8/public/laporan-iframe"></iframe>
         </div>
     </div><!-- /.box-body -->
