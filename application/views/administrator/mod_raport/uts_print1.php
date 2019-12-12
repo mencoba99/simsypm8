@@ -7,10 +7,25 @@
 <?php
 if (substr($t['kode_tahun_akademik'],4,5)=='1'){ $semester = 'Ganjil'; }else{ $semester = 'Genap'; }
 echo "<table width=100%>
-        <tr><td width=130px>Nama Peserta Didik</td> <td style='text-transform:uppercase'> : <b>$s[nama]</b> </td> <td width=130px>Nama Sekolah</td>   <td> : $iden[nama_sekolah]</td></tr>
-        <tr><td>NISN / NIS</td>                   <td> : $s[nisn]/$s[nipd] </td>                                  <td>Alamat Sekolah</td> <td> : $iden[alamat_sekolah]</td></tr>
-        <tr><td>Kelas</td>       <td> : $s[nama_kelas] </td>           <td></td></tr>
-        <tr><td>Semester / TP.</td>            <td> : $semester / $t[keterangan]</td>        <td></td> <td></td></tr>
+        <tr>
+          <td width=130px>Nama Peserta Didik</td> 
+          <td style='text-size:10px' width=200px> : <b>$s[nama]</b> </td> 
+          <td width=130px>Nama Sekolah</td>   <td> : $iden[nama_sekolah]</td>
+        </tr>
+        <tr>
+          <td>NISN / NIS</td><td> : $s[nisn]/$s[nipd] </td> 
+          <td>Alamat Sekolah</td> 
+          <td> : $iden[alamat_sekolah]</td>
+        </tr>
+        <tr>
+          <td>Kelas</td>       <td> : $s[nama_kelas] </td>           
+          <td></td>
+        </tr>
+        <tr>
+          <td>Semester / TP.</td>
+          <td> : $semester / $t[keterangan]</td>
+          <td></td>
+        </tr>
       </table><br>";
 
 echo "<b>A. Nilai Akademik</b>
@@ -18,26 +33,25 @@ echo "<b>A. Nilai Akademik</b>
           <tr>
             <th rowspan=2 width='30px'>No</th>
             <th rowspan=2 width='160px'>Mata Pelajaran</th>
-            <th rowspan=2 width='60px'>KKM</th>
-            <th colspan=2>Pengetahuan</th>
-            <th colspan=2>Keterampilan</th>
+            <th colspan=1>Pengetahuan</th>
+            <th colspan=1>Keterampilan</th>
+            <th rowspan=2 width='85px'>Nilai Akhir</th>
+            <th rowspan=2 width='80px'>Predikat</th>
+
           </tr>
 
           <tr>
-            <th width='60px'>Nilai</th>
-            <th width='60px'>Predikat</th>
-            <th width='60px'>Nilai</th>
-            <th width='60px'>Predikat</th>
+           
           </tr>";
   foreach ($kelompok->result_array() as $kk) {
     echo "<tr>
-          <td colspan='7'><b>$kk[jenis_kelompok_mata_pelajaran]. $kk[nama_kelompok_mata_pelajaran]</b></td>
+          <td colspan='9'><b>$kk[jenis_kelompok_mata_pelajaran]. $kk[nama_kelompok_mata_pelajaran]</b></td>
         </tr>";
     $sub_kelompok = $this->model_app->view_where('rb_kelompok_mata_pelajaran_sub',array('id_kelompok_mata_pelajaran'=>$kk['id_kelompok_mata_pelajaran']));
     if ($sub_kelompok->num_rows()>=1){
       foreach ($sub_kelompok->result_array() as $kkk) {
       echo "<tr>
-            <td colspan='7'><b>$kkk[jenis_kelompok_mata_pelajaran_sub]. $kkk[nama_kelompok_mata_pelajaran_sub]</b></td>
+            <td colspan='9'><b>$kkk[jenis_kelompok_mata_pelajaran_sub]. $kkk[nama_kelompok_mata_pelajaran_sub]</b></td>
           </tr>";
         $mapel = $this->db->query("SELECT * FROM (SELECT if (c.namamatapelajaran_alias !='',c.namamatapelajaran_alias,b.namamatapelajaran) as namamatapelajaran, a.kodejdwl, b.kkm, b.sesi, b.id_kelompok_mata_pelajaran, b.urutan
                                     FROM rb_jadwal_pelajaran a JOIN rb_mata_pelajaran b ON a.id_mata_pelajaran=b.id_mata_pelajaran 
@@ -79,13 +93,15 @@ echo "<b>A. Nilai Akademik</b>
           //}else{
             $grade_ket = $this->db->query("SELECT predikat_kkm as grade FROM `rb_predikat_kkm` where nilaia<='".number_format($nilai_raport_ket)."' AND nilaib>='".number_format($nilai_raport_ket)."' AND nilai_kkm='$m[kkm]' AND id_identitas_sekolah='".$this->session->sekolah."'")->row_array();
           //}
+            $a = $nilai_raport*30;
+            $b = $nilai_raport_ket*70;
+            $nilai_akhir = ($a+$b)/100;
           echo "<tr>
                   <td align=top align=center>$no</td>
                   <td valign=top>$m[namamatapelajaran]</td>
-                  <td valign=top align=center>$m[kkm]</td>
                   <td valign=top align=center>".number_format($nilai_raport)." </td>
-                  <td valign=top align=center>$grade[grade]</td>
                   <td valign=top align=center>".number_format($nilai_raport_ket)."</td>
+                  <td valign=top align=center>$nilai_akhir</td>
                   <td valign=top align=center>$grade_ket[grade]</td>
               </tr>";
           $no++;
@@ -133,15 +149,18 @@ echo "<b>A. Nilai Akademik</b>
             //}else{
               $grade_ket = $this->db->query("SELECT predikat_kkm as grade FROM `rb_predikat_kkm` where nilaia<='".number_format($nilai_raport_ket)."' AND nilaib>='".number_format($nilai_raport_ket)."' AND nilai_kkm='$m[kkm]' AND id_identitas_sekolah='".$this->session->sekolah."'")->row_array();
             //}
+            $a = $nilai_raport*30;
+            $b = $nilai_raport_ket*70;
+            $nilai_akhir = ($a+$b)/100;
               
             echo "<tr>
                     <td valign=top align=center>$no</td>
                     <td valign=top>$m[namamatapelajaran]</td>
-                    <td valign=top align=center>$m[kkm]</td>
                     <td valign=top align=center>".number_format($nilai_raport)." </td>
-                  <td valign=top align=center>$grade[grade]</td>
                   <td valign=top align=center>".number_format($nilai_raport_ket)."</td>
+                  <td valign=top align=center>$nilai_akhir</td>
                   <td valign=top align=center>$grade_ket[grade]</td>
+
                 </tr>";
                 $no++;
           }

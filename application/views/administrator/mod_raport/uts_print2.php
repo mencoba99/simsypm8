@@ -7,10 +7,18 @@
 <?php
 if (substr($t['kode_tahun_akademik'],4,5)=='1'){ $semester = 'Ganjil'; }else{ $semester = 'Genap'; }
 echo "<table width=100%>
-        <tr><td width=130px>Nama Peserta Didik</td> <td style='text-transform:uppercase'> : <b>$s[nama]</b> </td> <td width=130px>Nama Sekolah</td>   <td> : $iden[nama_sekolah]</td></tr>
-        <tr><td>NISN / NIS</td>                   <td> : $s[nisn]/$s[nipd] </td>                                  <td>Alamat Sekolah</td> <td> : $iden[alamat_sekolah]</td></tr>
-        <tr><td>Kelas</td>       <td> : $s[nama_kelas] </td>           <td></td></tr>
-        <tr><td>Semester / TP.</td>            <td> : $semester / $t[keterangan]</td>        <td></td> <td></td></tr>
+        <tr><td width=130px>Nama Peserta Didik</td> 
+          <td style='text-transform:uppercase' width=200px> : <b>$s[nama]</b> </td> 
+          <td width=130px>Nama Sekolah</td>   <td> : $iden[nama_sekolah]</td></tr>
+        <tr><td>NISN / NIS</td>                   
+          <td> : $s[nisn]/$s[nipd] </td>                                  
+          <td>Alamat Sekolah</td> <td> : $iden[alamat_sekolah]</td></tr>
+        <tr><td>Kelas</td>       <td> : $s[nama_kelas] </td>           
+          <td></td></tr>
+        <tr><td>Semester / TP.</td>            
+          <td> : $semester / $t[keterangan]</td>        
+          <td></td> 
+          <td></td></tr>
       </table><br>";
 
 echo "<b>F. Deskripsi Perkembangan Karakter</b>

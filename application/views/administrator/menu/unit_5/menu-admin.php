@@ -442,7 +442,7 @@
                 }*/
               ?> -->
 
-              <li class="treeview">
+              <!-- <li class="treeview">
               <a href="#"><i class="fa fa-money"></i> <span>Keuangan</span><i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
                 
@@ -545,7 +545,7 @@
                     </ul>
                 </li>
               </ul>
-              </li>
+              </li> -->
             <li class="treeview">
               <a href="#"><i class="fa fa-building"></i> <span>Pustaka</span><i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">

@@ -47,14 +47,14 @@ if($this->input->get('tanggal')==''){ $tanggal = date('d-m-Y'); }else{ $tanggal 
                     </thead>
                     <tbody>";
                     $no = 1;
-                    $cek = $this->db->query("SELECT * FROM rb_jadwal_pelajaran b JOIN rb_mata_pelajaran a ON a.id_mata_pelajaran=b.id_mata_pelajaran where b.kodejdwl='".$this->uri->segment(3)."' AND a.sesi='1'");
+                    $cek = $this->db->query("SELECT * FROM rb_jadwal_pelajaran b JOIN rb_mata_pelajaran a ON a.id_mata_pelajaran=b.id_mata_pelajaran where b.kodejdwl='".$this->uri->segment(3)."' AND a.sesi='1'");                    
                     if ($cek->num_rows()>=1){
                       $ex = explode(' ', $s['namamatapelajaran']);
                       $ag = $this->db->query("SELECT * FROM rb_agama where nama_agama LIKE '%$ex[1]%'")->row_array();
                       $siswa = $this->db->query("SELECT * FROM rb_siswa a JOIN rb_jenis_kelamin b ON a.id_jenis_kelamin=b.id_jenis_kelamin where a.id_kelas='$s[id_kelas]' AND a.id_identitas_sekolah='".$this->session->sekolah."' AND a.id_agama='$ag[id_agama]' AND a.status_siswa='Aktif' ORDER BY a.nama ASC")->result_array();
                       $jumls = $this->db->query("SELECT * FROM rb_siswa a where a.id_kelas='$s[id_kelas]' AND a.id_identitas_sekolah='".$this->session->sekolah."' AND a.id_agama='$ag[id_agama]' AND a.status_siswa='Aktif' ORDER BY a.nama ASC");
                     }else{
-                      $siswa = $this->model_app->view_join_where('*','rb_siswa','rb_jenis_kelamin','id_jenis_kelamin',array('id_kelas'=>$s['id_kelas'],'id_identitas_sekolah'=>$this->session->sekolah,'status_siswa'=>'Aktif'),'nama','ASC');
+                      $siswa = $this->model_app->view_join_where('*','rb_siswa','rb_jenis_kelamin','id_jenis_kelamin',array('id_kelas'=>$s['id_kelas'],'id_identitas_sekolah'=>$this->session->sekolah,'status_siswa'=>'Aktif'),'nama','ASC');                      
                       $jumls = $this->model_app->view_where('rb_siswa',array('id_kelas'=>$s['id_kelas']));
                     }
                     echo "<input type='hidden' name='jumlah' value='".$jumls->num_rows()."'>
